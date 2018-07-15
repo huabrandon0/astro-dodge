@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Pool : MonoBehaviour
 {
@@ -9,6 +10,13 @@ public class Pool : MonoBehaviour
     private List<PooledMonobehaviour> disabledObjects = new List<PooledMonobehaviour>();
 
     private PooledMonobehaviour prefab;
+
+    void Awake()
+    {
+        // If the scene is unloaded, pooled objects no longer exist, so we must clear the dictionary of pools.
+        // Though there exists a better alternative: make the pool persist between scenes.
+        SceneManager.sceneUnloaded += (Scene current) => { pools = new Dictionary<PooledMonobehaviour, Pool>(); };
+    }
 
     public static Pool GetPool(PooledMonobehaviour prefab)
     {

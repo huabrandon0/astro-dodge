@@ -14,7 +14,7 @@ namespace AsteroidRage.UI
     [RequireComponent(typeof(Text))]
     public class UIScoreRefresher : MonoBehaviour
     {
-        [SerializeField] GameEvent _updateScore;
+        [SerializeField] GameEventInt _updateScore;
 
         Text _scoreText;
 
@@ -27,14 +27,15 @@ namespace AsteroidRage.UI
 		{
             _updateScore.AddListener(RefreshScore);
 		}
+
 		void OnDisable()
         {
             _updateScore.RemoveListener(RefreshScore);
         }
 
-        void RefreshScore()
+        void RefreshScore(int score)
         {
-            _scoreText.text = ScoreManager.Instance.Score.ToString();
+            _scoreText.text = score.ToString();
         }
     }
 }

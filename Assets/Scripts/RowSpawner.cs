@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RowSpawner : Singleton<RowSpawner>
+public class RowSpawner : MonoBehaviour
 {
-    protected RowSpawner() { }
-
     public PooledMonobehaviour prefab;
 
     public float timeBetweenRows = 1f;
@@ -22,7 +20,12 @@ public class RowSpawner : Singleton<RowSpawner>
             Debug.LogError("GameObject objectToSpawn is not initialized.");
     }
 
-    public IEnumerator SpawnRowsContinuously()
+    public void StartSpawningRows()
+    {
+        StartCoroutine(SpawnRowsContinuously());
+    }
+
+    private IEnumerator SpawnRowsContinuously()
     {
         while (true)
         {

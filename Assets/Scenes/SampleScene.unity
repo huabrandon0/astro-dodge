@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed740e082140c464facb50b37f3bb0bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onAreaClickedEvent: {fileID: 11400000, guid: 5b5d7d9ce9b3af449a1439bef2406703,
+  _onAreaBeingClickedOn: {fileID: 11400000, guid: 5b5d7d9ce9b3af449a1439bef2406703,
     type: 2}
 --- !u!114 &81643916
 MonoBehaviour:
@@ -530,7 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed740e082140c464facb50b37f3bb0bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onAreaClickedEvent: {fileID: 11400000, guid: 92c9b53c101e11f46b7ee4f778345630,
+  _onAreaBeingClickedOn: {fileID: 11400000, guid: 92c9b53c101e11f46b7ee4f778345630,
     type: 2}
 --- !u!1 &248893541
 GameObject:
@@ -681,48 +681,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 18.963001, y: 0, z: 0}
---- !u!1 &390309147
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 390309149}
-  - component: {fileID: 390309148}
-  m_Layer: 0
-  m_Name: ScoreManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &390309148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 390309147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3fa3b7ecf4aa454b82fcf48dc7f95a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _invokeEvents:
-    ScoreChanged: {fileID: 11400000, guid: 3988de9651a65a140958b1ef3e31d6af, type: 2}
---- !u!4 &390309149
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 390309147}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &596583361
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,8 +693,9 @@ GameObject:
   - component: {fileID: 596583364}
   - component: {fileID: 596583365}
   - component: {fileID: 596583366}
+  - component: {fileID: 596583367}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: Game
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -753,6 +712,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1a6de2c38fe86c4b8c0f0b9ad5546d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _invokeEvents:
+    StartSpawningRows: {fileID: 11400000, guid: 613da16346f7eff4fb2b903132380008,
+      type: 2}
+    IncreaseScore: {fileID: 11400000, guid: 372913ddaa711234c98f9ba9305dda29, type: 2}
   timeBetweenIncrements: 1
 --- !u!4 &596583363
 Transform:
@@ -836,6 +799,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneReloadResponseEvent: {fileID: 11400000, guid: 5b5d7d9ce9b3af449a1439bef2406703,
     type: 2}
+--- !u!114 &596583367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 596583361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d8fd5ac20392547939501f3af9dcc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _responseEvents:
+    IncreaseScore: {fileID: 11400000, guid: 372913ddaa711234c98f9ba9305dda29, type: 2}
+  _invokeEvents:
+    ScoreChanged: {fileID: 11400000, guid: 3988de9651a65a140958b1ef3e31d6af, type: 2}
 --- !u!1 &864703649
 GameObject:
   m_ObjectHideFlags: 0
@@ -865,7 +843,7 @@ Transform:
   - {fileID: 1738160065}
   - {fileID: 81643913}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1006750393
 GameObject:
@@ -936,6 +914,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1006750396}
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1006750396
@@ -949,7 +938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed740e082140c464facb50b37f3bb0bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onAreaClickedEvent: {fileID: 11400000, guid: 3f44fc18489f4a54c995e4d80e1b72be,
+  _onAreaBeingClickedOn: {fileID: 11400000, guid: 3f44fc18489f4a54c995e4d80e1b72be,
     type: 2}
 --- !u!114 &1006750397
 MonoBehaviour:
@@ -1132,7 +1121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed740e082140c464facb50b37f3bb0bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onAreaClickedEvent: {fileID: 11400000, guid: 09cf301ea37db5744bd840208b1010e7,
+  _onAreaBeingClickedOn: {fileID: 11400000, guid: 09cf301ea37db5744bd840208b1010e7,
     type: 2}
 --- !u!1 &1282206104
 GameObject:
@@ -1255,7 +1244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2486d68924f1fa84cb3ab4b03119f72f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positions:
+  _positions:
   - {x: -3, y: 0, z: 0}
   - {x: -2, y: 0, z: 0}
   - {x: -1, y: 0, z: 0}
@@ -1263,8 +1252,8 @@ MonoBehaviour:
   - {x: 1, y: 0, z: 0}
   - {x: 2, y: 0, z: 0}
   - {x: 3, y: 0, z: 0}
-  timeToChangePositions: 0.2
-  moveAnimationCurve:
+  _timeToChangePositions: 0.2
+  _moveAnimationCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -1402,7 +1391,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1687003095}
-        m_MethodName: MovePositionUp
+        m_MethodName: IncrementIndex
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1430,7 +1419,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1687003095}
-        m_MethodName: MovePositionDown
+        m_MethodName: DecrementIndex
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1792,6 +1781,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1928201805}
   - component: {fileID: 1928201804}
+  - component: {fileID: 1928201806}
   m_Layer: 0
   m_Name: AsteroidSpawner
   m_TagString: Untagged
@@ -1829,6 +1819,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1928201806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1928201803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a4dc95bc166fe24f96120a53f596778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEvent: {fileID: 11400000, guid: 613da16346f7eff4fb2b903132380008, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1928201804}
+        m_MethodName: StartSpawningRows
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &2019565685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1976,5 +1994,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

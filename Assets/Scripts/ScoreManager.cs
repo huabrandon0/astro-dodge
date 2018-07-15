@@ -5,14 +5,12 @@ using AsteroidRage.Events;
 
 namespace AsteroidRage.Game
 {
-    public class ScoreManager : Singleton<ScoreManager>
+    public class ScoreManager : MonoBehaviour
     {
-        protected ScoreManager() { }
-
         [System.Serializable]
         public class InvokeEvents
         {
-            public GameEvent ScoreChanged;
+            public GameEventInt ScoreChanged;
         }
 
         [SerializeField] InvokeEvents _invokeEvents;
@@ -22,14 +20,14 @@ namespace AsteroidRage.Game
         public void ResetScore()
         {
             Score = 0;
-            _invokeEvents.ScoreChanged.Invoke();
+            _invokeEvents.ScoreChanged.Invoke(Score);
         }
 
 		public void IncrementScore()
         {
             Score++;
             Debug.Log(Score);
-            _invokeEvents.ScoreChanged.Invoke();
+            _invokeEvents.ScoreChanged.Invoke(Score);
         }
     }
 }

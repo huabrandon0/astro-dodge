@@ -4,71 +4,91 @@ using UnityEngine;
 
 public class MovePositions : MonoBehaviour
 {
-    [SerializeField] private Vector3[] positions;
-    private int index;
+    [SerializeField] private Vector3[] _positions;
+    private int _desiredIndex;
+    private int _currentIndex;
 
-    [SerializeField] private float timeToChangePositions = 1f;
-    private bool isMoving = false;
+    [SerializeField] private float _timeToChangePositions = 1f;
+    private bool _isMoving = false;
 
-    [SerializeField] private AnimationCurve moveAnimationCurve;
+    [SerializeField] private AnimationCurve _moveAnimationCurve;
 
-    private Animator anim;
+    private Animator _anim;
 
-    private void Awake()
+    void Awake()
     {
-        if (this.positions.Length <= 0)
-            this.positions = new Vector3[] { new Vector3(-1, 0, 0), new Vector3 (0, 0, 0), new Vector3(1, 0, 0) };
+        if (_positions.Length <= 0)
+            _positions = new Vector3[] { new Vector3(-1, 0, 0), new Vector3 (0, 0, 0), new Vector3(1, 0, 0) };
 
-        this.anim = GetComponent<Animator>();
-        if (!this.anim)
+        _anim = GetComponent<Animator>();
+        if (!_anim)
             Debug.LogError("Could not resolve Animator reference.");
 
-        this.anim.SetFloat("MoveSpeed", 1f / this.timeToChangePositions);
+        _anim.SetFloat("MoveSpeed", 1f / _timeToChangePositions);
 
-        SwitchPosition(Mathf.FloorToInt(this.positions.Length / 2));
+        SetInitialPosition(Mathf.FloorToInt(_positions.Length / 2));
+    }
+
+    void LateUpdate()
+    {
+        if (_desiredIndex != _currentIndex)
+        {
+            SwitchPosition(_desiredIndex);
+            _desiredIndex = _currentIndex;
+        }
+    }
+
+    private void SetInitialPosition(int i)
+    {
+        if (i < 0 || i >= _positions.Length)
+            return;
+
+        _desiredIndex = i;
+        _currentIndex = i;
+        transform.position = _positions[i];
     }
 
     public void SwitchPosition(int i)
     {
-        if (this.isMoving)
+        if (_isMoving)
             return;
 
-        if (i < 0 || i >= this.positions.Length)
+        if (i < 0 || i >= _positions.Length)
             return;
 
-        if (this.index > i)
-            this.anim.SetTrigger("MoveLeft");
-        else if (this.index < i)
-            this.anim.SetTrigger("MoveRight");
+        if (_currentIndex > i)
+            _anim.SetTrigger("MoveLeft");
+        else if (_currentIndex < i)
+            _anim.SetTrigger("MoveRight");
 
-        this.index = i;
-        StartCoroutine(MoveToPosition(this.index));
+        _currentIndex = i;
+        StartCoroutine(MoveToPosition(_currentIndex));
     }
 
-    public void MovePositionUp()
+    public void IncrementIndex()
     {
-        SwitchPosition(this.index + 1);
+        _desiredIndex++;
     }
 
-    public void MovePositionDown()
+    public void DecrementIndex()
     {
-        SwitchPosition(this.index - 1);
+        _desiredIndex--;
     }
 
     private IEnumerator MoveToPosition(int i)
     {
-        this.isMoving = true;
+        _isMoving = true;
 
-        Vector3 startPosition = this.transform.position;
+        Vector3 startPosition = transform.position;
         float startTime = Time.time - Time.deltaTime;
         float interpolationValue = 0f;
         while (interpolationValue <= 1f)
         {
-            interpolationValue = (Time.time - startTime) / this.timeToChangePositions;
-            this.transform.position = Vector3.Lerp(startPosition, this.positions[i], this.moveAnimationCurve.Evaluate(interpolationValue));
+            interpolationValue = (Time.time - startTime) / _timeToChangePositions;
+            transform.position = Vector3.Lerp(startPosition, _positions[i], _moveAnimationCurve.Evaluate(interpolationValue));
             yield return null;
         }
         
-        this.isMoving = false;
+        _isMoving = false;
     }
 }

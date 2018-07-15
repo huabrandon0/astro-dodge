@@ -113,6 +113,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialPoolSize: 100
+  _sceneReloadResponseEvent: {fileID: 11400000, guid: 5b5d7d9ce9b3af449a1439bef2406703,
+    type: 2}
 --- !u!135 &135179346765149066
 SphereCollider:
   m_ObjectHideFlags: 1

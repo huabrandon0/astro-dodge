@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using AsteroidRage.Game;
+using AsteroidRage.Events;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : MonoBehaviour
 {
-    protected GameManager() { }
+    [System.Serializable]
+    public class InvokeEvents
+    {
+        public GameEvent StartSpawningRows;
+        public GameEvent IncreaseScore;
+    }
+
+    [SerializeField] InvokeEvents _invokeEvents;
 
     [SerializeField] private float timeBetweenIncrements = 1f;
 
@@ -16,9 +23,8 @@ public class GameManager : Singleton<GameManager>
 
     public void StartGame()
     {
-        ScoreManager.Instance.ResetScore();
         this.scoreCoroutine = StartCoroutine(IncreaseScore());
-        StartCoroutine(RowSpawner.Instance.SpawnRowsContinuously());
+        _invokeEvents.StartSpawningRows.Invoke();
     }
 
     public void EndGame()
@@ -36,7 +42,7 @@ public class GameManager : Singleton<GameManager>
     {
         while (true)
         {
-            ScoreManager.Instance.IncrementScore();
+            _invokeEvents.IncreaseScore.Invoke();
             yield return new WaitForSeconds(this.timeBetweenIncrements);
         }
     }

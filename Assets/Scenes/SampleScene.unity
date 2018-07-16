@@ -255,7 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a4dc95bc166fe24f96120a53f596778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameEvent: {fileID: 11400000, guid: 4a48640c51812da43b2555808b14705a, type: 2}
+  _gameEvent: {fileID: 11400000, guid: 35c4f21658bf38544910fa075ec91d73, type: 2}
   _response:
     m_PersistentCalls:
       m_Calls:
@@ -720,7 +720,51 @@ MonoBehaviour:
       type: 2}
     AddToCount: {fileID: 11400000, guid: 7dfb35bb24c69494398d858647417d59, type: 2}
     AddToScore: {fileID: 11400000, guid: 13b0fff2c4abd9540b2d16281a4b15ce, type: 2}
+    GameEndEvent: {fileID: 11400000, guid: 35c4f21658bf38544910fa075ec91d73, type: 2}
   _timePerCount: 1
+  _endGameSlowmoCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -10.182737
+      outSlope: -10.182737
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.099064946
+    - serializedVersion: 3
+      time: 0.18906805
+      value: 0.39441812
+      inSlope: 0.008896573
+      outSlope: 0.008896573
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.2037654
+    - serializedVersion: 3
+      time: 0.47599065
+      value: 0.41083133
+      inSlope: 0.22650121
+      outSlope: 0.22650121
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.45954928
+      outWeight: 0.3117215
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.01494293
+      outSlope: 0.01494293
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.27024007
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _slowmoTime: 3
 --- !u!4 &596583363
 Transform:
   m_ObjectHideFlags: 0
@@ -1578,7 +1622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a4dc95bc166fe24f96120a53f596778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameEvent: {fileID: 11400000, guid: 4a48640c51812da43b2555808b14705a, type: 2}
+  _gameEvent: {fileID: 11400000, guid: 35c4f21658bf38544910fa075ec91d73, type: 2}
   _response:
     m_PersistentCalls:
       m_Calls:

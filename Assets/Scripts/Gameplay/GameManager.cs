@@ -12,19 +12,24 @@ public class GameManager : MonoBehaviour
         public GameEvent StartSpawningRows;
         public GameEventInt AddToCount;
         public GameEventInt AddToScore;
+        public GameEvent GameEndEvent;
     }
 
     [SerializeField] InvokeEvents _invokeEvents;
 
-    [SerializeField] private float _timePerCount = 1f;
+    private Coroutine _countCoroutine;
 
-    private Coroutine _scoreCoroutine;
+    [SerializeField] private float _timePerCount = 1f;
 
     private bool _isDead = false;
 
+    [SerializeField] AnimationCurve _endGameSlowmoCurve;
+    [SerializeField] float _slowmoTime;
+
     public void StartGame()
     {
-        _scoreCoroutine = StartCoroutine(Count());
+        Time.timeScale = 1f;
+        _countCoroutine = StartCoroutine(Count());
         _invokeEvents.StartSpawningRows.Invoke();
     }
 
@@ -35,8 +40,27 @@ public class GameManager : MonoBehaviour
 
         _isDead = true;
 
-        if (_scoreCoroutine != null)
-            StopCoroutine(_scoreCoroutine);
+        if (_countCoroutine != null)
+            StopCoroutine(_countCoroutine);
+
+        StartCoroutine(EndGameSlow());
+    }
+
+    private IEnumerator EndGameSlow()
+    {
+        float startTimeScale = Time.timeScale;
+        float startTime = Time.time - Time.unscaledDeltaTime;
+        float unscaledTime = Time.time;
+        float interpolationValue = 0f;
+        while (interpolationValue <= 1f)
+        {
+            interpolationValue = (unscaledTime - startTime) / _slowmoTime;
+            Time.timeScale = _endGameSlowmoCurve.Evaluate(interpolationValue);
+            yield return null;
+            unscaledTime += Time.unscaledDeltaTime;
+        }
+
+        _invokeEvents.GameEndEvent.Invoke();
     }
     
     private IEnumerator Count()

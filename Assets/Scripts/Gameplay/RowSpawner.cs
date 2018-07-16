@@ -1,56 +1,78 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AsteroidRage.Events;
 
-public class RowSpawner : MonoBehaviour
+namespace AsteroidRage.Game
 {
-    public PooledMonobehaviour prefab;
-
-    public float timeBetweenRows = 1f;
-
-    public Vector3 rowVelocity = Vector3.forward;
-
-    public int rowSize = 7;
-    public int prefabsPerRow = 5;
-    public float spaceBetweenPrefabs = 1f;
-
-    private void Awake()
+    public class RowSpawner : MonoBehaviour
     {
-        if (!this.prefab)
-            Debug.LogError("GameObject objectToSpawn is not initialized.");
-    }
+        public PooledMonobehaviour _prefab;
 
-    public void StartSpawningRows()
-    {
-        StartCoroutine(SpawnRowsContinuously());
-    }
+        public float _spawnRate = 0.5f;
 
-    private IEnumerator SpawnRowsContinuously()
-    {
-        while (true)
+        public Vector3 _rowVelocity = Vector3.forward;
+
+        public int _rowSize = 7;
+        public int _rowFillSize = 4;
+        public int _rowFillSizeUncertainty = 1;
+        public float _spaceBetweenPrefabs = 1f;
+        public float _zPositionUncertainty = 1f;
+
+        [SerializeField] GameEventInt _countChanged;
+
+        [SerializeField] DifficultyConfig _diffConfig;
+        private float _velocityScale = 1.0f;
+        private float _spawnRateScale = 1.0f;
+
+        private void Awake()
         {
-            SpawnRow();
-            yield return new WaitForSeconds(this.timeBetweenRows);
+            if (!_prefab)
+                Debug.LogError("GameObject objectToSpawn is not initialized.");
+
+            _countChanged.AddListener(ScaleUp);
         }
-    }
 
-    private void SpawnRow()
-    {
-        Vector3 startPosition = new Vector3(-1f * (this.rowSize - 1) * this.spaceBetweenPrefabs / 2, 0f, 0f);
-        SpawnRow(this.prefabsPerRow, this.rowSize, startPosition, Quaternion.identity, this.spaceBetweenPrefabs, this.rowVelocity);
-    }
-
-    private void SpawnRow(int count, int capacity, Vector3 startPosition, Quaternion rotation, float xSpacing, Vector3 velocity)
-    {
-        // Send out a random row of prefabs.
-        List<int> indices = Utility.GenerateRandom(count, 0, capacity);
-
-        foreach (int i in indices)
+        public void StartSpawningRows()
         {
-            PooledMonobehaviour spawned = this.prefab.Get<PooledMonobehaviour>(this.transform, startPosition + new Vector3(i * xSpacing, 0f, 0f), rotation);
-            Rigidbody rb = spawned.GetComponent<Rigidbody>();
-            if (rb)
-                rb.velocity = velocity;
+            StartCoroutine(SpawnRowsContinuously());
+        }
+
+        private IEnumerator SpawnRowsContinuously()
+        {
+            while (true)
+            {
+                SpawnRow();
+                yield return new WaitForSeconds(1f / (_spawnRate * _spawnRateScale));
+            }
+        }
+
+        private void SpawnRow()
+        {
+            Vector3 startPosition = new Vector3(-1f * (_rowSize - 1) * this._spaceBetweenPrefabs / 2, 0f, 0f);
+            SpawnRow(_rowFillSize + Random.Range(0, _rowFillSizeUncertainty + 1), _rowSize, startPosition, Quaternion.identity, _spaceBetweenPrefabs, _zPositionUncertainty, _rowVelocity * _velocityScale);
+        }
+
+        private void SpawnRow(int count, int capacity, Vector3 startPosition, Quaternion rotation, float xSpacing, float zUncertainty, Vector3 velocity)
+        {
+            count = Mathf.Min(count, capacity);
+
+            // Send out a random row of prefabs.
+            List<int> indices = Utility.GenerateRandom(count, 0, capacity);
+
+            foreach (int i in indices)
+            {
+                PooledMonobehaviour spawned = _prefab.Get<PooledMonobehaviour>(this.transform, startPosition + new Vector3(i * xSpacing, 0f, Random.Range(0f, zUncertainty)), rotation);
+                Rigidbody rb = spawned.GetComponent<Rigidbody>();
+                if (rb)
+                    rb.velocity = velocity;
+            }
+        }
+
+        public void ScaleUp(int count)
+        {
+            _velocityScale = 1f + _diffConfig.VelocityScaleStep * Mathf.Round(count / _diffConfig.VelocityScaleInterval);
+            _spawnRateScale = 1f + _diffConfig.SpawnRateScaleStep * Mathf.Round(count / _diffConfig.SpawnRateScaleInterval);
         }
     }
 }

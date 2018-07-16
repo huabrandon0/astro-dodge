@@ -13,23 +13,13 @@ namespace AsteroidRage.UI
         private bool _isPressed = false;
         private int _pointerId = int.MaxValue;
 
-        void Update()
-        {
-            if (_isPressed)
-                _onAreaBeingClickedOn.Invoke();
-        }
-
-        public void OnPointerClick(PointerEventData data)
-        {
-            _onAreaBeingClickedOn.Invoke();
-        }
-
         public void OnPointerDown(PointerEventData data)
         {
             if (!_isPressed)
             {
                 _isPressed = true;
                 _pointerId = data.pointerId;
+                _onAreaBeingClickedOn.Invoke();
             }
         }
 

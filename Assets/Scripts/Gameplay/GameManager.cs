@@ -10,40 +10,42 @@ public class GameManager : MonoBehaviour
     public class InvokeEvents
     {
         public GameEvent StartSpawningRows;
-        public GameEvent IncreaseScore;
+        public GameEventInt AddToCount;
+        public GameEventInt AddToScore;
     }
 
     [SerializeField] InvokeEvents _invokeEvents;
 
-    [SerializeField] private float timeBetweenIncrements = 1f;
+    [SerializeField] private float _timePerCount = 1f;
 
-    private Coroutine scoreCoroutine;
+    private Coroutine _scoreCoroutine;
 
-    private bool isDead = false;
+    private bool _isDead = false;
 
     public void StartGame()
     {
-        this.scoreCoroutine = StartCoroutine(IncreaseScore());
+        _scoreCoroutine = StartCoroutine(Count());
         _invokeEvents.StartSpawningRows.Invoke();
     }
 
     public void EndGame()
     {
-        if (this.isDead)
+        if (_isDead)
             return;
 
-        this.isDead = true;
+        _isDead = true;
 
-        if (this.scoreCoroutine != null)
-            StopCoroutine(this.scoreCoroutine);
+        if (_scoreCoroutine != null)
+            StopCoroutine(_scoreCoroutine);
     }
     
-    private IEnumerator IncreaseScore()
+    private IEnumerator Count()
     {
         while (true)
         {
-            _invokeEvents.IncreaseScore.Invoke();
-            yield return new WaitForSeconds(this.timeBetweenIncrements);
+            _invokeEvents.AddToScore.Invoke(5);
+            _invokeEvents.AddToCount.Invoke(1);
+            yield return new WaitForSeconds(_timePerCount);
         }
     }
 }

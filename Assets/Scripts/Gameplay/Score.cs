@@ -15,7 +15,7 @@ namespace AsteroidRage.Game
         [System.Serializable]
         public class ResponseEvents
         {
-            public GameEvent IncreaseScore;
+            public GameEventInt AddToScore;
         }
 
         [System.Serializable]
@@ -32,17 +32,17 @@ namespace AsteroidRage.Game
 
 		void OnEnable()
 		{
-            _responseEvents.IncreaseScore.AddListener(IncrementScore);
+            _responseEvents.AddToScore.AddListener(AddToScore);
 		}
 
 		void OnDisable()
 		{
-            _responseEvents.IncreaseScore.RemoveListener(IncrementScore);
+            _responseEvents.AddToScore.RemoveListener(AddToScore);
 		}
 
-		void IncrementScore()
+		void AddToScore(int val)
         {
-            _score += 1; // _diffConfig.ScoreIncrementAmount;
+            _score += val;
             _invokeEvents.ScoreChanged.Invoke(_score);
         }
     }

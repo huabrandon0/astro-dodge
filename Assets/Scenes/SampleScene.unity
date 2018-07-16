@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 0, g: 0, b: 0, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.04
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -695,6 +695,8 @@ GameObject:
   - component: {fileID: 596583365}
   - component: {fileID: 596583366}
   - component: {fileID: 596583367}
+  - component: {fileID: 596583368}
+  - component: {fileID: 596583369}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -716,8 +718,9 @@ MonoBehaviour:
   _invokeEvents:
     StartSpawningRows: {fileID: 11400000, guid: 613da16346f7eff4fb2b903132380008,
       type: 2}
-    IncreaseScore: {fileID: 11400000, guid: 372913ddaa711234c98f9ba9305dda29, type: 2}
-  timeBetweenIncrements: 1
+    AddToCount: {fileID: 11400000, guid: 7dfb35bb24c69494398d858647417d59, type: 2}
+    AddToScore: {fileID: 11400000, guid: 13b0fff2c4abd9540b2d16281a4b15ce, type: 2}
+  _timePerCount: 1
 --- !u!4 &596583363
 Transform:
   m_ObjectHideFlags: 0
@@ -812,9 +815,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _responseEvents:
-    IncreaseScore: {fileID: 11400000, guid: 372913ddaa711234c98f9ba9305dda29, type: 2}
+    AddToScore: {fileID: 11400000, guid: 13b0fff2c4abd9540b2d16281a4b15ce, type: 2}
   _invokeEvents:
     ScoreChanged: {fileID: 11400000, guid: 3988de9651a65a140958b1ef3e31d6af, type: 2}
+--- !u!114 &596583368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 596583361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef8d9807f31ab5342a911d19ebca905a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _responseEvents:
+    AddToCount: {fileID: 11400000, guid: 7dfb35bb24c69494398d858647417d59, type: 2}
+  _invokeEvents:
+    CountChanged: {fileID: 11400000, guid: b4a42109f746a5f4abcd210686ab6490, type: 2}
+--- !u!114 &596583369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 596583361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a4dc95bc166fe24f96120a53f596778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEvent: {fileID: 11400000, guid: af4df87d60bf00f4f8f8a2c56e3141e7, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 13b0fff2c4abd9540b2d16281a4b15ce, type: 2}
+        m_MethodName: Invoke
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &864703649
 GameObject:
   m_ObjectHideFlags: 0
@@ -1253,7 +1299,7 @@ MonoBehaviour:
   - {x: 1, y: 0, z: 0}
   - {x: 2, y: 0, z: 0}
   - {x: 3, y: 0, z: 0}
-  _timeToChangePositions: 0.2
+  _moveSpeed: 5
   _moveAnimationCurve:
     serializedVersion: 2
     m_Curve:
@@ -1278,17 +1324,23 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!65 &1687003096
-BoxCollider:
+  _responseEvents:
+    CountChanged: {fileID: 11400000, guid: b4a42109f746a5f4abcd210686ab6490, type: 2}
+  _invokeEvents:
+    DodgedAsteroid: {fileID: 11400000, guid: af4df87d60bf00f4f8f8a2c56e3141e7, type: 2}
+    AddToScore: {fileID: 11400000, guid: 13b0fff2c4abd9540b2d16281a4b15ce, type: 2}
+  _diffConfig: {fileID: 11400000, guid: ea90d0b6efe76234c9503019311b1540, type: 2}
+--- !u!135 &1687003096
+SphereCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1687003094}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.45
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1687003097
 MeshRenderer:
@@ -1747,7 +1799,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 20, y: 5, z: 20}
+  m_Size: {x: 50, y: 5, z: 50}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1771615775
 Transform:
@@ -1801,12 +1853,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a60597ff8298146a89cad8c40b33c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 114024173414569064, guid: 6e2ff7a2709ebec46afdd8ef7615905e, type: 2}
-  timeBetweenRows: 1.5
-  rowVelocity: {x: 0, y: 0, z: -5}
-  rowSize: 7
-  prefabsPerRow: 4
-  spaceBetweenPrefabs: 1
+  _prefab: {fileID: 114024173414569064, guid: 6e2ff7a2709ebec46afdd8ef7615905e, type: 2}
+  _spawnRate: 0.5
+  _rowVelocity: {x: 0, y: 0, z: -4}
+  _rowSize: 7
+  _rowFillSize: 4
+  _rowFillSizeUncertainty: 1
+  _spaceBetweenPrefabs: 1
+  _zPositionUncertainty: 1
+  _countChanged: {fileID: 11400000, guid: b4a42109f746a5f4abcd210686ab6490, type: 2}
+  _diffConfig: {fileID: 11400000, guid: ea90d0b6efe76234c9503019311b1540, type: 2}
 --- !u!4 &1928201805
 Transform:
   m_ObjectHideFlags: 0
@@ -1814,7 +1870,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1928201803}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

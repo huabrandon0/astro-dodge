@@ -24,12 +24,12 @@ namespace AsteroidRage.UI
 
         public void FadeIn()
         {
-            _text.DOFade(1, _fadeTime);
+            _text.DOFade(1f, _fadeTime);
         }
 
         public void FadeOut()
         {
-            _text.DOFade(0, _fadeTime);
+            _text.DOFade(0f, _fadeTime);
         }
     }
 }

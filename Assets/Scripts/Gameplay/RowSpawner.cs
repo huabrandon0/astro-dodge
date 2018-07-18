@@ -7,7 +7,7 @@ namespace AsteroidRage.Game
 {
     public class RowSpawner : MonoBehaviour
     {
-        public PooledMonobehaviour _prefab;
+        public PooledMonobehaviour[] _prefabs;
 
         public float _spawnRate = 0.5f;
 
@@ -25,17 +25,28 @@ namespace AsteroidRage.Game
         private float _velocityScale = 1.0f;
         private float _spawnRateScale = 1.0f;
 
+        private Coroutine _spawnCoroutine;
+
         private void Awake()
         {
-            if (!_prefab)
-                Debug.LogError("GameObject objectToSpawn is not initialized.");
+            if (_prefabs.Length <= 0)
+                Debug.LogError("Prefabs are not initialized.");
 
             _countChanged.AddListener(ScaleUp);
         }
 
         public void StartSpawningRows()
         {
-            StartCoroutine(SpawnRowsContinuously());
+            _spawnCoroutine = StartCoroutine(SpawnRowsContinuously());
+        }
+
+        public void StopSpawningRows()
+        {
+            if (_spawnCoroutine != null)
+            {
+                StopCoroutine(_spawnCoroutine);
+                _spawnCoroutine = null;
+            }
         }
 
         private IEnumerator SpawnRowsContinuously()
@@ -62,7 +73,7 @@ namespace AsteroidRage.Game
 
             foreach (int i in indices)
             {
-                PooledMonobehaviour spawned = _prefab.Get<PooledMonobehaviour>(this.transform, startPosition + new Vector3(i * xSpacing, 0f, Random.Range(0f, zUncertainty)), rotation);
+                PooledMonobehaviour spawned = _prefabs[Random.Range(0, _prefabs.Length)].Get<PooledMonobehaviour>(this.transform, startPosition + new Vector3(i * xSpacing, 0f, Random.Range(0f, zUncertainty)), rotation);
                 Rigidbody rb = spawned.GetComponent<Rigidbody>();
                 if (rb)
                     rb.velocity = velocity;
@@ -73,6 +84,12 @@ namespace AsteroidRage.Game
         {
             _velocityScale = 1f + _diffConfig.VelocityScaleStep * Mathf.Round(count / _diffConfig.VelocityScaleInterval);
             _spawnRateScale = 1f + _diffConfig.SpawnRateScaleStep * Mathf.Round(count / _diffConfig.SpawnRateScaleInterval);
+        }
+
+        public void DisableChildren()
+        {
+            foreach (Transform child in transform)
+                child.gameObject.SetActive(false);
         }
     }
 }

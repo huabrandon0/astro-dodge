@@ -12,6 +12,7 @@ namespace AsteroidRage.Game
         public class ResponseEvents
         {
             public GameEventInt AddToCount;
+            public GameEventInt SetCount;
         }
 
         [System.Serializable]
@@ -23,21 +24,29 @@ namespace AsteroidRage.Game
         [SerializeField] ResponseEvents _responseEvents;
         [SerializeField] InvokeEvents _invokeEvents;
 
-        int _count = 0;
+        public static int _count = 0;
 
 		void OnEnable()
 		{
             _responseEvents.AddToCount.AddListener(AddToCount);
+            _responseEvents.SetCount.AddListener(SetCount);
 		}
 
 		void OnDisable()
 		{
             _responseEvents.AddToCount.RemoveListener(AddToCount);
+            _responseEvents.SetCount.RemoveListener(SetCount);
 		}
 
         void AddToCount(int val)
         {
             _count += val;
+            _invokeEvents.CountChanged.Invoke(_count);
+        }
+
+        void SetCount(int val)
+        {
+            _count = val;
             _invokeEvents.CountChanged.Invoke(_count);
         }
     }

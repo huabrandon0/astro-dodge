@@ -7,8 +7,7 @@ using AsteroidRage.Events;
 namespace AsteroidRage.Game
 {
     /// <summary>
-    /// Stores the current game score. 
-    /// The score is added to whenever a block is placed onto the stack.
+    /// Stores the current game score.
     /// </summary>
     public class Score : MonoBehaviour
     {
@@ -16,6 +15,7 @@ namespace AsteroidRage.Game
         public class ResponseEvents
         {
             public GameEventInt AddToScore;
+            public GameEventInt SetScore;
         }
 
         [System.Serializable]
@@ -26,23 +26,30 @@ namespace AsteroidRage.Game
 
         [SerializeField] ResponseEvents _responseEvents;
         [SerializeField] InvokeEvents _invokeEvents;
-        //[SerializeField] DifficultyConfig _diffConfig;
 
         int _score = 0;
 
 		void OnEnable()
 		{
             _responseEvents.AddToScore.AddListener(AddToScore);
+            _responseEvents.SetScore.AddListener(SetScore);
 		}
 
 		void OnDisable()
 		{
             _responseEvents.AddToScore.RemoveListener(AddToScore);
+            _responseEvents.SetScore.RemoveListener(SetScore);
 		}
 
 		void AddToScore(int val)
         {
             _score += val;
+            _invokeEvents.ScoreChanged.Invoke(_score);
+        }
+
+        void SetScore(int val)
+        {
+            _score = val;
             _invokeEvents.ScoreChanged.Invoke(_score);
         }
     }

@@ -52,7 +52,7 @@ namespace AsteroidRage.Game
 
             _anim.SetFloat("MoveSpeed", _moveSpeed * _moveSpeedScale);
 
-            SetInitialPosition(Mathf.FloorToInt(_positions.Length / 2));
+            ResetPosition();
 
             _responseEvents.CountChanged.AddListener(ScaleUp);
         }
@@ -66,7 +66,7 @@ namespace AsteroidRage.Game
             }
         }
 
-        private void SetInitialPosition(int i)
+        private void SetPosition(int i)
         {
             if (i < 0 || i >= _positions.Length)
                 return;
@@ -96,7 +96,9 @@ namespace AsteroidRage.Game
         public void IncrementIndex()
         {
             if (_canMove)
+            {
                 _desiredIndex++;
+            }
         }
 
         public void DecrementIndex()
@@ -159,6 +161,12 @@ namespace AsteroidRage.Game
         public void ScaleUp(int count)
         {
             _moveSpeedScale = 1f + _diffConfig.MoveSpeedScaleStep * Mathf.Round(count / _diffConfig.MoveSpeedScaleInterval);
+            _anim.SetFloat("MoveSpeed", _moveSpeed * _moveSpeedScale);
+        }
+
+        public void ResetPosition()
+        {
+            SetPosition(Mathf.FloorToInt(_positions.Length / 2));
         }
     }
 }

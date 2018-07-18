@@ -16,4 +16,10 @@ MonoBehaviour:
   SpawnRateScaleInterval: 5
   SpawnRateScaleStep: 0.1
   MoveSpeedScaleInterval: 5
-  MoveSpeedScaleStep: 0.1
+  MoveSpeedScaleStep: 0.05
+  DodgeDistance: 1.5
+  DodgeScore: 5
+  TumbleScaleInterval: 5
+  TumbleScaleStep: 0.1
+  CountInterval: 1
+  ScorePerCount: 10

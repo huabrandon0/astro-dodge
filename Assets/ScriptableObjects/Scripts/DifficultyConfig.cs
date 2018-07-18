@@ -14,9 +14,15 @@ namespace AsteroidRage
         public float SpawnRateScaleStep = 0.1f;
 
         public int MoveSpeedScaleInterval = 5;
-        public float MoveSpeedScaleStep = 0.1f;
+        public float MoveSpeedScaleStep = 0.05f;
 
         public float DodgeDistance = 1.5f;
-        public int DodgeScore = 3;
+        public int DodgeScore = 5;
+
+        public int TumbleScaleInterval = 5;
+        public float TumbleScaleStep = 0.1f;
+
+        public int CountInterval = 1;
+        public int ScorePerCount = 10;
     }
 }

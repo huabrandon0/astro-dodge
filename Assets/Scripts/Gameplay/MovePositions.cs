@@ -20,6 +20,8 @@ namespace AsteroidRage.Game
 
         private Animator _anim;
 
+        private bool _canMove = true;
+
         [System.Serializable]
         public class ResponseEvents
         {
@@ -93,12 +95,24 @@ namespace AsteroidRage.Game
 
         public void IncrementIndex()
         {
-            _desiredIndex++;
+            if (_canMove)
+                _desiredIndex++;
         }
 
         public void DecrementIndex()
         {
-            _desiredIndex--;
+            if (_canMove)
+                _desiredIndex--;
+        }
+
+        public void Disable()
+        {
+            _canMove = false;
+        }
+
+        public void Enable()
+        {
+            _canMove = true;
         }
 
         private IEnumerator MoveToPosition(int i, MoveState moveState)

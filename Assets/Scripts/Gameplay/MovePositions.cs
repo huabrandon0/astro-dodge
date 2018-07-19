@@ -16,6 +16,8 @@ namespace AsteroidRage.Game
         private enum MoveState { None, Left, Right };
         private MoveState _moveState = MoveState.None;
 
+        private Coroutine _moveCoroutine;
+
         [SerializeField] private AnimationCurve _moveAnimationCurve;
 
         private Animator _anim;
@@ -83,14 +85,17 @@ namespace AsteroidRage.Game
 
             if (i == _currentIndex || (i < _currentIndex && _moveState == MoveState.Left) || (i > _currentIndex && _moveState == MoveState.Right))
                 return;
-
+            
             int oldIndex = _currentIndex;
             _currentIndex = i;
 
+            if (_moveCoroutine != null)
+                StopCoroutine(_moveCoroutine);
+
             if (_currentIndex < oldIndex)
-                StartCoroutine(MoveToPosition(_currentIndex, MoveState.Left));
+                _moveCoroutine = StartCoroutine(MoveToPosition(_currentIndex, MoveState.Left));
             else
-                StartCoroutine(MoveToPosition(_currentIndex, MoveState.Right));
+                _moveCoroutine = StartCoroutine(MoveToPosition(_currentIndex, MoveState.Right));
         }
 
         public void IncrementIndex()

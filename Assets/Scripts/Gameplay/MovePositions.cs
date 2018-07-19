@@ -83,7 +83,9 @@ namespace AsteroidRage.Game
             if (i < 0 || i >= _positions.Length)
                 return;
 
-            if (i == _currentIndex || (i < _currentIndex && _moveState == MoveState.Left) || (i > _currentIndex && _moveState == MoveState.Right))
+            //if (i == _currentIndex || (i < _currentIndex && _moveState == MoveState.Left) || (i > _currentIndex && _moveState == MoveState.Right))
+            //    return;
+            if (i == _currentIndex || _moveState != MoveState.None)
                 return;
             
             int oldIndex = _currentIndex;
@@ -96,6 +98,8 @@ namespace AsteroidRage.Game
                 _moveCoroutine = StartCoroutine(MoveToPosition(_currentIndex, MoveState.Left));
             else
                 _moveCoroutine = StartCoroutine(MoveToPosition(_currentIndex, MoveState.Right));
+
+            AudioManager.Instance.TryPlayAudioSource("Move");
         }
 
         public void IncrementIndex()

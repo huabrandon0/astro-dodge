@@ -34,11 +34,6 @@ namespace AsteroidRage.Game
 
         [SerializeField] DifficultyConfig _diffConfig;
 
-        void Start()
-        {
-            _invokeEvents.GameRestartEvent.Invoke();
-        }
-
         public void StartGame()
         {
             _isDead = false;

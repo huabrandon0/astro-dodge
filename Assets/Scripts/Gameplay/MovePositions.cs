@@ -35,6 +35,7 @@ namespace AsteroidRage.Game
         {
             public GameEvent DodgedAsteroid;
             public GameEventInt AddToScore;
+            public GameEvent PlayerMoved;
         }
 
         [SerializeField] ResponseEvents _responseEvents;
@@ -99,7 +100,7 @@ namespace AsteroidRage.Game
             else
                 _moveCoroutine = StartCoroutine(MoveToPosition(_currentIndex, MoveState.Right));
 
-            AudioManager.Instance.TryPlayAudioSource("Move");
+            _invokeEvents.PlayerMoved.Invoke();
         }
 
         public void IncrementIndex()

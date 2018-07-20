@@ -11,12 +11,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb2e251ed1d99cf41a049f3250f2ce6a, type: 3}
   m_Name: DifficultyConfig
   m_EditorClassIdentifier: 
-  VelocityScaleInterval: 5
-  VelocityScaleStep: 0.1
-  SpawnRateScaleInterval: 5
-  SpawnRateScaleStep: 0.1
-  MoveSpeedScaleInterval: 5
-  MoveSpeedScaleStep: 0.05
+  VelocityScaleInterval: 1
+  VelocityScaleStep: 0.02
+  SpawnRateScaleInterval: 1
+  SpawnRateScaleStep: 0.02
+  MoveSpeedScaleInterval: 1
+  MoveSpeedScaleStep: 0.02
   DodgeDistance: 1.5
   DodgeScore: 5
   TumbleScaleInterval: 5

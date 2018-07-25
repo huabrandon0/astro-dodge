@@ -22,7 +22,7 @@ namespace AsteroidRage.Game
 
         private Animator _anim;
 
-        private bool _canMove = true;
+        private bool _canMove = false;
 
         [System.Serializable]
         public class ResponseEvents
@@ -88,7 +88,7 @@ namespace AsteroidRage.Game
             //    return;
             if (i == _currentIndex || _moveState != MoveState.None)
                 return;
-            
+
             int oldIndex = _currentIndex;
             _currentIndex = i;
 
@@ -125,6 +125,17 @@ namespace AsteroidRage.Game
         public void Enable()
         {
             _canMove = true;
+        }
+
+        public void Enable(float time)
+        {
+            StartCoroutine(EnableAfterSeconds(time));
+        }
+
+        private IEnumerator EnableAfterSeconds(float time)
+        {
+            yield return new WaitForSeconds(time);
+            Enable();
         }
 
         private IEnumerator MoveToPosition(int i, MoveState moveState)

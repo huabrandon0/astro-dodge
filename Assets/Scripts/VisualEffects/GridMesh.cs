@@ -6,6 +6,9 @@ public class GridMesh : MonoBehaviour
 {
     public int _width;
     public int _length;
+    public float _cellWidth;
+    public float _cellLength;
+    public float _thickness;
 
     void Awake()
     {
@@ -31,21 +34,22 @@ public class GridMesh : MonoBehaviour
         //    indices.Add(4 * i + 3);
         //}
 
-        float widthOffset = _width / -2f;
-        float lengthOffset = _length / -2f;
+        float widthOffset = _width * _cellWidth/ -2f;
+        float lengthOffset = _length  * _cellLength / -2f;
 
         for (int i = 0; i < _width + 1; i++)
         {
-            vertices.Add(new Vector3(widthOffset + i, 0, lengthOffset));
-            vertices.Add(new Vector3(widthOffset + i, 0, lengthOffset + _length));
+            vertices.Add(new Vector3(widthOffset + i * _cellWidth, 0, lengthOffset));
+            vertices.Add(new Vector3(widthOffset + i * _cellWidth, 0, lengthOffset + _length * _cellLength));
+
             indices.Add(2 * i + 0);
             indices.Add(2 * i + 1);
         }
         
         for (int i = 0; i < _length + 1; i++)
         {
-            vertices.Add(new Vector3(widthOffset, 0, lengthOffset + i));
-            vertices.Add(new Vector3(widthOffset + _width, 0, lengthOffset + i));
+            vertices.Add(new Vector3(widthOffset, 0, lengthOffset + i * _cellLength));
+            vertices.Add(new Vector3(widthOffset + _width * _cellWidth, 0, lengthOffset + i * _cellLength));
             indices.Add((_width + 1) * 2 + 2 * i + 0);
             indices.Add((_width + 1) * 2 + 2 * i + 1);
         }

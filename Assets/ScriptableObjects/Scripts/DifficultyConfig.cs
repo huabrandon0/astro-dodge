@@ -7,6 +7,7 @@ namespace AsteroidRage
     [CreateAssetMenu(menuName = "Data/DifficultyConfig")]
     public class DifficultyConfig : ScriptableObject
     {
+        public float StartSpeed = 5f;
         public int VelocityScaleInterval = 5;
         public float VelocityScaleStep = 0.1f;
 

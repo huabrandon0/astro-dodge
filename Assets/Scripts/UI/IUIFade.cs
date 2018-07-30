@@ -8,5 +8,7 @@ namespace AsteroidRage.UI
     {
         void FadeIn();
         void FadeOut();
+        void FadeInComplete();
+        void FadeOutComplete();
     }
 }

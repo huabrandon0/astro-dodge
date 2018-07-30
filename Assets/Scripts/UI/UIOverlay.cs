@@ -46,5 +46,21 @@ namespace AsteroidRage.UI
                 _uiFadeInterfaces[i].FadeOut();
             }
         }
+
+        public void FadeInComplete()
+        {
+            for (int i = 0; i < _uiFadeInterfaces.Length; ++i)
+            {
+                _uiFadeInterfaces[i].FadeInComplete();
+            }
+        }
+
+        public void FadeOutComplete()
+        {
+            for (int i = 0; i < _uiFadeInterfaces.Length; ++i)
+            {
+                _uiFadeInterfaces[i].FadeOutComplete();
+            }
+        }
     }
 }

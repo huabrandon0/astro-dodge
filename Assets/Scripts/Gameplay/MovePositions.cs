@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using AsteroidRage.Events;
+using AsteroidRage.Extensions;
 
 namespace AsteroidRage.Game
 {
+    [RequireComponent(typeof(GradientPicker))]
     public class MovePositions : MonoBehaviour
     {
         [SerializeField] private Vector3[] _positions;
@@ -44,6 +46,8 @@ namespace AsteroidRage.Game
         [SerializeField] DifficultyConfig _diffConfig;
         private float _moveSpeedScale = 1.0f;
 
+        GradientPicker _gradientPicker;
+
         void Awake()
         {
             if (_positions.Length <= 0)
@@ -58,6 +62,8 @@ namespace AsteroidRage.Game
             ResetPosition();
 
             _responseEvents.CountChanged.AddListener(ScaleUp);
+
+            _gradientPicker = this.GetComponentAssert<GradientPicker>();
         }
 
         void LateUpdate()
@@ -181,8 +187,14 @@ namespace AsteroidRage.Game
 
         public void ScaleUp(int count)
         {
+            float oldMoveSpeedScale = _moveSpeedScale;
             _moveSpeedScale = 1f + _diffConfig.MoveSpeedScaleStep * Mathf.Round(count / _diffConfig.MoveSpeedScaleInterval);
-            _anim.SetFloat("MoveSpeed", _moveSpeed * _moveSpeedScale);
+
+            if (_moveSpeedScale != oldMoveSpeedScale)
+            {
+                _anim.SetFloat("MoveSpeed", _moveSpeed * _moveSpeedScale);
+                _gradientPicker.NextBlendedColor();
+            }
         }
 
         public void ResetPosition()

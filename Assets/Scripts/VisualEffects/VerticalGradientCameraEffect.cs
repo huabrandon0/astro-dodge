@@ -10,15 +10,15 @@ namespace AsteroidRage.Game
     /// </summary>
     public class VerticalGradientCameraEffect : MonoBehaviour
     {
-        //[System.Serializable]
-        //public class ResponseEvents
-        //{
-        //    public GameEventVerticalGradient SetGradient;
-        //    public GameEventVerticalGradient TransitionToGradient;
-        //}
+        [System.Serializable]
+        public class ResponseEvents
+        {
+            public GameEventVerticalGradient SetGradient;
+            public GameEventVerticalGradient TransitionToGradient;
+        }
 
-        //[SerializeField] ResponseEvents _responseEvents;
-        //[SerializeField] BackgroundGradientConfig _backgroundGradientConfig;
+        [SerializeField] ResponseEvents _responseEvents;
+        [SerializeField] BackgroundGradientConfig _backgroundGradientConfig;
         [SerializeField] Material _effectMaterial = null;
 
         readonly string _topColorProp = "_TopColour";
@@ -26,14 +26,14 @@ namespace AsteroidRage.Game
         
         void OnEnable()
         {
-            //_responseEvents.SetGradient.AddListener(SetGradient);
-            //_responseEvents.TransitionToGradient.AddListener(TransitionToGradient);
+            _responseEvents.SetGradient.AddListener(SetGradient);
+            _responseEvents.TransitionToGradient.AddListener(TransitionToGradient);
         }
 
         void OnDisable()
         {
-            //_responseEvents.SetGradient.RemoveListener(SetGradient);
-            //_responseEvents.TransitionToGradient.RemoveListener(TransitionToGradient);
+            _responseEvents.SetGradient.RemoveListener(SetGradient);
+            _responseEvents.TransitionToGradient.RemoveListener(TransitionToGradient);
         }
 
         void OnRenderImage(RenderTexture source, RenderTexture destination)
@@ -41,23 +41,17 @@ namespace AsteroidRage.Game
             Graphics.Blit(source, destination, _effectMaterial);
         }
 
-        //void SetGradient(VerticalGradient gradient)
-        //{
-        //    _effectMaterial.SetColor(TopColourProp, ScaleBrightness(gradient.TopColour,_backgroundGradientConfig.BrightnessScale));
-        //    _effectMaterial.SetColor(BottomColourProp, ScaleBrightness(gradient.BottomColour,_backgroundGradientConfig.BrightnessScale));
-        //}
-
         void SetGradient(VerticalGradient gradient)
         {
-            _effectMaterial.SetColor(_topColorProp, ScaleBrightness(gradient._topColor, 1f));
-            _effectMaterial.SetColor(_bottomColorProp, ScaleBrightness(gradient._bottomColor, 1f));
+            _effectMaterial.SetColor(_topColorProp, ScaleBrightness(gradient._topColor, _backgroundGradientConfig.BrightnessScale));
+            _effectMaterial.SetColor(_bottomColorProp, ScaleBrightness(gradient._bottomColor, _backgroundGradientConfig.BrightnessScale));
         }
 
-        //void TransitionToGradient(VerticalGradient gradient)
-        //{
-        //    _effectMaterial.DOColor(ScaleBrightness(gradient.TopColour,_backgroundGradientConfig.BrightnessScale), TopColourProp,_backgroundGradientConfig.TransitionTime);
-        //    _effectMaterial.DOColor(ScaleBrightness(gradient.BottomColour,_backgroundGradientConfig.BrightnessScale), BottomColourProp,_backgroundGradientConfig.TransitionTime);
-        //}
+        void TransitionToGradient(VerticalGradient gradient)
+        {
+            _effectMaterial.DOColor(ScaleBrightness(gradient._topColor, _backgroundGradientConfig.BrightnessScale), _topColorProp, _backgroundGradientConfig.TransitionTime);
+            _effectMaterial.DOColor(ScaleBrightness(gradient._bottomColor, _backgroundGradientConfig.BrightnessScale), _bottomColorProp, _backgroundGradientConfig.TransitionTime);
+        }
 
         Color ScaleBrightness(Color colour, float scale)
         {

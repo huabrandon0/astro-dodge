@@ -11,7 +11,7 @@ namespace AsteroidRage.Game
 
         public float _spawnRate = 0.5f;
 
-        public Vector3 _rowVelocity = Vector3.forward;
+        public Vector3 _rowVelocityDirection = Vector3.forward;
 
         public int _rowSize = 7;
         public int _rowFillSize = 4;
@@ -61,7 +61,7 @@ namespace AsteroidRage.Game
         private void SpawnRow()
         {
             Vector3 startPosition = new Vector3(-1f * (_rowSize - 1) * this._spaceBetweenPrefabs / 2, 0f, 0f);
-            SpawnRow(_rowFillSize + Random.Range(0, _rowFillSizeUncertainty + 1), _rowSize, startPosition, Quaternion.identity, _spaceBetweenPrefabs, _zPositionUncertainty, _rowVelocity * _velocityScale);
+            SpawnRow(_rowFillSize + Random.Range(0, _rowFillSizeUncertainty + 1), _rowSize, startPosition, Quaternion.identity, _spaceBetweenPrefabs, _zPositionUncertainty, _rowVelocityDirection.normalized * _diffConfig.StartSpeed * _velocityScale);
         }
 
         private void SpawnRow(int count, int capacity, Vector3 startPosition, Quaternion rotation, float xSpacing, float zUncertainty, Vector3 velocity)

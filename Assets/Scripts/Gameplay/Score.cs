@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using AsteroidRage.Extensions;
 using AsteroidRage.Events;
 
 namespace AsteroidRage.Game

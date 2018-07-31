@@ -15,6 +15,7 @@ namespace AsteroidRage.Game
 
         public int _rowSize = 7;
         public int _rowFillSize = 4;
+        private int _rowFillSizeSubtract = 0;
         public int _rowFillSizeUncertainty = 1;
         public float _spaceBetweenPrefabs = 1f;
         public float _zPositionUncertainty = 1f;
@@ -61,7 +62,7 @@ namespace AsteroidRage.Game
         private void SpawnRow()
         {
             Vector3 startPosition = new Vector3(-1f * (_rowSize - 1) * this._spaceBetweenPrefabs / 2, 0f, 0f);
-            SpawnRow(_rowFillSize + Random.Range(0, _rowFillSizeUncertainty + 1), _rowSize, startPosition, Quaternion.identity, _spaceBetweenPrefabs, _zPositionUncertainty, _rowVelocityDirection.normalized * _diffConfig.StartSpeed * _velocityScale);
+            SpawnRow(_rowFillSize - _rowFillSizeSubtract + Random.Range(0, _rowFillSizeUncertainty + 1), _rowSize, startPosition, Quaternion.identity, _spaceBetweenPrefabs, _zPositionUncertainty, _rowVelocityDirection.normalized * _diffConfig.StartSpeed * _velocityScale);
         }
 
         private void SpawnRow(int count, int capacity, Vector3 startPosition, Quaternion rotation, float xSpacing, float zUncertainty, Vector3 velocity)
@@ -84,6 +85,7 @@ namespace AsteroidRage.Game
         {
             _velocityScale = 1f + _diffConfig.VelocityScaleStep * Mathf.Round(count / _diffConfig.VelocityScaleInterval);
             _spawnRateScale = 1f + _diffConfig.SpawnRateScaleStep * Mathf.Round(count / _diffConfig.SpawnRateScaleInterval);
+            _rowFillSizeSubtract = Mathf.Min(_diffConfig.RowFillSizeScaleStep * (count / _diffConfig.RowFillSizeScaleInterval), _rowFillSize);
         }
 
         public void DisableChildren()

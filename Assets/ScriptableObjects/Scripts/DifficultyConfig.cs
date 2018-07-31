@@ -14,6 +14,9 @@ namespace AsteroidRage
         public int SpawnRateScaleInterval = 5;
         public float SpawnRateScaleStep = 0.1f;
 
+        public int RowFillSizeScaleInterval = 50;
+        public int RowFillSizeScaleStep = 1;
+
         public int MoveSpeedScaleInterval = 5;
         public float MoveSpeedScaleStep = 0.05f;
 

@@ -16,6 +16,8 @@ MonoBehaviour:
   VelocityScaleStep: 0.25
   SpawnRateScaleInterval: 5
   SpawnRateScaleStep: 0.15
+  RowFillSizeScaleInterval: 100
+  RowFillSizeScaleStep: 1
   MoveSpeedScaleInterval: 5
   MoveSpeedScaleStep: 0.125
   DodgeDistance: 1.5

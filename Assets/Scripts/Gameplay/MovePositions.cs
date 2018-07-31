@@ -38,6 +38,7 @@ namespace AsteroidRage.Game
             public GameEvent DodgedAsteroid;
             public GameEventInt AddToScore;
             public GameEvent PlayerMoved;
+            public GameEvent PlayerSpeedUp;
         }
 
         [SerializeField] ResponseEvents _responseEvents;
@@ -45,8 +46,6 @@ namespace AsteroidRage.Game
 
         [SerializeField] DifficultyConfig _diffConfig;
         private float _moveSpeedScale = 1.0f;
-
-        GradientPicker _gradientPicker;
 
         void Awake()
         {
@@ -62,8 +61,6 @@ namespace AsteroidRage.Game
             ResetPosition();
 
             _responseEvents.CountChanged.AddListener(ScaleUp);
-
-            _gradientPicker = this.GetComponentAssert<GradientPicker>();
         }
 
         void LateUpdate()
@@ -75,7 +72,7 @@ namespace AsteroidRage.Game
             }
         }
 
-        private void SetPosition(int i)
+        void SetPosition(int i)
         {
             if (i < 0 || i >= _positions.Length)
                 return;
@@ -138,13 +135,13 @@ namespace AsteroidRage.Game
             StartCoroutine(EnableAfterSeconds(time));
         }
 
-        private IEnumerator EnableAfterSeconds(float time)
+        IEnumerator EnableAfterSeconds(float time)
         {
             yield return new WaitForSeconds(time);
             Enable();
         }
 
-        private IEnumerator MoveToPosition(int i, MoveState moveState)
+        IEnumerator MoveToPosition(int i, MoveState moveState)
         {
             _moveState = moveState;
 
@@ -193,7 +190,7 @@ namespace AsteroidRage.Game
             if (_moveSpeedScale != oldMoveSpeedScale)
             {
                 _anim.SetFloat("MoveSpeed", _moveSpeed * _moveSpeedScale);
-                _gradientPicker.NextBlendedColor();
+                _invokeEvents.PlayerSpeedUp.Invoke();
             }
         }
 

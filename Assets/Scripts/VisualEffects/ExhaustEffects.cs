@@ -1,59 +1,54 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using AsteroidRage.Events;
 
 namespace AsteroidRage.Game
 {
     public class ExhaustEffects : MonoBehaviour
     {
-        ParticleSystem[] _particleSystems;
+        [SerializeField] ParticleSystem[] _flares;
 
-        [System.Serializable]
-        public class ResponseEvents
+        //ParticleSystem[] _particleSystems;
+
+        //[SerializeField] float _flareScale = 3f;
+        //[SerializeField] Color _flareColor;
+
+        //void Awake()
+        //{
+        //    _particleSystems = GetComponentsInChildren<ParticleSystem>();
+        //}
+
+        //public void Flare()
+        //{
+        //    foreach (ParticleSystem ps in _particleSystems)
+        //    {
+        //        StartCoroutine(Flare(ps.main));
+        //    }
+        //}
+
+        //IEnumerator Flare(ParticleSystem.MainModule psmain)
+        //{
+        //    float startSize = psmain.startSize.constant;
+        //    float flareSize = startSize * _flareScale;
+
+        //    Color startColor = psmain.startColor.color;
+
+        //    float startTime = Time.time - Time.deltaTime;
+        //    float interpolationValue = 0f;
+        //    while (interpolationValue <= 1f)
+        //    {
+        //        interpolationValue = (Time.time - startTime);
+        //        psmain.startSize = Mathf.Lerp(flareSize, startSize, interpolationValue);
+        //        psmain.startColor = Color.Lerp(_flareColor, startColor, interpolationValue);
+        //        yield return null;
+        //    }
+        //}
+
+        public void Flare()
         {
-            public GameEventInt CountChanged;
-        }
-
-        [SerializeField] ResponseEvents _responseEvents;
-
-        [SerializeField] DifficultyConfig _diffConfig;
-        
-        float _sizeScale = 1f;
-
-        void Awake()
-        {
-            _particleSystems = GetComponentsInChildren<ParticleSystem>();
-
-            _responseEvents.CountChanged.AddListener(Flare);
-        }
-
-        public void Flare(int count)
-        {
-            float oldSizeScale = _sizeScale;
-            _sizeScale = 1f + _diffConfig.MoveSpeedScaleStep * Mathf.Round(count / _diffConfig.MoveSpeedScaleInterval);
-
-            if (_sizeScale != oldSizeScale)
+            foreach (ParticleSystem ps in _flares)
             {
-                foreach (ParticleSystem ps in _particleSystems)
-                {
-                    StartCoroutine(Flare(ps.main));
-                }
-            }
-        }
-
-        IEnumerator Flare(ParticleSystem.MainModule psmain)
-        {
-            float startSize = psmain.startSize.constant;
-            float flareSize = startSize * 2f;
-
-            float startTime = Time.time - Time.deltaTime;
-            float interpolationValue = 0f;
-            while (interpolationValue <= 1f)
-            {
-                interpolationValue = (Time.time - startTime);
-                psmain.startSize = Mathf.Lerp(flareSize, startSize, interpolationValue);
-                yield return null;
+                ps.Play();
             }
         }
     }

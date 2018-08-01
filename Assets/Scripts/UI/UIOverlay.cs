@@ -12,6 +12,7 @@ namespace AsteroidRage.UI
     {
         Canvas _canvas;
         IUIFade[] _uiFadeInterfaces;
+        bool _enabled = false;
 
         void Awake()
         {
@@ -32,6 +33,7 @@ namespace AsteroidRage.UI
 
         public void FadeIn()
         {
+            _enabled = true;
             gameObject.SetActive(true);
             for (int i = 0; i < _uiFadeInterfaces.Length; ++i)
             {
@@ -41,6 +43,7 @@ namespace AsteroidRage.UI
 
         public void FadeOut()
         {
+            _enabled = false;
             for (int i = 0; i < _uiFadeInterfaces.Length; ++i)
             {
                 _uiFadeInterfaces[i].FadeOut();
@@ -49,6 +52,7 @@ namespace AsteroidRage.UI
 
         public void FadeInComplete()
         {
+            _enabled = true;
             for (int i = 0; i < _uiFadeInterfaces.Length; ++i)
             {
                 _uiFadeInterfaces[i].FadeInComplete();
@@ -57,9 +61,26 @@ namespace AsteroidRage.UI
 
         public void FadeOutComplete()
         {
+            _enabled = false;
             for (int i = 0; i < _uiFadeInterfaces.Length; ++i)
             {
                 _uiFadeInterfaces[i].FadeOutComplete();
+            }
+        }
+
+        public void ToggleFade()
+        {
+            if (!_enabled)
+            {
+                _enabled = true;
+                foreach (IUIFade uiFade in _uiFadeInterfaces)
+                    uiFade.FadeIn();
+            }
+            else
+            {
+                _enabled = false;
+                foreach (IUIFade uiFade in _uiFadeInterfaces)
+                    uiFade.FadeOut();
             }
         }
     }

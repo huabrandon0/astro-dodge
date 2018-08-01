@@ -9,6 +9,7 @@ namespace AsteroidRage.UI
     public class UIClickableArea : MonoBehaviour, IPointerDownHandler, IPointerExitHandler, IPointerUpHandler
     {
         [SerializeField] private GameEvent _onAreaBeingClickedOn;
+        [SerializeField] private GameEvent _onAreaBeingClickedOff;
         
         private bool _isPressed = false;
         private int _pointerId = int.MaxValue;
@@ -19,7 +20,9 @@ namespace AsteroidRage.UI
             {
                 _isPressed = true;
                 _pointerId = data.pointerId;
-                _onAreaBeingClickedOn.Invoke();
+
+                if (_onAreaBeingClickedOn)
+                    _onAreaBeingClickedOn.Invoke();
             }
         }
 
@@ -27,8 +30,7 @@ namespace AsteroidRage.UI
         {
             if (_isPressed && data.pointerId == _pointerId)
             {
-                _isPressed = false;
-                _pointerId = int.MaxValue;
+                Unpress();
             }
         }
 
@@ -36,9 +38,36 @@ namespace AsteroidRage.UI
         {
             if (_isPressed && data.pointerId == _pointerId)
             {
-                _isPressed = false;
-                _pointerId = int.MaxValue;
+                Unpress();
             }
+        }
+
+        void Unpress()
+        {
+            _isPressed = false;
+            _pointerId = int.MaxValue;
+
+            if (_onAreaBeingClickedOff)
+                _onAreaBeingClickedOff.Invoke();
+        }
+
+        public void Enable()
+        {
+            enabled = true;
+        }
+
+        public void Disable()
+        {
+            Unpress();
+            enabled = false;
+        }
+
+        public void Toggle()
+        {
+            if (enabled)
+                Disable();
+            else
+                Enable();
         }
     }
 }

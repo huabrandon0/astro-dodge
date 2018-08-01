@@ -9,8 +9,6 @@ namespace AsteroidRage.Game
     {
         public PooledMonobehaviour[] _prefabs;
 
-        public float _spawnRate = 0.5f;
-
         public Vector3 _rowVelocityDirection = Vector3.forward;
 
         public int _rowSize = 7;
@@ -20,7 +18,21 @@ namespace AsteroidRage.Game
         public float _spaceBetweenPrefabs = 1f;
         public float _zPositionUncertainty = 1f;
 
-        [SerializeField] GameEventInt _countChanged;
+        [System.Serializable]
+        public class ResponseEvents
+        {
+            public GameEventInt CountChanged;
+        }
+
+        [SerializeField] ResponseEvents _responseEvents;
+
+        [System.Serializable]
+        public class InvokeEvents
+        {
+            public GameEvent PlayerSpeedUp;
+        }
+        
+        [SerializeField] InvokeEvents _invokeEvents;
 
         [SerializeField] DifficultyConfig _diffConfig;
         private float _velocityScale = 1.0f;
@@ -33,7 +45,7 @@ namespace AsteroidRage.Game
             if (_prefabs.Length <= 0)
                 Debug.LogError("Prefabs are not initialized.");
 
-            _countChanged.AddListener(ScaleUp);
+            _responseEvents.CountChanged.AddListener(ScaleUp);
         }
 
         public void StartSpawningRows()
@@ -55,13 +67,13 @@ namespace AsteroidRage.Game
             while (true)
             {
                 SpawnRow();
-                yield return new WaitForSeconds(1f / (_spawnRate * _spawnRateScale));
+                yield return new WaitForSeconds(1f / (_diffConfig.StartSpawnRate * _spawnRateScale));
             }
         }
 
         private void SpawnRow()
         {
-            Vector3 startPosition = new Vector3(-1f * (_rowSize - 1) * this._spaceBetweenPrefabs / 2, 0f, 0f);
+            Vector3 startPosition = new Vector3(-1f * (_rowSize - 1) * _spaceBetweenPrefabs / 2, 0f, 0f);
             SpawnRow(_rowFillSize - _rowFillSizeSubtract + Random.Range(0, _rowFillSizeUncertainty + 1), _rowSize, startPosition, Quaternion.identity, _spaceBetweenPrefabs, _zPositionUncertainty, _rowVelocityDirection.normalized * _diffConfig.StartSpeed * _velocityScale);
         }
 
@@ -83,8 +95,16 @@ namespace AsteroidRage.Game
 
         public void ScaleUp(int count)
         {
-            _velocityScale = 1f + _diffConfig.VelocityScaleStep * Mathf.Round(count / _diffConfig.VelocityScaleInterval);
-            _spawnRateScale = 1f + _diffConfig.SpawnRateScaleStep * Mathf.Round(count / _diffConfig.SpawnRateScaleInterval);
+            float oldVelocityScale = _velocityScale;
+            float desiredVelocityScale = 1f + _diffConfig.VelocityScaleStep * Mathf.Round(count / _diffConfig.VelocityScaleInterval);
+            _velocityScale = desiredVelocityScale;
+
+            if (_velocityScale != oldVelocityScale)
+                _invokeEvents.PlayerSpeedUp.Invoke();
+
+            float desiredSpawnRateScale = 1f + _diffConfig.SpawnRateScaleStep * Mathf.Round(count / _diffConfig.SpawnRateScaleInterval);
+            _spawnRateScale = Mathf.Min(desiredSpawnRateScale, _diffConfig.SpawnRateScaleMax);
+            
             _rowFillSizeSubtract = Mathf.Min(_diffConfig.RowFillSizeScaleStep * (count / _diffConfig.RowFillSizeScaleInterval), _rowFillSize);
         }
 

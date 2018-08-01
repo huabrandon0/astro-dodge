@@ -11,18 +11,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb2e251ed1d99cf41a049f3250f2ce6a, type: 3}
   m_Name: DifficultyConfig
   m_EditorClassIdentifier: 
-  StartSpeed: 5
+  StartSpeed: 6
   VelocityScaleInterval: 5
   VelocityScaleStep: 0.25
+  StartSpawnRate: 0.5
   SpawnRateScaleInterval: 5
-  SpawnRateScaleStep: 0.15
+  SpawnRateScaleStep: 0.2
+  SpawnRateScaleMax: 5
   RowFillSizeScaleInterval: 100
-  RowFillSizeScaleStep: 1
+  RowFillSizeScaleStep: 0
   MoveSpeedScaleInterval: 5
   MoveSpeedScaleStep: 0.125
+  MoveSpeedScaleMax: 3
   DodgeDistance: 1.5
   DodgeScore: 0
   TumbleScaleInterval: 5
   TumbleScaleStep: 0.1
   CountInterval: 1
-  ScorePerCount: 10
+  ScorePerCount: 1

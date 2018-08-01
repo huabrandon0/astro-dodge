@@ -38,7 +38,6 @@ namespace AsteroidRage.Game
             public GameEvent DodgedAsteroid;
             public GameEventInt AddToScore;
             public GameEvent PlayerMoved;
-            public GameEvent PlayerSpeedUp;
         }
 
         [SerializeField] ResponseEvents _responseEvents;
@@ -58,9 +57,12 @@ namespace AsteroidRage.Game
 
             _anim.SetFloat("MoveSpeed", _moveSpeed * _moveSpeedScale);
 
-            ResetPosition();
-
             _responseEvents.CountChanged.AddListener(ScaleUp);
+        }
+
+        void Start()
+        {
+            ResetPosition();
         }
 
         void LateUpdate()
@@ -185,18 +187,17 @@ namespace AsteroidRage.Game
         public void ScaleUp(int count)
         {
             float oldMoveSpeedScale = _moveSpeedScale;
-            _moveSpeedScale = 1f + _diffConfig.MoveSpeedScaleStep * Mathf.Round(count / _diffConfig.MoveSpeedScaleInterval);
+            float desiredMoveSpeedScale = 1f + _diffConfig.MoveSpeedScaleStep * Mathf.Round(count / _diffConfig.MoveSpeedScaleInterval);
+            _moveSpeedScale = Mathf.Min(desiredMoveSpeedScale, _diffConfig.MoveSpeedScaleMax);
 
             if (_moveSpeedScale != oldMoveSpeedScale)
-            {
                 _anim.SetFloat("MoveSpeed", _moveSpeed * _moveSpeedScale);
-                _invokeEvents.PlayerSpeedUp.Invoke();
-            }
         }
 
         public void ResetPosition()
         {
-            SetPosition(Mathf.FloorToInt(_positions.Length / 2));
+            // SetPosition(Mathf.FloorToInt(_positions.Length / 2));
+            SetPosition(0);
         }
     }
 }

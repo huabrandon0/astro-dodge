@@ -18,21 +18,46 @@ namespace AsteroidRage.Game
         
         [SerializeField] DifficultyConfig _diffConfig;
 
-        Rigidbody rb;
+        Rigidbody _rb;
 
-        private void Awake()
+        [SerializeField] Material _offMaterial;
+        Material _onMaterial;
+
+        MeshRenderer _mr;
+
+        Collider _col;
+
+        void Awake()
         {
-            rb = GetComponent<Rigidbody>();
+            _rb = GetComponent<Rigidbody>();
+            _mr = GetComponentInChildren<MeshRenderer>();
+            _col = GetComponent<Collider>();
+            _onMaterial = _mr.material;
 
             _responseEvents.CountChanged.AddListener(ScaleUp);
         }
 
         public void ScaleUp(int count)
         {
-            if (enabled && rb.velocity.magnitude != 0f)
+            if (enabled && _rb.velocity.magnitude != 0f)
             {
                 float scale = 1f + _diffConfig.VelocityScaleStep * Mathf.Round(count / _diffConfig.VelocityScaleInterval);
-                rb.velocity = rb.velocity.normalized * _diffConfig.StartSpeed * scale;
+                _rb.velocity = _rb.velocity.normalized * _diffConfig.StartSpeed * scale;
+            }
+        }
+
+        void OnEnable()
+        {
+            _mr.material = _onMaterial;
+            _col.enabled = true;
+        }
+
+        void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("HitZone"))
+            {
+                _mr.material = _offMaterial;
+                _col.enabled = false;
             }
         }
     }

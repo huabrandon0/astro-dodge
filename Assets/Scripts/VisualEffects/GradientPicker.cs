@@ -1,4 +1,5 @@
-﻿using AsteroidRage.Extensions;
+﻿// From Oliver Broughton's Open Stack
+using AsteroidRage.Extensions;
 using UnityEngine;
 using AsteroidRage.Events;
 
@@ -27,6 +28,7 @@ namespace AsteroidRage.Game
 
 		void Awake()
 		{
+            _paletteIndex = Random.Range(0, _palette.Gradients.Length);
             CurrentGradient = _palette.Gradients[_paletteIndex];
             CurrentBlendedColour = CurrentGradient._bottomColor;
 		}
@@ -63,6 +65,14 @@ namespace AsteroidRage.Game
         int NextPaletteIndex(int currentPaletteIndex)
         {
             return (currentPaletteIndex + 1 >= _palette.Gradients.Length ? 0 : currentPaletteIndex + 1);
+        }
+
+        public void RandomBlendedColor()
+        {
+            _paletteIndex = Random.Range(0, _palette.Gradients.Length);
+            CurrentGradient = _palette.Gradients[_paletteIndex];
+            _invokeEvents.GradientChanged.Invoke(CurrentGradient);
+            _currentShade = 0;
         }
     }
 }

@@ -9,7 +9,6 @@ public class PlayerHit : MonoBehaviour
     public class InvokeEvents
     {
         public GameEvent PlayerHit;
-        public GameEvent PlayerExploded;
     }
 
     [SerializeField] InvokeEvents _invokeEvents;
@@ -20,10 +19,5 @@ public class PlayerHit : MonoBehaviour
         {
             _invokeEvents.PlayerHit.Invoke();
         }
-    }
-
-    public void InvokePlayerExplodedEvent()
-    {
-        _invokeEvents.PlayerExploded.Invoke();
     }
 }

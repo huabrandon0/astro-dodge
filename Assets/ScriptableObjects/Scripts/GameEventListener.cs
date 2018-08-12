@@ -7,8 +7,8 @@ namespace AsteroidRage.Events
 {
     public class GameEventListener : MonoBehaviour
     {
-        [SerializeField] private GameEvent _gameEvent;
-        [SerializeField] private UnityEvent _response;
+        [SerializeField] GameEvent _gameEvent;
+        [SerializeField] UnityEvent _response;
 
         void OnEnable()
         {

@@ -9,6 +9,8 @@ namespace AsteroidRage.Game
     {
         public PooledMonobehaviour[] _prefabs;
 
+        public PooledMonobehaviour _rowUnit;
+
         public Vector3 _rowVelocityDirection = Vector3.forward;
 
         public int _rowSize = 7;
@@ -90,6 +92,14 @@ namespace AsteroidRage.Game
                 Rigidbody rb = spawned.GetComponent<Rigidbody>();
                 if (rb)
                     rb.velocity = velocity;
+            }
+
+            if (_rowUnit != null)
+            {
+                PooledMonobehaviour rowUnit = _rowUnit.Get<PooledMonobehaviour>(this.transform, startPosition, rotation);
+                Rigidbody rowUnitRb = rowUnit.GetComponent<Rigidbody>();
+                if (rowUnitRb)
+                    rowUnitRb.velocity = velocity;
             }
         }
 

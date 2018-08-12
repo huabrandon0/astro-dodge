@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Asteroid
+  - RowUnit
+  - HitZone
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - BackgroundParticles
   - BackgroundGrid
   - Player
-  - 
+  - RowUnit
   - 
   - 
   - 

@@ -18,13 +18,14 @@ namespace AsteroidRage.Game
             public GameEventInt SetScore;
         }
 
+        [SerializeField] ResponseEvents _responseEvents;
+
         [System.Serializable]
         public class InvokeEvents
         {
             public GameEventInt ScoreChanged;
         }
 
-        [SerializeField] ResponseEvents _responseEvents;
         [SerializeField] InvokeEvents _invokeEvents;
 
         int _score = 0;
@@ -41,13 +42,13 @@ namespace AsteroidRage.Game
             _responseEvents.SetScore.RemoveListener(SetScore);
 		}
 
-		void AddToScore(int val)
+		public void AddToScore(int val)
         {
             _score += val;
             _invokeEvents.ScoreChanged.Invoke(_score);
         }
 
-        void SetScore(int val)
+        public void SetScore(int val)
         {
             _score = val;
             _invokeEvents.ScoreChanged.Invoke(_score);

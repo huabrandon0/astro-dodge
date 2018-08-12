@@ -1,12 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AsteroidRage.Events;
 
 namespace AsteroidRage.Game
 {
     public class ExhaustEffects : MonoBehaviour
     {
         [SerializeField] ParticleSystem[] _flares;
+
+        [System.Serializable]
+        public class InvokeEvents
+        {
+            public GameEvent PlayerFlaredEvent;
+        }
+        
+        [SerializeField] InvokeEvents _invokeEvents;
 
         //ParticleSystem[] _particleSystems;
 
@@ -46,6 +55,8 @@ namespace AsteroidRage.Game
 
         public void Flare()
         {
+            _invokeEvents.PlayerFlaredEvent.Invoke();
+
             foreach (ParticleSystem ps in _flares)
             {
                 ps.Play();

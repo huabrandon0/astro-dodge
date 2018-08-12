@@ -6,7 +6,6 @@ using AsteroidRage.Extensions;
 
 namespace AsteroidRage.Game
 {
-    [RequireComponent(typeof(GradientPicker))]
     public class MovePositions : MonoBehaviour
     {
         [SerializeField] private Vector3[] _positions;
@@ -22,7 +21,7 @@ namespace AsteroidRage.Game
 
         [SerializeField] private AnimationCurve _moveAnimationCurve;
 
-        private Animator _anim;
+        //private Animator _anim;
 
         private bool _canMove = false;
 
@@ -38,6 +37,8 @@ namespace AsteroidRage.Game
             public GameEvent DodgedAsteroid;
             public GameEventInt AddToScore;
             public GameEvent PlayerMoved;
+            public GameEvent PlayerMovedLeft;
+            public GameEvent PlayerMovedRight;
         }
 
         [SerializeField] ResponseEvents _responseEvents;
@@ -51,18 +52,18 @@ namespace AsteroidRage.Game
             if (_positions.Length <= 0)
                 _positions = new Vector3[] { new Vector3(-1, 0, 0), new Vector3(0, 0, 0), new Vector3(1, 0, 0) };
 
-            _anim = GetComponent<Animator>();
-            if (!_anim)
-                Debug.LogError("Could not resolve Animator reference.");
+            //_anim = GetComponent<Animator>();
+            //if (!_anim)
+            //    Debug.LogError("Could not resolve Animator reference.");
 
-            _anim.SetFloat("MoveSpeed", _moveSpeed * _moveSpeedScale);
+            //_anim.SetFloat("MoveSpeed", _moveSpeed * _moveSpeedScale);
 
             _responseEvents.CountChanged.AddListener(ScaleUp);
         }
 
         void Start()
         {
-            ResetPosition();
+            SetRandomPosition();
         }
 
         void LateUpdate()
@@ -162,10 +163,12 @@ namespace AsteroidRage.Game
                 case MoveState.None:
                     break;
                 case MoveState.Left:
-                    _anim.SetTrigger("MoveLeft");
+                    _invokeEvents.PlayerMovedLeft.Invoke();
+                    //_anim.SetTrigger("MoveLeft");
                     break;
                 case MoveState.Right:
-                    _anim.SetTrigger("MoveRight");
+                    _invokeEvents.PlayerMovedRight.Invoke();
+                    //_anim.SetTrigger("MoveRight");
                     break;
                 default:
                     break;
@@ -190,14 +193,18 @@ namespace AsteroidRage.Game
             float desiredMoveSpeedScale = 1f + _diffConfig.MoveSpeedScaleStep * Mathf.Round(count / _diffConfig.MoveSpeedScaleInterval);
             _moveSpeedScale = Mathf.Min(desiredMoveSpeedScale, _diffConfig.MoveSpeedScaleMax);
 
-            if (_moveSpeedScale != oldMoveSpeedScale)
-                _anim.SetFloat("MoveSpeed", _moveSpeed * _moveSpeedScale);
+            //if (_moveSpeedScale != oldMoveSpeedScale)
+            //    _anim.SetFloat("MoveSpeed", _moveSpeed * _moveSpeedScale);
         }
 
         public void ResetPosition()
         {
-            // SetPosition(Mathf.FloorToInt(_positions.Length / 2));
-            SetPosition(0);
+            SetPosition(Mathf.FloorToInt(_positions.Length / 2));
+        }
+
+        public void SetRandomPosition()
+        {
+            SetPosition(Random.Range(0, _positions.Length));
         }
     }
 }

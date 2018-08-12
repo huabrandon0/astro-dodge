@@ -1,5 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class GridMesh2 : MonoBehaviour
@@ -10,10 +11,16 @@ public class GridMesh2 : MonoBehaviour
     public float _cellLength;
     public float _thickness;
 
+    Material _mat;
+    public float _fadeInTime;
+    public Color _fadeInColor;
+    public float _fadeOutTime;
+    public Color _fadeOutColor;
+
     void Awake()
     {
         MeshFilter filter = GetComponent<MeshFilter>();
-        Material mat = GetComponent<Renderer>().material;
+        _mat = GetComponent<Renderer>().material;
         var mesh = new Mesh();
         var vertices = new List<Vector3>();
         var indices = new List<int>();
@@ -79,6 +86,42 @@ public class GridMesh2 : MonoBehaviour
         filter.mesh = mesh;
 
         MeshRenderer meshRenderer = gameObject.GetComponent<MeshRenderer>();
-        meshRenderer.material = mat;
+        meshRenderer.material = _mat;
+    }
+
+    public void FadeIn()
+    {
+        StartCoroutine(ColorLerp(_fadeInColor, _fadeInTime));
+    }
+
+    public void FadeOut()
+    {
+        StartCoroutine(ColorLerp(_fadeOutColor, _fadeOutTime));
+    }
+
+    IEnumerator EmissionLerp(Color col, float fadeTime)
+    {
+        Color startColor = _mat.GetColor("_EmissionColor");
+        float startTime = Time.time - Time.deltaTime;
+        float interpolationValue = 0f;
+        while (interpolationValue <= 1f)
+        {
+            interpolationValue = (Time.time - startTime) / fadeTime;
+            _mat.SetColor("_EmissionColor", Color.Lerp(startColor, col, interpolationValue));
+            yield return null;
+        }
+    }
+
+    IEnumerator ColorLerp(Color col, float fadeTime)
+    {
+        Color startColor = _mat.GetColor("_Color");
+        float startTime = Time.time - Time.deltaTime;
+        float interpolationValue = 0f;
+        while (interpolationValue <= 1f)
+        {
+            interpolationValue = (Time.time - startTime) / fadeTime;
+            _mat.SetColor("_Color", Color.Lerp(startColor, col, interpolationValue));
+            yield return null;
+        }
     }
 }

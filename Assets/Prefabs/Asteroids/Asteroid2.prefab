@@ -158,7 +158,9 @@ MonoBehaviour:
   _responseEvents:
     CountChanged: {fileID: 11400000, guid: b4a42109f746a5f4abcd210686ab6490, type: 2}
   _diffConfig: {fileID: 11400000, guid: ea90d0b6efe76234c9503019311b1540, type: 2}
-  _offMaterial: {fileID: 2100000, guid: 5d3b642e18bded64d8aed422993ff6ba, type: 2}
+  _onColor: {r: 1, g: 1, b: 1, a: 1}
+  _offColor: {r: 1, g: 1, b: 1, a: 0.2509804}
+  fadeInTime: 0.4
 --- !u!135 &135814674813565966
 SphereCollider:
   m_ObjectHideFlags: 1

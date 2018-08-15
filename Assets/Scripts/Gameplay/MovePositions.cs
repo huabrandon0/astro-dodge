@@ -12,8 +12,6 @@ namespace AsteroidRage.Game
         private int _desiredIndex;
         private int _currentIndex;
 
-        [SerializeField] private float _moveSpeed = 5f;
-
         private enum MoveState { None, Left, Right };
         private MoveState _moveState = MoveState.None;
 
@@ -179,7 +177,7 @@ namespace AsteroidRage.Game
             float interpolationValue = 0f;
             while (interpolationValue <= 1f)
             {
-                interpolationValue = (Time.time - startTime) * _moveSpeed * _moveSpeedScale;
+                interpolationValue = (Time.time - startTime) * _diffConfig.StartMoveSpeed * _moveSpeedScale;
                 transform.position = Vector3.Lerp(startPosition, _positions[i], _moveAnimationCurve.Evaluate(interpolationValue));
                 yield return null;
             }

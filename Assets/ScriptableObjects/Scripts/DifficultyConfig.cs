@@ -20,6 +20,7 @@ namespace AsteroidRage
         public int RowFillSizeScaleInterval = 50;
         public int RowFillSizeScaleStep = 1;
 
+        public float StartMoveSpeed = 5f;
         public int MoveSpeedScaleInterval = 5;
         public float MoveSpeedScaleStep = 0.05f;
         public float MoveSpeedScaleMax = 1.75f;

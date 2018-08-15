@@ -14,8 +14,13 @@ namespace AsteroidRage.UI
         private bool _isPressed = false;
         private int _pointerId = int.MaxValue;
 
+        bool _enabled = true;
+
         public void OnPointerDown(PointerEventData data)
         {
+            if (!_enabled)
+                return;
+
             if (!_isPressed)
             {
                 _isPressed = true;
@@ -28,6 +33,9 @@ namespace AsteroidRage.UI
 
         public void OnPointerExit(PointerEventData data)
         {
+            if (!_enabled)
+                return;
+
             if (_isPressed && data.pointerId == _pointerId)
             {
                 Unpress();
@@ -36,6 +44,9 @@ namespace AsteroidRage.UI
 
         public void OnPointerUp(PointerEventData data)
         {
+            if (!_enabled)
+                return;
+
             if (_isPressed && data.pointerId == _pointerId)
             {
                 Unpress();
@@ -53,13 +64,13 @@ namespace AsteroidRage.UI
 
         public void Enable()
         {
-            enabled = true;
+            _enabled = true;
         }
 
         public void Disable()
         {
             Unpress();
-            enabled = false;
+            _enabled = false;
         }
 
         public void Toggle()

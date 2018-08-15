@@ -172,6 +172,8 @@ GameObject:
   - component: {fileID: 114627395281103444}
   - component: {fileID: 114812414889833118}
   - component: {fileID: 114402566953762600}
+  - component: {fileID: 114999233468427902}
+  - component: {fileID: 114723051342721406}
   - component: {fileID: 114466260445220974}
   - component: {fileID: 114458794835441710}
   - component: {fileID: 114305429435892046}
@@ -367,13 +369,13 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: d22c159326d26d54a9bb8565e5f4b7b9, type: 2}
-  - {fileID: 2100000, guid: 862b091ef2b0cbe48919726e429096da, type: 2}
-  - {fileID: 2100004, guid: 2e33c9eca1f9a8c458f06ac4ee1d95d4, type: 3}
-  - {fileID: 2100006, guid: 2e33c9eca1f9a8c458f06ac4ee1d95d4, type: 3}
+  - {fileID: 2100000, guid: df6ee8b9ddc7ac544bba82adc561e8e5, type: 2}
+  - {fileID: 2100000, guid: df6ee8b9ddc7ac544bba82adc561e8e5, type: 2}
   - {fileID: 2100000, guid: d22c159326d26d54a9bb8565e5f4b7b9, type: 2}
   - {fileID: 2100000, guid: d22c159326d26d54a9bb8565e5f4b7b9, type: 2}
-  - {fileID: 2100012, guid: 2e33c9eca1f9a8c458f06ac4ee1d95d4, type: 3}
-  - {fileID: 2100014, guid: 2e33c9eca1f9a8c458f06ac4ee1d95d4, type: 3}
+  - {fileID: 2100000, guid: d22c159326d26d54a9bb8565e5f4b7b9, type: 2}
+  - {fileID: 2100000, guid: d22c159326d26d54a9bb8565e5f4b7b9, type: 2}
+  - {fileID: 2100000, guid: d22c159326d26d54a9bb8565e5f4b7b9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -484,9 +486,9 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 1, g: 1, b: 1, a: 0}
       key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key2: {r: 0, g: 0, b: 0, a: 1}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -501,8 +503,8 @@ TrailRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
-      atime2: 0
+      atime1: 7864
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
@@ -510,13 +512,13 @@ TrailRenderer:
       atime7: 0
       m_Mode: 0
       m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
+      m_NumAlphaKeys: 3
     numCornerVertices: 3
     numCapVertices: 3
     alignment: 0
     textureMode: 0
     generateLightingData: 0
-  m_MinVertexDistance: 0
+  m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
 --- !u!114 &114042181653812556
@@ -624,7 +626,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: PlayerDeath
+          m_StringArgument: ShipDeath
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -736,7 +738,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: PlayerRestart
+          m_StringArgument: ShipRestart
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -757,6 +759,35 @@ MonoBehaviour:
   _invokeEvents:
     PlayerFlaredEvent: {fileID: 11400000, guid: dd4a6280ce2590d4bb419653be01f216,
       type: 2}
+--- !u!114 &114723051342721406
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1934909980102816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ab86d1c0a820804c8b0a5a53722f4bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEvent: {fileID: 11400000, guid: c683c3a533b22c742b7edc6d274c2ac5, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 95382851246611508}
+        m_MethodName: ResetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: BarrelRoll
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  delay: 0.1
 --- !u!114 &114812414889833118
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -780,7 +811,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: PlayerStartUp
+          m_StringArgument: ShipStartup
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -809,6 +840,34 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &114999233468427902
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1934909980102816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a4dc95bc166fe24f96120a53f596778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEvent: {fileID: 11400000, guid: c683c3a533b22c742b7edc6d274c2ac5, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 95382851246611508}
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: BarrelRoll
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -2091,7 +2150,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 0.7254902}
-        key1: {r: 0, g: 1, b: 0.87547374, a: 1}
+        key1: {r: 0, g: 1, b: 0.089500904, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -6633,7 +6692,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 0.25691354, g: 1, b: 0, a: 0.7254902}
-        key1: {r: 0, g: 0.10007739, b: 1, a: 1}
+        key1: {r: 0, g: 0, b: 0, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}

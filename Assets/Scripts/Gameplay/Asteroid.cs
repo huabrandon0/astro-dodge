@@ -19,20 +19,19 @@ namespace AsteroidRage.Game
         [SerializeField] DifficultyConfig _diffConfig;
 
         Rigidbody _rb;
-
-        [SerializeField] Material _offMaterial;
-        Material _onMaterial;
-
         MeshRenderer _mr;
-
         Collider _col;
+
+        [SerializeField] Color _onColor;
+        [SerializeField] Color _offColor;
+
+        [SerializeField] float fadeInTime;
 
         void Awake()
         {
             _rb = GetComponent<Rigidbody>();
             _mr = GetComponentInChildren<MeshRenderer>();
-            _col = GetComponent<Collider>();
-            _onMaterial = _mr.material;
+            _col = GetComponentInChildren<Collider>();
 
             _responseEvents.CountChanged.AddListener(ScaleUp);
         }
@@ -48,16 +47,44 @@ namespace AsteroidRage.Game
 
         void OnEnable()
         {
-            _mr.material = _onMaterial;
-            _col.enabled = true;
+            TurnOnFade();
         }
 
         void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("HitZone"))
+                TurnOff();
+        }
+
+        public void TurnOn()
+        {
+            _mr.material.color = _onColor;
+            _col.enabled = true;
+        }
+
+        public void TurnOff()
+        {
+            _mr.material.color = _offColor;
+            _col.enabled = false;
+        }
+
+        public void TurnOnFade()
+        {
+            _mr.material.color = new Color(0, 0, 0, 0);
+            StartCoroutine(ColorLerp(_onColor, fadeInTime));
+            _col.enabled = true;
+        }
+
+        IEnumerator ColorLerp(Color col, float fadeTime)
+        {
+            Color startColor = _mr.material.GetColor("_Color");
+            float startTime = Time.time - Time.deltaTime;
+            float interpolationValue = 0f;
+            while (interpolationValue <= 1f)
             {
-                _mr.material = _offMaterial;
-                _col.enabled = false;
+                interpolationValue = (Time.time - startTime) / fadeTime;
+                _mr.material.SetColor("_Color", Color.Lerp(startColor, col, interpolationValue));
+                yield return null;
             }
         }
     }

@@ -1,14 +1,14 @@
 fileFormatVersion: 2
-guid: fe6707f3068407e4abb957435f5c108f
+guid: 3699422411e75ca4ea41109c020f74fa
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: phong5_White
+    2100000: phong3
     2100002: phong2
-    2100004: phong4
-    2100006: phong3
+    2100004: lambert1
+    2100006: Black
     2300000: //RootNode
     3300000: //RootNode
     4300000: pCube1

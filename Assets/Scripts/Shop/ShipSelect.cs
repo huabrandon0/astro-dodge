@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AsteroidRage.Events;
 
 namespace AsteroidRage.Game
 {
@@ -11,6 +12,14 @@ namespace AsteroidRage.Game
         GameObject _currentShip;
 
         float _invisibleTime;
+        
+        [System.Serializable]
+        public class ResponseEvents
+        {
+            public GameEventInt ChangeShipIndex;
+        }
+
+        [SerializeField] ResponseEvents _responseEvents;
 
         void Awake()
         {
@@ -20,6 +29,8 @@ namespace AsteroidRage.Game
             }
 
             SelectShipRandom();
+
+            _responseEvents.ChangeShipIndex.AddListener(SelectShip);
         }
 
         public void SelectShip(int index)

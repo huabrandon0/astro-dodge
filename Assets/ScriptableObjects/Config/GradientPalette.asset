@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dedd929ceb6acab41800751cf168f745, type: 3}
   m_Name: GradientPalette
   m_EditorClassIdentifier: 
-  NoShades: 0
+  NoShades: 4
   Gradients:
   - _topColor: {r: 0, g: 0, b: 0, a: 1}
     _bottomColor: {r: 0.5, g: 0, b: 0, a: 1}

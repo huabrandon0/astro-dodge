@@ -145,6 +145,9 @@ MonoBehaviour:
   initialPoolSize: 100
   _responseEvents:
     CountChanged: {fileID: 11400000, guid: b4a42109f746a5f4abcd210686ab6490, type: 2}
+  _invokeEvents:
+    PlayerHit: {fileID: 11400000, guid: 4a48640c51812da43b2555808b14705a, type: 2}
+    ShieldHit: {fileID: 11400000, guid: d73baa7b0f5d64d46809d8bc9a4946f6, type: 2}
   _diffConfig: {fileID: 11400000, guid: ea90d0b6efe76234c9503019311b1540, type: 2}
   _onColor: {r: 1, g: 1, b: 1, a: 1}
   _offColor: {r: 1, g: 1, b: 1, a: 0.2509804}

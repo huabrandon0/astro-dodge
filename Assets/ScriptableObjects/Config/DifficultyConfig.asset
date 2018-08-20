@@ -30,3 +30,4 @@ MonoBehaviour:
   TumbleScaleStep: 0.12
   CountInterval: 1
   ScorePerCount: 0
+  BoostCount: 15

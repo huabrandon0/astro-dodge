@@ -8,6 +8,7 @@ namespace AsteroidRage.Game
     public class ExhaustEffects : MonoBehaviour
     {
         [SerializeField] ParticleSystem[] _flares;
+        [SerializeField] ParticleSystem[] _megaFlares;
 
         [System.Serializable]
         public class InvokeEvents
@@ -60,6 +61,22 @@ namespace AsteroidRage.Game
             foreach (ParticleSystem ps in _flares)
             {
                 ps.Play();
+            }
+        }
+
+        public void MegaFlareOn()
+        {
+            foreach (ParticleSystem ps in _megaFlares)
+            {
+                ps.Play();
+            }
+        }
+
+        public void MegaFlareOff()
+        {
+            foreach (ParticleSystem ps in _megaFlares)
+            {
+                ps.Stop();
             }
         }
     }

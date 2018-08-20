@@ -23,8 +23,11 @@ namespace AsteroidRage.Game
 
         [SerializeField] ResponseEvents _responseEvents;
         [SerializeField] InvokeEvents _invokeEvents;
+        [SerializeField] DifficultyConfig _diffConfig;
 
         public static int _count = 0;
+
+        bool boost = false;
 
 		void OnEnable()
 		{
@@ -41,12 +44,30 @@ namespace AsteroidRage.Game
         void AddToCount(int val)
         {
             _count += val;
-            _invokeEvents.CountChanged.Invoke(_count);
+            if (boost)
+                _invokeEvents.CountChanged.Invoke(_count + _diffConfig.BoostCount);
+            else
+                _invokeEvents.CountChanged.Invoke(_count);
         }
 
         void SetCount(int val)
         {
             _count = val;
+            if (boost)
+                _invokeEvents.CountChanged.Invoke(_count + _diffConfig.BoostCount);
+            else
+                _invokeEvents.CountChanged.Invoke(_count);
+        }
+
+        public void BoostCount()
+        {
+            boost = true;
+            _invokeEvents.CountChanged.Invoke(_count + _diffConfig.BoostCount);
+        }
+
+        public void UnboostCount()
+        {
+            boost = false;
             _invokeEvents.CountChanged.Invoke(_count);
         }
     }

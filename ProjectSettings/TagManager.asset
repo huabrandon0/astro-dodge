@@ -7,6 +7,7 @@ TagManager:
   - Asteroid
   - RowUnit
   - HitZone
+  - Shield
   layers:
   - Default
   - TransparentFX

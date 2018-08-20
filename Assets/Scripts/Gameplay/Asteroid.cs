@@ -15,6 +15,15 @@ namespace AsteroidRage.Game
         }
 
         [SerializeField] ResponseEvents _responseEvents;
+
+        [System.Serializable]
+        public class InvokeEvents
+        {
+            public GameEvent PlayerHit;
+            public GameEvent ShieldHit;
+        }
+
+        [SerializeField] InvokeEvents _invokeEvents;
         
         [SerializeField] DifficultyConfig _diffConfig;
 
@@ -52,8 +61,15 @@ namespace AsteroidRage.Game
 
         void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("HitZone"))
+            if (other.CompareTag("Player"))
+                _invokeEvents.PlayerHit.Invoke();
+            else if (other.CompareTag("HitZone"))
                 TurnOff();
+            else if (other.CompareTag("Shield"))
+            {
+                // TODO: Explode asteroid effect
+                _col.enabled = false;
+            }
         }
 
         public void TurnOn()

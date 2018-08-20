@@ -33,5 +33,7 @@ namespace AsteroidRage
 
         public int CountInterval = 1;
         public int ScorePerCount = 10;
+
+        public int BoostCount = 15;
     }
 }

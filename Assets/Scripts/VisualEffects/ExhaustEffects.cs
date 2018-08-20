@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using AsteroidRage.Events;
+using EZCameraShake;
 
 namespace AsteroidRage.Game
 {
@@ -17,6 +18,9 @@ namespace AsteroidRage.Game
         }
         
         [SerializeField] InvokeEvents _invokeEvents;
+
+        CameraShakeInstance _playerCameraShakeInstance;
+        CameraShakeInstance _warpDriveParticleCameraShakeInstance;
 
         //ParticleSystem[] _particleSystems;
 
@@ -66,6 +70,9 @@ namespace AsteroidRage.Game
 
         public void MegaFlareOn()
         {
+            _playerCameraShakeInstance = CameraShaker.GetInstance("PlayerCamera").StartShake(.3f, 3.5f, .5f);
+            _warpDriveParticleCameraShakeInstance = CameraShaker.GetInstance("WarpDriveParticleCamera").StartShake(.3f, 3.5f, .5f);
+
             foreach (ParticleSystem ps in _megaFlares)
             {
                 ps.Play();
@@ -74,6 +81,18 @@ namespace AsteroidRage.Game
 
         public void MegaFlareOff()
         {
+            if (_playerCameraShakeInstance != null)
+            {
+                _playerCameraShakeInstance.StartFadeOut(1f);
+                _playerCameraShakeInstance = null;
+            }
+
+            if (_warpDriveParticleCameraShakeInstance != null)
+            {
+                _warpDriveParticleCameraShakeInstance.StartFadeOut(1f);
+                _warpDriveParticleCameraShakeInstance = null;
+            }
+
             foreach (ParticleSystem ps in _megaFlares)
             {
                 ps.Stop();

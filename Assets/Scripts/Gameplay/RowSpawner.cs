@@ -107,7 +107,7 @@ namespace AsteroidRage.Game
         {
             float oldVelocityScale = _velocityScale;
             float desiredVelocityScale = 1f + _diffConfig.VelocityScaleStep * Mathf.Round(count / _diffConfig.VelocityScaleInterval);
-            _velocityScale = desiredVelocityScale;
+            _velocityScale = Mathf.Min(desiredVelocityScale, _diffConfig.VelocityScaleMax);
 
             if (_velocityScale != oldVelocityScale)
                 _invokeEvents.PlayerSpeedUp.Invoke();

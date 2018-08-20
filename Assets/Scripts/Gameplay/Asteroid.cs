@@ -49,7 +49,8 @@ namespace AsteroidRage.Game
         {
             if (enabled && _rb.velocity.magnitude != 0f)
             {
-                float scale = 1f + _diffConfig.VelocityScaleStep * Mathf.Round(count / _diffConfig.VelocityScaleInterval);
+                float desiredScale = 1f + _diffConfig.VelocityScaleStep * Mathf.Round(count / _diffConfig.VelocityScaleInterval);
+                float scale = Mathf.Min(desiredScale, _diffConfig.VelocityScaleMax);
                 _rb.velocity = _rb.velocity.normalized * _diffConfig.StartSpeed * scale;
             }
         }

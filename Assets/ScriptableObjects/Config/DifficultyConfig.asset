@@ -14,6 +14,7 @@ MonoBehaviour:
   StartSpeed: 6
   VelocityScaleInterval: 5
   VelocityScaleStep: 0.3
+  VelocityScaleMax: 6.1
   StartSpawnRate: 0.5
   SpawnRateScaleInterval: 5
   SpawnRateScaleStep: 0.25

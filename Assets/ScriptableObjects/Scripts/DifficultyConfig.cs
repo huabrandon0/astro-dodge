@@ -10,7 +10,7 @@ namespace AsteroidRage
         public float StartSpeed = 5f;
         public int VelocityScaleInterval = 5;
         public float VelocityScaleStep = 0.1f;
-        //public float VelocityScaleMax = 2.5f;
+        public float VelocityScaleMax = 2.5f;
 
         public float StartSpawnRate = 0.4f;
         public int SpawnRateScaleInterval = 5;

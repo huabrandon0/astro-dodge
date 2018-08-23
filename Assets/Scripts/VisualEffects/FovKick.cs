@@ -16,6 +16,11 @@ namespace AsteroidRage.Game
         [SerializeField] private float defaultDuration = 0.1f;
         [SerializeField] private AnimationCurve animationCurve = AnimationCurve.Linear(0, 0, 1, 1);
 
+        [SerializeField] private float defaultReverseFovInfluence = -3f;
+        [SerializeField] private float defaultReverseZInfluence = 0.1f;
+        [SerializeField] private float defaultReverseDuration = 0.1f;
+        [SerializeField] private AnimationCurve animationReverseCurve = AnimationCurve.Linear(0, 0, 1, 1);
+        
         private void Awake()
         {
             this.cam = GetComponent<Camera>();
@@ -32,6 +37,11 @@ namespace AsteroidRage.Game
         public void Kick()
         {
             Kick(this.defaultFovInfluence, this.defaultZInfluence, this.defaultDuration);
+        }
+
+        public void ReverseKick()
+        {
+            Kick(this.defaultReverseFovInfluence, this.defaultReverseZInfluence, this.defaultReverseDuration);
         }
 
         public void Kick(float fovInfluence, float zInfluence, float duration)

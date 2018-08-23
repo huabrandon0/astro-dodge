@@ -983,7 +983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a4dc95bc166fe24f96120a53f596778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameEvent: {fileID: 11400000, guid: c683c3a533b22c742b7edc6d274c2ac5, type: 2}
+  _gameEvent: {fileID: 11400000, guid: 0afed7e72f2299740a0b5ecedc9619d4, type: 2}
   _response:
     m_PersistentCalls:
       m_Calls:
@@ -10413,7 +10413,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.27
+      scalar: 0.25
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -10466,7 +10466,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5.58
+      scalar: 6.85
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -10582,7 +10582,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.39
+      scalar: 0.48
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -11107,7 +11107,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 16.02
+      scalar: 26.1
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -11217,7 +11217,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 4.2
+        scalar: 6.37
         minScalar: 0
         maxCurve:
           serializedVersion: 2
@@ -24096,7 +24096,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.27
+      scalar: 0.25
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -24149,7 +24149,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5.58
+      scalar: 6.85
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -24265,7 +24265,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.39
+      scalar: 0.48
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -24790,7 +24790,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 16.02
+      scalar: 26.1
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -24900,7 +24900,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 4.2
+        scalar: 6.37
         minScalar: 0
         maxCurve:
           serializedVersion: 2

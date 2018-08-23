@@ -27010,6 +27010,7 @@ GameObject:
   - component: {fileID: 693300173}
   - component: {fileID: 693300171}
   - component: {fileID: 693300170}
+  - component: {fileID: 693300174}
   - component: {fileID: 693300172}
   m_Layer: 0
   m_Name: PlayerCamera
@@ -27107,6 +27108,33 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  defaultReverseFovInfluence: -2
+  defaultReverseZInfluence: 0.05
+  defaultReverseDuration: 1
+  animationReverseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.0589867
+      outSlope: 2.0589867
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.09040743
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.800361
+      outSlope: -0.800361
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.16076061
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &693300172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27160,6 +27188,34 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &693300174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 693300168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a4dc95bc166fe24f96120a53f596778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEvent: {fileID: 11400000, guid: 5ddc44cf5300e1a4d9da0646b722c381, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 693300171}
+        m_MethodName: ReverseKick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &697393479
 GameObject:
   m_ObjectHideFlags: 0
@@ -78162,6 +78218,7 @@ MonoBehaviour:
     CountChanged: {fileID: 11400000, guid: b4a42109f746a5f4abcd210686ab6490, type: 2}
   _invokeEvents:
     PlayerSpeedUp: {fileID: 11400000, guid: 48c714de96f344d43a8877d8d2306c5c, type: 2}
+    PlayerSlowDown: {fileID: 11400000, guid: 5ddc44cf5300e1a4d9da0646b722c381, type: 2}
   _diffConfig: {fileID: 11400000, guid: ea90d0b6efe76234c9503019311b1540, type: 2}
 --- !u!4 &1928201805
 Transform:

@@ -32,6 +32,7 @@ namespace AsteroidRage.Game
         public class InvokeEvents
         {
             public GameEvent PlayerSpeedUp;
+            public GameEvent PlayerSlowDown;
         }
         
         [SerializeField] InvokeEvents _invokeEvents;
@@ -109,8 +110,10 @@ namespace AsteroidRage.Game
             float desiredVelocityScale = 1f + _diffConfig.VelocityScaleStep * Mathf.Round(count / _diffConfig.VelocityScaleInterval);
             _velocityScale = Mathf.Min(desiredVelocityScale, _diffConfig.VelocityScaleMax);
 
-            if (_velocityScale != oldVelocityScale)
+            if (_velocityScale > oldVelocityScale)
                 _invokeEvents.PlayerSpeedUp.Invoke();
+            else if (_velocityScale < oldVelocityScale)
+                _invokeEvents.PlayerSlowDown.Invoke();
 
             float desiredSpawnRateScale = 1f + _diffConfig.SpawnRateScaleStep * Mathf.Round(count / _diffConfig.SpawnRateScaleInterval);
             _spawnRateScale = Mathf.Min(desiredSpawnRateScale, _diffConfig.SpawnRateScaleMax);

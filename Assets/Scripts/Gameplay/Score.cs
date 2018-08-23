@@ -24,6 +24,7 @@ namespace AsteroidRage.Game
         public class InvokeEvents
         {
             public GameEventInt ScoreChanged;
+            public GameEvent ScoreChangedNoArg;
         }
 
         [SerializeField] InvokeEvents _invokeEvents;
@@ -44,14 +45,19 @@ namespace AsteroidRage.Game
 
 		public void AddToScore(int val)
         {
-            _score += val;
-            _invokeEvents.ScoreChanged.Invoke(_score);
+            if (val != 0)
+            {
+                _score += val;
+                _invokeEvents.ScoreChanged.Invoke(_score);
+                _invokeEvents.ScoreChangedNoArg.Invoke();
+            }
         }
 
         public void SetScore(int val)
         {
             _score = val;
             _invokeEvents.ScoreChanged.Invoke(_score);
+            _invokeEvents.ScoreChangedNoArg.Invoke();
         }
     }
 }

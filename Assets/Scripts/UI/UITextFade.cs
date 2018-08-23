@@ -13,13 +13,24 @@ namespace AsteroidRage.UI
     [RequireComponent(typeof(Text))]
     public class UITextFade : MonoBehaviour, IUIFade
     {
-        [SerializeField] float _fadeTime = 0;
+        [SerializeField] float _fadeTime = 0f;
+        [SerializeField] float _blinkTime = 0f;
 
         Text _text;
+
+        [SerializeField] bool _blinking = false;
 
         void Awake()
         {
             _text = this.GetComponentAssert<Text>();
+        }
+
+        void Start()
+        {
+            if (_blinking)
+            {
+                _text.DOFade(1f, _blinkTime).SetLoops(-1, LoopType.Yoyo);
+            }
         }
 
         public void FadeIn()

@@ -3,21 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using AsteroidRage.Events;
 
-public class PlayerHit : MonoBehaviour
+namespace AsteroidRage.Game
 {
-    [System.Serializable]
-    public class InvokeEvents
+    public class PlayerHit : MonoBehaviour
     {
-        public GameEvent PlayerHit;
-    }
-
-    [SerializeField] InvokeEvents _invokeEvents;
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Asteroid"))
+        [System.Serializable]
+        public class InvokeEvents
         {
-            _invokeEvents.PlayerHit.Invoke();
+            public GameEvent PlayerHit;
+        }
+
+        [SerializeField] InvokeEvents _invokeEvents;
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Asteroid"))
+            {
+                Asteroid ast = other.GetComponent<Asteroid>();
+                if (ast && ast._canHitPlayer)
+                {
+                    _invokeEvents.PlayerHit.Invoke();
+                }
+            }
         }
     }
 }

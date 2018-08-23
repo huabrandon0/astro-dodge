@@ -34,13 +34,18 @@ namespace AsteroidRage.Game
         [SerializeField] Color _onColor;
         [SerializeField] Color _offColor;
 
-        [SerializeField] float fadeInTime;
+        [SerializeField] float _fadeInTime;
+
+        ParticleSystem _explosion;
+
+        public bool _canHitPlayer = true;
 
         void Awake()
         {
             _rb = GetComponent<Rigidbody>();
             _mr = GetComponentInChildren<MeshRenderer>();
             _col = GetComponentInChildren<Collider>();
+            _explosion = GetComponentInChildren<ParticleSystem>();
 
             _responseEvents.CountChanged.AddListener(ScaleUp);
         }
@@ -63,33 +68,47 @@ namespace AsteroidRage.Game
         void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
-                _invokeEvents.PlayerHit.Invoke();
+            {
+                if (_canHitPlayer)
+                    _invokeEvents.PlayerHit.Invoke();
+            }
             else if (other.CompareTag("HitZone"))
-                TurnOff();
+            {
+                //transform.position = new Vector3(transform.position.x, -0.3f, -0.5f);
+                TurnOffExplode();
+            }
             else if (other.CompareTag("Shield"))
             {
                 // TODO: Explode asteroid effect
-                _col.enabled = false;
+                _canHitPlayer = false;
             }
         }
 
         public void TurnOn()
         {
             _mr.material.color = _onColor;
-            _col.enabled = true;
+            _canHitPlayer = true;
         }
 
         public void TurnOff()
         {
             _mr.material.color = _offColor;
-            _col.enabled = false;
+            _canHitPlayer = false;
+        }
+
+        public void TurnOffExplode()
+        {
+            //_mr.material.color = new Color(0, 0, 0, 0);
+            _mr.material.color = _offColor;
+            _explosion.Play();
+            _canHitPlayer = false;
         }
 
         public void TurnOnFade()
         {
             _mr.material.color = new Color(0, 0, 0, 0);
-            StartCoroutine(ColorLerp(_onColor, fadeInTime));
-            _col.enabled = true;
+            StartCoroutine(ColorLerp(_onColor, _fadeInTime));
+            _canHitPlayer = true;
         }
 
         IEnumerator ColorLerp(Color col, float fadeTime)

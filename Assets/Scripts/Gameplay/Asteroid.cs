@@ -21,6 +21,7 @@ namespace AsteroidRage.Game
         {
             public GameEvent PlayerHit;
             public GameEvent ShieldHit;
+            public GameEventInt CurrencyCollected;
         }
 
         [SerializeField] InvokeEvents _invokeEvents;
@@ -40,13 +41,19 @@ namespace AsteroidRage.Game
 
         public bool _canHitPlayer = true;
 
+        int _currencyValue = 0;
+
+        [SerializeField] GameObject[] _asteroidModels;
+
         void Awake()
         {
+            GameObject model = Instantiate(_asteroidModels[Random.Range(0, _asteroidModels.Length)], transform);
+            model.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
             _rb = GetComponent<Rigidbody>();
             _mr = GetComponentInChildren<MeshRenderer>();
             _col = GetComponentInChildren<Collider>();
             _explosion = GetComponentInChildren<ParticleSystem>();
-
+            
             _responseEvents.CountChanged.AddListener(ScaleUp);
         }
 
@@ -62,6 +69,7 @@ namespace AsteroidRage.Game
 
         void OnEnable()
         {
+            _currencyValue = Random.Range(1, 4);
             TurnOnFade();
         }
 
@@ -75,7 +83,10 @@ namespace AsteroidRage.Game
             else if (other.CompareTag("HitZone"))
             {
                 //transform.position = new Vector3(transform.position.x, -0.3f, -0.5f);
+                var em = _explosion.emission;
+                em.SetBurst(0, new ParticleSystem.Burst(0f, _currencyValue));
                 TurnOffExplode();
+                _invokeEvents.CurrencyCollected.Invoke(_currencyValue);
             }
             else if (other.CompareTag("Shield"))
             {

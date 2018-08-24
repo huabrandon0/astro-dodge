@@ -20,6 +20,8 @@ namespace AsteroidRage.UI
 
         [SerializeField] bool _blinking = false;
 
+        Sequence _mySequence;
+
         void Awake()
         {
             _text = this.GetComponentAssert<Text>();

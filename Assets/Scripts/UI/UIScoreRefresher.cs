@@ -18,6 +18,8 @@ namespace AsteroidRage.UI
 
         Text _scoreText;
 
+        [SerializeField] string _prefix = "";
+
         void Awake()
         {
             _scoreText = this.GetComponentAssert<Text>();
@@ -35,7 +37,7 @@ namespace AsteroidRage.UI
 
         void RefreshScore(int score)
         {
-            _scoreText.text = score.ToString();
+            _scoreText.text = _prefix + score.ToString();
         }
     }
 }

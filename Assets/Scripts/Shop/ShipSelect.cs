@@ -28,7 +28,8 @@ namespace AsteroidRage.Game
                 Debug.LogError("nooo!!");
             }
 
-            SelectShipRandom();
+            //SelectShipRandom();
+            SelectShip(0);
 
             _responseEvents.ChangeShipIndex.AddListener(SelectShip);
         }

@@ -110,8 +110,8 @@ MonoBehaviour:
       type: 2}
   _diffConfig: {fileID: 11400000, guid: ea90d0b6efe76234c9503019311b1540, type: 2}
   _onColor: {r: 1, g: 1, b: 1, a: 1}
-  _offColor: {r: 1, g: 1, b: 1, a: 0.2509804}
-  _fadeInTime: 0.2
+  _offColor: {r: 1, g: 1, b: 1, a: 0.5019608}
+  _fadeInTime: 0.3
   _canHitPlayer: 1
   _asteroidModels:
   - {fileID: 100000, guid: 31ae0b1a31e12004eb5425701e198d36, type: 3}

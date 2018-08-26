@@ -32,6 +32,16 @@ namespace AsteroidRage.Game
 
         int _currency = 0;
 
+        void Awake()
+        {
+            LoadCurrency();
+        }
+
+        void Start()
+        {
+            _invokeEvents.CurrencyChanged.Invoke(_currency);
+        }
+
 		void OnEnable()
 		{
             _responseEvents.AddToCurrency.AddListener(AddToCurrency);
@@ -42,6 +52,8 @@ namespace AsteroidRage.Game
 		{
             _responseEvents.AddToCurrency.RemoveListener(AddToCurrency);
             _responseEvents.SetCurrency.RemoveListener(SetCurrency);
+
+            SaveCurrency();
 		}
 
 		public void AddToCurrency(int val)
@@ -51,12 +63,15 @@ namespace AsteroidRage.Game
                 _currency += val;
                 _invokeEvents.CurrencyChanged.Invoke(_currency);
             }
+
+            SaveCurrency();
         }
 
         public void SetCurrency(int val)
         {
             _currency = val;
             _invokeEvents.CurrencyChanged.Invoke(_currency);
+            SaveCurrency();
         }
 
         public bool Withdraw(int val)
@@ -69,6 +84,18 @@ namespace AsteroidRage.Game
                 _invokeEvents.CurrencyChanged.Invoke(_currency);
                 return true;
             }
+
+            SaveCurrency();
+        }
+
+        void SaveCurrency()
+        {
+            PlayerPrefs.SetInt("currency", _currency);
+        }
+
+        void LoadCurrency()
+        {
+            _currency = PlayerPrefs.GetInt("currency");
         }
     }
 }

@@ -15,6 +15,7 @@ namespace AsteroidRage.UI
         TextMeshProUGUI _text;
 
         [SerializeField] string _prefix = "";
+        [SerializeField] string _suffix = "";
 
         void Awake()
         {
@@ -33,7 +34,7 @@ namespace AsteroidRage.UI
 
         void RefreshScore(int score)
         {
-            _text.SetText(_prefix + score.ToString());
+            _text.SetText(_prefix + score.ToString() + _suffix);
         }
     }
 }

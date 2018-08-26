@@ -25,11 +25,23 @@ namespace AsteroidRage.Game
         {
             public GameEventInt ScoreChanged;
             public GameEvent ScoreChangedNoArg;
+            public GameEventInt HighScoreChanged;
         }
 
         [SerializeField] InvokeEvents _invokeEvents;
 
         int _score = 0;
+        int _highScore = 0;
+
+        void Awake()
+        {
+            LoadScore();
+        }
+
+        void Start()
+        {
+            _invokeEvents.HighScoreChanged.Invoke(_highScore);
+        }
 
 		void OnEnable()
 		{
@@ -51,6 +63,8 @@ namespace AsteroidRage.Game
                 _invokeEvents.ScoreChanged.Invoke(_score);
                 _invokeEvents.ScoreChangedNoArg.Invoke();
             }
+
+            CheckCurrentScoreVsHighScore();
         }
 
         public void SetScore(int val)
@@ -58,6 +72,27 @@ namespace AsteroidRage.Game
             _score = val;
             _invokeEvents.ScoreChanged.Invoke(_score);
             _invokeEvents.ScoreChangedNoArg.Invoke();
+            CheckCurrentScoreVsHighScore();
+        }
+
+        void SaveScore()
+        {
+            PlayerPrefs.SetInt("highScore", _highScore);
+        }
+
+        void LoadScore()
+        {
+            _highScore = PlayerPrefs.GetInt("highScore");
+        }
+
+        public void CheckCurrentScoreVsHighScore()
+        {
+            if (_score > _highScore)
+            {
+                _highScore = _score;
+                SaveScore();
+                _invokeEvents.HighScoreChanged.Invoke(_highScore);
+            }
         }
     }
 }

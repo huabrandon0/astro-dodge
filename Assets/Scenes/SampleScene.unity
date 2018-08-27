@@ -124,6 +124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 42723181}
   - component: {fileID: 42723182}
+  - component: {fileID: 42723183}
   m_Layer: 12
   m_Name: Model
   m_TagString: Untagged
@@ -160,6 +161,24 @@ MonoBehaviour:
   _frequency: 7
   _numberOfFlashes: 2
   _flashColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!95 &42723183
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 42723180}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e3e919a874e763e4a948012388bc5778, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &52790233
 GameObject:
   m_ObjectHideFlags: 0
@@ -10620,7 +10639,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.25
+      scalar: 0.11
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -11417,65 +11436,8 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    m_BurstCount: 1
-    m_Bursts:
-    - serializedVersion: 2
-      time: 0
-      countCurve:
-        serializedVersion: 2
-        minMaxState: 0
-        scalar: 6.37
-        minScalar: 0
-        maxCurve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        minCurve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      cycleCount: 0
-      repeatInterval: 0.5
+    m_BurstCount: 0
+    m_Bursts: []
   SizeModule:
     enabled: 1
     curve:
@@ -15180,15 +15142,17 @@ Transform:
 --- !u!114 &267148318
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114619814497567372, guid: bf5f388416241ce4cada1492ebe71216,
-    type: 2}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 267148316}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5b85f52ad926224187109f6a3bd7a26, type: 3}
+  m_Script: {fileID: 11500000, guid: a9743f857b9bf3e4cacd9bc143f05f4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _exhausts:
+  - {fileID: 1759654701}
+  - {fileID: 1167887581}
   _flares:
   - {fileID: 1331329560}
   - {fileID: 1735394084}
@@ -15196,8 +15160,7 @@ MonoBehaviour:
   - {fileID: 464968874}
   - {fileID: 244358026}
   _invokeEvents:
-    PlayerFlaredEvent: {fileID: 11400000, guid: dd4a6280ce2590d4bb419653be01f216,
-      type: 2}
+    ModelFlaredEvent: {fileID: 11400000, guid: ad1b1ef869b4dd54b924deea01caeda7, type: 2}
 --- !u!1 &268945379
 GameObject:
   m_ObjectHideFlags: 0
@@ -15208,6 +15171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 268945380}
   - component: {fileID: 268945381}
+  - component: {fileID: 268945382}
   m_Layer: 12
   m_Name: Model
   m_TagString: Untagged
@@ -15244,6 +15208,24 @@ MonoBehaviour:
   _frequency: 7
   _numberOfFlashes: 2
   _flashColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!95 &268945382
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 268945379}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e3e919a874e763e4a948012388bc5778, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &282840810
 GameObject:
   m_ObjectHideFlags: 0
@@ -15931,6 +15913,7 @@ GameObject:
   m_Component:
   - component: {fileID: 320089622}
   - component: {fileID: 320089623}
+  - component: {fileID: 320089624}
   m_Layer: 12
   m_Name: Model
   m_TagString: Untagged
@@ -15967,6 +15950,24 @@ MonoBehaviour:
   _frequency: 7
   _numberOfFlashes: 2
   _flashColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!95 &320089624
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 320089621}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e3e919a874e763e4a948012388bc5778, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &326763814
 GameObject:
   m_ObjectHideFlags: 0
@@ -16761,7 +16762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a4dc95bc166fe24f96120a53f596778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameEvent: {fileID: 11400000, guid: 48c714de96f344d43a8877d8d2306c5c, type: 2}
+  _gameEvent: {fileID: 11400000, guid: dd4a6280ce2590d4bb419653be01f216, type: 2}
   _response:
     m_PersistentCalls:
       m_Calls:
@@ -16944,7 +16945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a4dc95bc166fe24f96120a53f596778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameEvent: {fileID: 11400000, guid: 8cb4dcfa5f363ba41984f9ce08e6dd7c, type: 2}
+  _gameEvent: {fileID: 11400000, guid: ad1b1ef869b4dd54b924deea01caeda7, type: 2}
   _response:
     m_PersistentCalls:
       m_Calls:
@@ -21854,7 +21855,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.25
+      scalar: 0.11
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -22651,65 +22652,8 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    m_BurstCount: 1
-    m_Bursts:
-    - serializedVersion: 2
-      time: 0
-      countCurve:
-        serializedVersion: 2
-        minMaxState: 0
-        scalar: 6.37
-        minScalar: 0
-        maxCurve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        minCurve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      cycleCount: 0
-      repeatInterval: 0.5
+    m_BurstCount: 0
+    m_Bursts: []
   SizeModule:
     enabled: 1
     curve:
@@ -26980,7 +26924,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.29
+      scalar: 0.11
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -27777,65 +27721,8 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    m_BurstCount: 1
-    m_Bursts:
-    - serializedVersion: 2
-      time: 0
-      countCurve:
-        serializedVersion: 2
-        minMaxState: 0
-        scalar: 4.75
-        minScalar: 0
-        maxCurve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        minCurve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      cycleCount: 0
-      repeatInterval: 0.5
+    m_BurstCount: 0
+    m_Bursts: []
   SizeModule:
     enabled: 1
     curve:
@@ -31575,7 +31462,6 @@ GameObject:
   m_Component:
   - component: {fileID: 536121003}
   - component: {fileID: 536121004}
-  - component: {fileID: 536121005}
   m_Layer: 12
   m_Name: ShopDisplay
   m_TagString: Untagged
@@ -31610,24 +31496,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationSpeed: 30
---- !u!95 &536121005
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 536121002}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 763df0ba328a83d488fe63167b00b786, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &549630046
 GameObject:
   m_ObjectHideFlags: 0
@@ -37464,7 +37332,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.32
+      scalar: 0.11
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -38261,65 +38129,8 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    m_BurstCount: 1
-    m_Bursts:
-    - serializedVersion: 2
-      time: 0
-      countCurve:
-        serializedVersion: 2
-        minMaxState: 0
-        scalar: 4.75
-        minScalar: 0
-        maxCurve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        minCurve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      cycleCount: 0
-      repeatInterval: 0.5
+    m_BurstCount: 0
+    m_Bursts: []
   SizeModule:
     enabled: 1
     curve:
@@ -42175,6 +41986,7 @@ GameObject:
   - component: {fileID: 630917012}
   - component: {fileID: 630917011}
   - component: {fileID: 630917010}
+  - component: {fileID: 630917008}
   m_Layer: 12
   m_Name: Shop
   m_TagString: Untagged
@@ -42196,6 +42008,34 @@ Transform:
   m_Father: {fileID: 1431893069}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -35.37, y: 0, z: 0}
+--- !u!114 &630917008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 630917006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a4dc95bc166fe24f96120a53f596778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEvent: {fileID: 11400000, guid: 2085c29e8cfbd2249abe8a6acca7c644, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 630917017}
+        m_MethodName: ShowModels
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &630917010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42411,15 +42251,15 @@ MonoBehaviour:
   - Model: {fileID: 641861127}
     Name: Red
     Unlocked: 0
-    Cost: 1000
+    Cost: 0
   - Model: {fileID: 42723181}
     Name: Blue
     Unlocked: 0
-    Cost: 2000
+    Cost: 0
   - Model: {fileID: 320089622}
     Name: Green
     Unlocked: 0
-    Cost: 5000
+    Cost: 0
   _invokeEvents:
     ChangeShipIndex: {fileID: 11400000, guid: 56fdb207e41776c49a6191393e7da0d5, type: 2}
     ChangeShipFailed: {fileID: 11400000, guid: ff5ff14278befa6439e0e2ea24b01881, type: 2}
@@ -42621,6 +42461,7 @@ GameObject:
   m_Component:
   - component: {fileID: 641861127}
   - component: {fileID: 641861128}
+  - component: {fileID: 641861129}
   m_Layer: 12
   m_Name: Model
   m_TagString: Untagged
@@ -42657,6 +42498,24 @@ MonoBehaviour:
   _frequency: 7
   _numberOfFlashes: 2
   _flashColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!95 &641861129
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 641861126}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e3e919a874e763e4a948012388bc5778, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &661026937
 GameObject:
   m_ObjectHideFlags: 0
@@ -42699,7 +42558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a4dc95bc166fe24f96120a53f596778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameEvent: {fileID: 11400000, guid: dd4a6280ce2590d4bb419653be01f216, type: 2}
+  _gameEvent: {fileID: 11400000, guid: ad1b1ef869b4dd54b924deea01caeda7, type: 2}
   _response:
     m_PersistentCalls:
       m_Calls:
@@ -42727,9 +42586,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07b15dd6b8b363943bf41012f683ca86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultFovInfluence: 5
-  defaultZInfluence: -0.1
-  defaultDuration: 0.6
+  defaultFovInfluence: 1
+  defaultZInfluence: -0.05
+  defaultDuration: 0.5
   animationCurve:
     serializedVersion: 2
     m_Curve:
@@ -59888,22 +59747,22 @@ Transform:
 --- !u!114 &1055098588
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114539841134893884, guid: a3a2ed73075aee64aa93f88c1f00ac03,
-    type: 2}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1055098586}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5b85f52ad926224187109f6a3bd7a26, type: 3}
+  m_Script: {fileID: 11500000, guid: a9743f857b9bf3e4cacd9bc143f05f4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _exhausts:
+  - {fileID: 957630811}
   _flares:
   - {fileID: 793057294}
   _megaFlares:
   - {fileID: 496236845}
   _invokeEvents:
-    PlayerFlaredEvent: {fileID: 11400000, guid: dd4a6280ce2590d4bb419653be01f216,
-      type: 2}
+    ModelFlaredEvent: {fileID: 11400000, guid: ad1b1ef869b4dd54b924deea01caeda7, type: 2}
 --- !u!1 &1066432572
 GameObject:
   m_ObjectHideFlags: 0
@@ -75207,22 +75066,22 @@ Transform:
 --- !u!114 &1310843010
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114653330420404716, guid: 163eab03ac8cb6e4b868ce835641191a,
-    type: 2}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1310843008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5b85f52ad926224187109f6a3bd7a26, type: 3}
+  m_Script: {fileID: 11500000, guid: a9743f857b9bf3e4cacd9bc143f05f4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _exhausts:
+  - {fileID: 552086835}
   _flares:
   - {fileID: 1725879057}
   _megaFlares:
   - {fileID: 601466980}
   _invokeEvents:
-    PlayerFlaredEvent: {fileID: 11400000, guid: dd4a6280ce2590d4bb419653be01f216,
-      type: 2}
+    ModelFlaredEvent: {fileID: 11400000, guid: ad1b1ef869b4dd54b924deea01caeda7, type: 2}
 --- !u!1 &1329961274
 GameObject:
   m_ObjectHideFlags: 0
@@ -81096,7 +80955,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.38
+      scalar: 0.11
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -81893,65 +81752,8 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    m_BurstCount: 1
-    m_Bursts:
-    - serializedVersion: 2
-      time: 0
-      countCurve:
-        serializedVersion: 2
-        minMaxState: 0
-        scalar: 4.75
-        minScalar: 0
-        maxCurve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        minCurve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      cycleCount: 0
-      repeatInterval: 0.5
+    m_BurstCount: 0
+    m_Bursts: []
   SizeModule:
     enabled: 1
     curve:
@@ -85715,6 +85517,9 @@ GameObject:
   - component: {fileID: 1584120431}
   - component: {fileID: 1584120430}
   - component: {fileID: 1584120429}
+  - component: {fileID: 1584120435}
+  - component: {fileID: 1584120432}
+  - component: {fileID: 1584120433}
   m_Layer: 12
   m_Name: ShopModels
   m_TagString: Untagged
@@ -85755,7 +85560,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1584120431}
-        m_MethodName: Flare
+        m_MethodName: MegaFlareOn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -85806,6 +85611,91 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d393e4ee08f1007479d374e6c1d0a83f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1584120432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1584120427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a4dc95bc166fe24f96120a53f596778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEvent: {fileID: 11400000, guid: d30ffd6e10ae09541a5c2a22195206fd, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1584120431}
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: BarrelRoll
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &1584120433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1584120427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a4dc95bc166fe24f96120a53f596778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEvent: {fileID: 11400000, guid: d30ffd6e10ae09541a5c2a22195206fd, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1584120431}
+        m_MethodName: Flare
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: BarrelRoll
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &1584120435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1584120427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ab86d1c0a820804c8b0a5a53722f4bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEvent: {fileID: 11400000, guid: 01e33b912311e764885e6165c7df554b, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1584120431}
+        m_MethodName: MegaFlareOn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  delay: 0.05
 --- !u!1 &1596140151
 GameObject:
   m_ObjectHideFlags: 0
@@ -90608,22 +90498,22 @@ Transform:
 --- !u!114 &1631527470
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114711207992997436, guid: fa45543176f83ad4083363e46f1a43b5,
-    type: 2}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1631527468}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5b85f52ad926224187109f6a3bd7a26, type: 3}
+  m_Script: {fileID: 11500000, guid: a9743f857b9bf3e4cacd9bc143f05f4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _exhausts:
+  - {fileID: 455878350}
   _flares:
   - {fileID: 1147232421}
   _megaFlares:
   - {fileID: 1428247838}
   _invokeEvents:
-    PlayerFlaredEvent: {fileID: 11400000, guid: dd4a6280ce2590d4bb419653be01f216,
-      type: 2}
+    ModelFlaredEvent: {fileID: 11400000, guid: ad1b1ef869b4dd54b924deea01caeda7, type: 2}
 --- !u!1 &1636951763
 GameObject:
   m_ObjectHideFlags: 0

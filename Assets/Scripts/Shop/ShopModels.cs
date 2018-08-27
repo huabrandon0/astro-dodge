@@ -7,12 +7,14 @@ namespace AsteroidRage.Game
     public class ShopModels : MonoBehaviour
     {
         FlashRed[] _flashReds;
-        ExhaustEffects[] _exhaustEffects;
+        ModelExhaustEffects[] _exhaustEffects;
+        Animator[] _anims;
 
         void Awake()
         {
             _flashReds = GetComponentsInChildren<FlashRed>();
-            _exhaustEffects = GetComponentsInChildren<ExhaustEffects>();
+            _exhaustEffects = GetComponentsInChildren<ModelExhaustEffects>();
+            _anims = GetComponentsInChildren<Animator>();
         }
 
         public void FlashRed()
@@ -26,7 +28,7 @@ namespace AsteroidRage.Game
 
         public void Flare()
         {
-            foreach (ExhaustEffects exhaustEffects in _exhaustEffects)
+            foreach (ModelExhaustEffects exhaustEffects in _exhaustEffects)
             {
                 if (exhaustEffects.isActiveAndEnabled)
                     exhaustEffects.Flare();
@@ -35,7 +37,9 @@ namespace AsteroidRage.Game
 
         public void MegaFlareOn()
         {
-            foreach (ExhaustEffects exhaustEffects in _exhaustEffects)
+            Flare();
+
+            foreach (ModelExhaustEffects exhaustEffects in _exhaustEffects)
             {
                 if (exhaustEffects.isActiveAndEnabled)
                     exhaustEffects.MegaFlareOn();
@@ -44,10 +48,19 @@ namespace AsteroidRage.Game
 
         public void MegaFlareOff()
         {
-            foreach (ExhaustEffects exhaustEffects in _exhaustEffects)
+            foreach (ModelExhaustEffects exhaustEffects in _exhaustEffects)
             {
                 if (exhaustEffects.isActiveAndEnabled)
                     exhaustEffects.MegaFlareOff();
+            }
+        }
+
+        public void SetTrigger(string trigger)
+        {
+            foreach (Animator anim in _anims)
+            {
+                if (anim.isActiveAndEnabled)
+                    anim.SetTrigger(trigger);
             }
         }
     }

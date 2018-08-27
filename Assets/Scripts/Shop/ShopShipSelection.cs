@@ -45,7 +45,7 @@ namespace AsteroidRage.Game
         }
 
         [SerializeField] InvokeEvents _invokeEvents;
-        
+
         //_ships = new List<Ship>();
         //for (int i = 0; i < transform.childCount; i++)
         //{
@@ -62,7 +62,7 @@ namespace AsteroidRage.Game
         //    _unlocked.Add(_unlockedModels[i]);
         //}
 
-        void Start()
+        public void ShowModels()
         {
             ChangeModel(_index);
         }

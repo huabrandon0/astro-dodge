@@ -26385,7 +26385,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -200.00002, y: 18.935}
-  m_SizeDelta: {x: 324.53, y: 55.3}
+  m_SizeDelta: {x: 209.03, y: 55.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &477802485
 MonoBehaviour:
@@ -26437,7 +26437,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Sounds OFF
+  m_text: SFX OFF
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -26551,7 +26551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _updateInt: {fileID: 0}
   _updateString: {fileID: 0}
-  _prefix: 'Sounds '
+  _prefix: 'SFX '
   _suffix: 
 --- !u!1 &491994260
 GameObject:
@@ -36448,11 +36448,11 @@ RectTransform:
   m_Father: {fileID: 81643913}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -247.42}
-  m_SizeDelta: {x: 391.75, y: 181.89}
-  m_Pivot: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 621}
+  m_SizeDelta: {x: 391.75, y: 181.89001}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &579842857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42251,15 +42251,15 @@ MonoBehaviour:
   - Model: {fileID: 641861127}
     Name: Red
     Unlocked: 0
-    Cost: 0
+    Cost: 500
   - Model: {fileID: 42723181}
     Name: Blue
     Unlocked: 0
-    Cost: 0
+    Cost: 1500
   - Model: {fileID: 320089622}
     Name: Green
     Unlocked: 0
-    Cost: 0
+    Cost: 2500
   _invokeEvents:
     ChangeShipIndex: {fileID: 11400000, guid: 56fdb207e41776c49a6191393e7da0d5, type: 2}
     ChangeShipFailed: {fileID: 11400000, guid: ff5ff14278befa6439e0e2ea24b01881, type: 2}
@@ -49000,11 +49000,11 @@ RectTransform:
   m_Father: {fileID: 1006750394}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -225.1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 512}
   m_SizeDelta: {x: 1080, y: 445}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &875095808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90666,6 +90666,7 @@ GameObject:
   - component: {fileID: 1655305820}
   - component: {fileID: 1655305819}
   - component: {fileID: 1655305823}
+  - component: {fileID: 1655305824}
   m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
@@ -90686,11 +90687,11 @@ RectTransform:
   m_Father: {fileID: 1738160065}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: -247.42}
-  m_SizeDelta: {x: 391.75, y: 181.89}
-  m_Pivot: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 621}
+  m_SizeDelta: {x: 391.75, y: 181.89001}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1655305819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90858,6 +90859,34 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1655305824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1655305817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a4dc95bc166fe24f96120a53f596778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEvent: {fileID: 11400000, guid: 9c161e36c36118441a8a7019930a1018, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1655305823}
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Bounce
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &1672975545
 GameObject:
   m_ObjectHideFlags: 0
@@ -110051,11 +110080,11 @@ RectTransform:
   m_Father: {fileID: 81643913}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.0000030029, y: -503.5}
-  m_SizeDelta: {x: 348.1, y: 89.49}
-  m_Pivot: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 411}
+  m_SizeDelta: {x: 348.1, y: 89.48999}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1747948675
 MonoBehaviour:
   m_ObjectHideFlags: 0

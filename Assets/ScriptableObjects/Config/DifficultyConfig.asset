@@ -21,10 +21,10 @@ MonoBehaviour:
   SpawnRateScaleMax: 5.5
   RowFillSizeScaleInterval: 100
   RowFillSizeScaleStep: 0
-  StartMoveSpeed: 4
+  StartMoveSpeed: 4.4
   MoveSpeedScaleInterval: 5
-  MoveSpeedScaleStep: 0.15
-  MoveSpeedScaleMax: 3
+  MoveSpeedScaleStep: 0.1
+  MoveSpeedScaleMax: 2.8
   DodgeDistance: 1.5
   DodgeScore: 0
   TumbleScaleInterval: 5

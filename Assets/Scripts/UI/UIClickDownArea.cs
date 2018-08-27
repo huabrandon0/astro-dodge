@@ -6,7 +6,7 @@ using AsteroidRage.Events;
 
 namespace AsteroidRage.UI
 {
-    public class UIClickDownArea : MonoBehaviour, IPointerDownHandler, IPointerExitHandler, IPointerUpHandler
+    public class UIClickDownArea : MonoBehaviour, IPointerDownHandler, IPointerExitHandler, IPointerUpHandler, IPointerEnterHandler
     {
         [SerializeField] private GameEvent _onAreaBeingClickedOn;
         
@@ -17,6 +17,15 @@ namespace AsteroidRage.UI
         {
             if (_isPressed)
                 _onAreaBeingClickedOn.Invoke();
+        }
+
+        public void OnPointerEnter(PointerEventData data)
+        {
+            if (!_isPressed)
+            {
+                _isPressed = true;
+                _pointerId = data.pointerId;
+            }
         }
 
         public void OnPointerDown(PointerEventData data)

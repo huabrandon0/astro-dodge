@@ -10,7 +10,8 @@ namespace AsteroidRage.UI
     [RequireComponent(typeof(TextMeshProUGUI))]
     public class UITextRefresher : MonoBehaviour
     {
-        [SerializeField] GameEventInt _updateText;
+        [SerializeField] GameEventInt _updateInt;
+        [SerializeField] GameEventString _updateString;
 
         TextMeshProUGUI _text;
 
@@ -24,17 +25,29 @@ namespace AsteroidRage.UI
 
 		void OnEnable()
 		{
-            _updateText.AddListener(RefreshScore);
+            if (_updateInt)
+                _updateInt.AddListener(RefreshInt);
+
+            if (_updateString)
+                _updateString.AddListener(RefreshText);
 		}
 
 		void OnDisable()
         {
-            _updateText.RemoveListener(RefreshScore);
+            if (_updateInt)
+                _updateInt.RemoveListener(RefreshInt);
+            if (_updateString)
+                _updateString.RemoveListener(RefreshText);
         }
 
-        void RefreshScore(int score)
+        void RefreshInt(int score)
         {
             _text.SetText(_prefix + score.ToString() + _suffix);
+        }
+
+        void RefreshText(string text)
+        {
+            _text.SetText(_prefix + text + _suffix);
         }
     }
 }

@@ -23,8 +23,8 @@ MonoBehaviour:
   RowFillSizeScaleStep: 0
   StartMoveSpeed: 4.4
   MoveSpeedScaleInterval: 5
-  MoveSpeedScaleStep: 0.1
-  MoveSpeedScaleMax: 2.8
+  MoveSpeedScaleStep: 0.12
+  MoveSpeedScaleMax: 3.16
   DodgeDistance: 1.5
   DodgeScore: 0
   TumbleScaleInterval: 5

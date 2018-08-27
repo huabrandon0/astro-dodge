@@ -113,7 +113,7 @@ namespace AsteroidRage.Game
             if (index < 0 || index >= _ships.Length)
                 return;
 
-            Debug.Log("changing to " + _ships[index].Name);
+            //Debug.Log("changing to " + _ships[index].Name);
 
             _invokeEvents.ChangeShipName.Invoke(_ships[index].Name);
 

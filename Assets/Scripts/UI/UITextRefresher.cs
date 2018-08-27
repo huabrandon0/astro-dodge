@@ -40,12 +40,12 @@ namespace AsteroidRage.UI
                 _updateString.RemoveListener(RefreshText);
         }
 
-        void RefreshInt(int score)
+        public void RefreshInt(int score)
         {
             _text.SetText(_prefix + score.ToString() + _suffix);
         }
 
-        void RefreshText(string text)
+        public void RefreshText(string text)
         {
             _text.SetText(_prefix + text + _suffix);
         }

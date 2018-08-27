@@ -6,7 +6,7 @@ using AsteroidRage.Events;
 
 namespace AsteroidRage.UI
 {
-    public class UIClickDownArea : MonoBehaviour, IPointerDownHandler, IPointerExitHandler, IPointerUpHandler, IPointerEnterHandler
+    public class UIClickDownArea : MonoBehaviour, IPointerDownHandler, IPointerExitHandler, IPointerUpHandler
     {
         [SerializeField] private GameEvent _onAreaBeingClickedOn;
         
@@ -19,14 +19,14 @@ namespace AsteroidRage.UI
                 _onAreaBeingClickedOn.Invoke();
         }
 
-        public void OnPointerEnter(PointerEventData data)
-        {
-            if (!_isPressed)
-            {
-                _isPressed = true;
-                _pointerId = data.pointerId;
-            }
-        }
+        //public void OnPointerEnter(PointerEventData data)
+        //{
+        //    if (!_isPressed && boolForPointerBeingPressedDown) // Currently broken for PC builds b/c we can't tell if the mouse button is being pressed down or not.
+        //    {
+        //        _isPressed = true;
+        //        _pointerId = data.pointerId;
+        //    }
+        //}
 
         public void OnPointerDown(PointerEventData data)
         {

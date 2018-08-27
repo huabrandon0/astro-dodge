@@ -67,6 +67,11 @@ namespace AsteroidRage.Game
             SaveCurrency();
         }
 
+        public int GetCurrency()
+        {
+            return _currency;
+        }
+
         public void SetCurrency(int val)
         {
             _currency = val;
@@ -82,10 +87,9 @@ namespace AsteroidRage.Game
             {
                 _currency -= val;
                 _invokeEvents.CurrencyChanged.Invoke(_currency);
+                SaveCurrency();
                 return true;
             }
-
-            SaveCurrency();
         }
 
         void SaveCurrency()

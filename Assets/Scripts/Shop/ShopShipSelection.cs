@@ -42,6 +42,8 @@ namespace AsteroidRage.Game
             public GameEvent ShipSelected;
             public GameEvent ShipBought;
             public GameEvent ShipChosen;
+            public GameEvent CanAffordShip;
+            public GameEvent CannotAffordShip;
         }
 
         [SerializeField] InvokeEvents _invokeEvents;
@@ -127,6 +129,11 @@ namespace AsteroidRage.Game
             {
                 _invokeEvents.ShipLocked.Invoke();
                 _invokeEvents.ChangeShipCost.Invoke(_ships[_index].Cost);
+
+                if (Currency.Instance.GetCurrency() >= _ships[_index].Cost)
+                    _invokeEvents.CanAffordShip.Invoke();
+                else
+                    _invokeEvents.CannotAffordShip.Invoke();
             }
 
             EnableModel(_ships[index]);

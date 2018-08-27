@@ -19,6 +19,8 @@ namespace AsteroidRage.Game
 
         public void FlashRed()
         {
+            EZCameraShake.CameraShaker.GetInstance("ShipSelectCamera").ShakeOnce(1f, 8f, 0f, 0.75f);
+
             foreach (FlashRed flashRed in _flashReds)
             {
                 if (flashRed.isActiveAndEnabled)

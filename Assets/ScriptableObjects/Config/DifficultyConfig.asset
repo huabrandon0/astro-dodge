@@ -14,18 +14,18 @@ MonoBehaviour:
   StartSpeed: 6
   VelocityScaleInterval: 5
   VelocityScaleStep: 0.3
-  VelocityScaleMax: 7.9
+  VelocityScaleMax: 7.6
   StartSpawnRate: 0.5
   SpawnRateScaleInterval: 5
   SpawnRateScaleStep: 0.25
-  SpawnRateScaleMax: 6.75
+  SpawnRateScaleMax: 6.5
   StartGoldenSpawnPercent: 0.01
   GoldenSpawnPercentAddInterval: 10
   GoldenSpawnPercentAddStep: 0.08
   GoldenSpawnPercentMaxBeforeSnap: 0.7
   StartDiamondSpawnPercent: 0.09
   DiamondSpawnPercentAddInterval: 5
-  DiamondSpawnPercentAddStep: 0.1
+  DiamondSpawnPercentAddStep: 0.08
   DiamondSpawnPercentMaxBeforeSnap: 0.7
   RowFillSizeScaleInterval: 100
   RowFillSizeScaleStep: 0

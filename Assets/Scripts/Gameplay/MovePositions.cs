@@ -8,20 +8,20 @@ namespace AsteroidRage.Game
 {
     public class MovePositions : MonoBehaviour
     {
-        [SerializeField] private Vector3[] _positions;
-        private int _desiredIndex;
-        private int _currentIndex;
+        [SerializeField] Vector3[] _positions;
+        int _desiredIndex;
+        int _currentIndex;
 
-        private enum MoveState { None, Left, Right };
-        private MoveState _moveState = MoveState.None;
+        enum MoveState { None, Left, Right };
+        MoveState _moveState = MoveState.None;
 
-        private Coroutine _moveCoroutine;
+        Coroutine _moveCoroutine;
 
-        [SerializeField] private AnimationCurve _moveAnimationCurve;
+        [SerializeField] AnimationCurve _moveAnimationCurve;
 
         //private Animator _anim;
 
-        private bool _canMove = false;
+        bool _canMove = false;
 
         [System.Serializable]
         public class ResponseEvents
@@ -43,7 +43,7 @@ namespace AsteroidRage.Game
         [SerializeField] InvokeEvents _invokeEvents;
 
         [SerializeField] DifficultyConfig _diffConfig;
-        private float _moveSpeedScale = 1.0f;
+        float _moveSpeedScale = 1.0f;
 
         void Awake()
         {
@@ -85,8 +85,7 @@ namespace AsteroidRage.Game
 
         public void SwitchPosition(int i)
         {
-            if (i < 0 || i >= _positions.Length)
-                return;
+            i = Mathf.Max(0, Mathf.Min(i, _positions.Length - 1));
 
             //if (i == _currentIndex || (i < _currentIndex && _moveState == MoveState.Left) || (i > _currentIndex && _moveState == MoveState.Right))
             //    return;
@@ -107,12 +106,16 @@ namespace AsteroidRage.Game
             _invokeEvents.PlayerMoved.Invoke();
         }
 
+        public void AddToIndex(int val)
+        {
+            if (_canMove)
+                _desiredIndex += val;
+        }
+
         public void IncrementIndex()
         {
             if (_canMove)
-            {
                 _desiredIndex++;
-            }
         }
 
         public void DecrementIndex()

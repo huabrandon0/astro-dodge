@@ -117,10 +117,10 @@ MonoBehaviour:
   _minCurrencyValue: 1
   _maxCurrencyValue: 4
   _asteroidModels:
-  - {fileID: 100000, guid: 31ae0b1a31e12004eb5425701e198d36, type: 3}
-  - {fileID: 100000, guid: 4fa0c48814db8b34e9abc63850a5adcd, type: 3}
-  - {fileID: 100000, guid: ea11fa1303cc7c74484e1c03c2f40493, type: 3}
-  - {fileID: 100000, guid: dbfb640bcbcdb5e489c95d40666777bb, type: 3}
+  - {fileID: 102630, guid: 678bc45fa6df37043b80d12daa3a9d51, type: 2}
+  - {fileID: 152982, guid: 75204aeb0b1f4194e8dd78998abb7652, type: 2}
+  - {fileID: 111306, guid: 7255e26f7d2981d4ea7ed83351d2d805, type: 2}
+  - {fileID: 114474, guid: 6f6b913233923554eb49f4cb7bd23ff4, type: 2}
 --- !u!114 &114163074265873842
 MonoBehaviour:
   m_ObjectHideFlags: 1

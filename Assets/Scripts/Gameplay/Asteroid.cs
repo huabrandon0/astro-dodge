@@ -22,6 +22,7 @@ namespace AsteroidRage.Game
             public GameEvent PlayerHit;
             public GameEvent ShieldHit;
             public GameEventInt CurrencyCollected;
+            public GameEvent AsteroidExploded;
         }
 
         [SerializeField] InvokeEvents _invokeEvents;
@@ -42,6 +43,8 @@ namespace AsteroidRage.Game
         public bool _canHitPlayer = true;
 
         int _currencyValue = 0;
+        [SerializeField] int _minCurrencyValue = 1;
+        [SerializeField] int _maxCurrencyValue = 4;
 
         [SerializeField] GameObject[] _asteroidModels;
 
@@ -69,7 +72,7 @@ namespace AsteroidRage.Game
 
         void OnEnable()
         {
-            _currencyValue = Random.Range(1, 4);
+            _currencyValue = Random.Range(_minCurrencyValue, _maxCurrencyValue);
             TurnOnFade();
         }
 
@@ -97,27 +100,28 @@ namespace AsteroidRage.Game
 
         public void TurnOn()
         {
-            _mr.material.color = _onColor;
+            _mr.material.color = new Color(_mr.material.color.r, _mr.material.color.g, _mr.material.color.b, _onColor.a);
             _canHitPlayer = true;
         }
 
         public void TurnOff()
         {
-            _mr.material.color = _offColor;
+            _mr.material.color = new Color(_mr.material.color.r, _mr.material.color.g, _mr.material.color.b, _offColor.a);;
             _canHitPlayer = false;
         }
 
         public void TurnOffExplode()
         {
             //_mr.material.color = new Color(0, 0, 0, 0);
-            _mr.material.color = _offColor;
+            _mr.material.color = new Color(_mr.material.color.r, _mr.material.color.g, _mr.material.color.b, _offColor.a);;
             _explosion.Play();
+            _invokeEvents.AsteroidExploded.Invoke();
             _canHitPlayer = false;
         }
 
         public void TurnOnFade()
         {
-            _mr.material.color = new Color(0, 0, 0, 0);
+            _mr.material.color = new Color(_mr.material.color.r, _mr.material.color.g, _mr.material.color.b, 0f);
             StartCoroutine(ColorLerp(_onColor, _fadeInTime));
             _canHitPlayer = true;
         }
@@ -125,12 +129,13 @@ namespace AsteroidRage.Game
         IEnumerator ColorLerp(Color col, float fadeTime)
         {
             Color startColor = _mr.material.GetColor("_Color");
+            Color endCol = new Color(startColor.r, startColor.g, startColor.b, col.a);
             float startTime = Time.time - Time.deltaTime;
             float interpolationValue = 0f;
             while (interpolationValue <= 1f)
             {
                 interpolationValue = (Time.time - startTime) / fadeTime;
-                _mr.material.SetColor("_Color", Color.Lerp(startColor, col, interpolationValue));
+                _mr.material.SetColor("_Color", Color.Lerp(startColor, endCol, interpolationValue));
                 yield return null;
             }
         }

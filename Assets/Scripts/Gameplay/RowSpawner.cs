@@ -7,7 +7,12 @@ namespace AsteroidRage.Game
 {
     public class RowSpawner : MonoBehaviour
     {
-        public PooledMonobehaviour[] _prefabs;
+        public PooledMonobehaviour _regularPrefab;
+        public PooledMonobehaviour _goldenPrefab;
+        float _goldenPercentage = 0f;
+        public PooledMonobehaviour _diamondPrefab;
+        float _diamondPercentage = 0f;
+        int _diamondStartCount = int.MaxValue;
 
         public PooledMonobehaviour _rowUnit;
 
@@ -45,10 +50,20 @@ namespace AsteroidRage.Game
 
         private void Awake()
         {
-            if (_prefabs.Length <= 0)
-                Debug.LogError("Prefabs are not initialized.");
+            if (!_regularPrefab)
+                Debug.LogError("Regular prefab are not initialized.");
+
+            if (!_goldenPrefab)
+                Debug.LogError("Special prefab are not initialized.");
 
             _responseEvents.CountChanged.AddListener(ScaleUp);
+
+            _goldenPercentage = _diffConfig.StartGoldenSpawnPercent;
+
+            // Prewarm
+            _regularPrefab.Get<PooledMonobehaviour>(false);
+            _goldenPrefab.Get<PooledMonobehaviour>(false);
+            _diamondPrefab.Get<PooledMonobehaviour>(false);
         }
 
         public void StartSpawningRows()
@@ -89,10 +104,31 @@ namespace AsteroidRage.Game
 
             foreach (int i in indices)
             {
-                PooledMonobehaviour spawned = _prefabs[Random.Range(0, _prefabs.Length)].Get<PooledMonobehaviour>(this.transform, startPosition + new Vector3(i * xSpacing, 0f, Random.Range(0f, zUncertainty)), rotation);
-                Rigidbody rb = spawned.GetComponent<Rigidbody>();
-                if (rb)
-                    rb.velocity = velocity;
+                PooledMonobehaviour currentLevelPrefab = _regularPrefab;
+                PooledMonobehaviour nextLevelPrefab = _goldenPrefab;
+                float nextLevelPercentage = _goldenPercentage;
+
+                if (nextLevelPercentage >= 1f)
+                {
+                    currentLevelPrefab = _goldenPrefab;
+                    nextLevelPrefab = _diamondPrefab;
+                    nextLevelPercentage = _diamondPercentage;
+                }
+
+                if (Random.Range(0f, 1f) < nextLevelPercentage)
+                {
+                    PooledMonobehaviour spawned = nextLevelPrefab.Get<PooledMonobehaviour>(this.transform, startPosition + new Vector3(i * xSpacing, 0f, Random.Range(0f, zUncertainty)), rotation);
+                    Rigidbody rb = spawned.GetComponent<Rigidbody>();
+                    if (rb)
+                        rb.velocity = velocity;
+                }
+                else
+                {
+                    PooledMonobehaviour spawned = currentLevelPrefab.Get<PooledMonobehaviour>(this.transform, startPosition + new Vector3(i * xSpacing, 0f, Random.Range(0f, zUncertainty)), rotation);
+                    Rigidbody rb = spawned.GetComponent<Rigidbody>();
+                    if (rb)
+                        rb.velocity = velocity;
+                }
             }
 
             if (_rowUnit != null)
@@ -106,6 +142,13 @@ namespace AsteroidRage.Game
 
         public void ScaleUp(int count)
         {
+            if (count == 0)
+            {
+                _goldenPercentage = _diffConfig.StartGoldenSpawnPercent;
+                _diamondPercentage = _diffConfig.StartDiamondSpawnPercent;
+                _diamondStartCount = 0;
+            }
+
             float oldVelocityScale = _velocityScale;
             float desiredVelocityScale = 1f + _diffConfig.VelocityScaleStep * Mathf.Round(count / _diffConfig.VelocityScaleInterval);
             _velocityScale = Mathf.Min(desiredVelocityScale, _diffConfig.VelocityScaleMax);
@@ -119,6 +162,22 @@ namespace AsteroidRage.Game
             _spawnRateScale = Mathf.Min(desiredSpawnRateScale, _diffConfig.SpawnRateScaleMax);
             
             _rowFillSizeSubtract = Mathf.Min(_diffConfig.RowFillSizeScaleStep * (count / _diffConfig.RowFillSizeScaleInterval), _rowFillSize);
+
+            if (_goldenPercentage < 1f)
+            {
+                _goldenPercentage = _diffConfig.StartGoldenSpawnPercent + Mathf.Round(count / _diffConfig.GoldenSpawnPercentAddInterval) * _diffConfig.GoldenSpawnPercentAddStep;
+                if (_goldenPercentage > _diffConfig.GoldenSpawnPercentMaxBeforeSnap)
+                {
+                    _goldenPercentage = 1f;
+                    _diamondStartCount = count;
+                }
+            }
+            else if (_diamondPercentage != 1f)
+            {
+                _diamondPercentage = _diffConfig.StartDiamondSpawnPercent + Mathf.Round((count - _diamondStartCount)/ _diffConfig.DiamondSpawnPercentAddInterval) * _diffConfig.DiamondSpawnPercentAddStep;
+                if (_diamondPercentage > _diffConfig.DiamondSpawnPercentMaxBeforeSnap)
+                    _diamondPercentage = 1f;
+            }
         }
 
         public void DisableChildren()

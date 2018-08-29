@@ -6,7 +6,7 @@ using GooglePlayGames.BasicApi;
 using TMPro;
 using AsteroidRage.Game;
 
-namespace AsteroidRage.GPG
+namespace AsteroidRage.Data
 {
     public class PlayGames : MonoBehaviour
     {
@@ -18,8 +18,6 @@ namespace AsteroidRage.GPG
             PlayGamesPlatform.DebugLogEnabled = true; // remove l8r
             PlayGamesPlatform.InitializeInstance(config);
             PlayGamesPlatform.Activate();
-
-            Score.Instance.LoadLocalHighScore();
             SignIn();
         }
 
@@ -35,10 +33,7 @@ namespace AsteroidRage.GPG
         void SignInCallback(bool success)
         {
             if (success)
-            {
-                Score.Instance.LoadHighScoreFromGooglePlay();
                 _debugText.SetText("successful sign in as " + PlayGamesPlatform.Instance.GetUserDisplayName());
-            }
             else
                 _debugText.SetText("failed sign in as" + PlayGamesPlatform.Instance.GetUserDisplayName());
         }

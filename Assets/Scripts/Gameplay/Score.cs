@@ -7,6 +7,7 @@ using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using UnityEngine.SocialPlatforms;
 using TMPro;
+using AsteroidRage.Data;
 
 namespace AsteroidRage.Game
 {
@@ -43,39 +44,40 @@ namespace AsteroidRage.Game
 
         void Start()
         {
-            LoadLocalHighScore();
+            _highScore = GameDataManager.Instance.GetGameData().HighScore;
+            _invokeEvents.HighScoreChanged.Invoke(_highScore);
         }
 
-        public void LoadHighScoreFromGooglePlay()
-        {
-            LoadLocalHighScore();
+        //public void LoadHighScoreFromGooglePlay()
+        //{
+        //    LoadLocalHighScore();
 
-            if (PlayGamesPlatform.Instance.localUser.authenticated)
-            {
-                _debugText.SetText("attempted to get high score from google play");
+        //    if (PlayGamesPlatform.Instance.localUser.authenticated)
+        //    {
+        //        _debugText.SetText("attempted to get high score from google play");
 
-                PlayGamesPlatform.Instance.LoadScores(
-                    GPGSIds.leaderboard_leaderboard,
-                    LeaderboardStart.PlayerCentered,
-                    100, // can this be a lower number???
-                    LeaderboardCollection.Public,
-                    LeaderboardTimeSpan.AllTime,
-                    (data) =>
-                    {
-                        foreach (IScore score in data.Scores)
-                        {
-                            if (score.userID == PlayGamesPlatform.Instance.GetUserId())
-                            {
-                                _debugText.SetText("google play score loaded");
-                                _highScore = (int)score.value;
-                                _invokeEvents.HighScoreChanged.Invoke(_highScore);
-                                SaveLocalHighScore();
-                                break;
-                            }
-                        }
-                    });
-            }
-        }
+        //        PlayGamesPlatform.Instance.LoadScores(
+        //            GPGSIds.leaderboard_leaderboard,
+        //            LeaderboardStart.PlayerCentered,
+        //            100, // can this be a lower number???
+        //            LeaderboardCollection.Public,
+        //            LeaderboardTimeSpan.AllTime,
+        //            (data) =>
+        //            {
+        //                foreach (IScore score in data.Scores)
+        //                {
+        //                    if (score.userID == PlayGamesPlatform.Instance.GetUserId())
+        //                    {
+        //                        _debugText.SetText("google play score loaded");
+        //                        _highScore = (int)score.value;
+        //                        _invokeEvents.HighScoreChanged.Invoke(_highScore);
+        //                        SaveLocalHighScore();
+        //                        break;
+        //                    }
+        //                }
+        //            });
+        //    }
+        //}
 
         void OnEnable()
         {
@@ -106,32 +108,13 @@ namespace AsteroidRage.Game
             _invokeEvents.ScoreChangedNoArg.Invoke();
         }
 
-        public void SaveLocalHighScore()
-        {
-            PlayerPrefs.SetInt("highScore", _highScore);
-        }
-
-        public void LoadLocalHighScore()
-        {
-            _debugText.SetText("local high score loaded.");
-
-            _highScore = PlayerPrefs.GetInt("highScore");
-            _invokeEvents.HighScoreChanged.Invoke(_highScore);
-        }
-
         public void CheckCurrentScoreVsHighScore()
         {
             if (_score > _highScore)
             {
                 _highScore = _score;
-                SaveLocalHighScore();
                 _invokeEvents.HighScoreChanged.Invoke(_highScore);
-
-                // Report high score to Google Play leaderboards!
-                if (PlayGamesPlatform.Instance.localUser.authenticated)
-                {
-                    PlayGamesPlatform.Instance.ReportScore(_highScore, GPGSIds.leaderboard_leaderboard, (bool success) => { Debug.Log("Update leaderboard successful? " + success); });
-                }
+                GameDataManager.Instance.UpdateHighScore(_highScore);
             }
         }
     }

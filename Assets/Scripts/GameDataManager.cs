@@ -40,6 +40,11 @@ namespace AsteroidRage.Data
             _gameData.UnlockedShips = unlockedShips.Clone() as bool[];
         }
 
+        public void UpdateLastChosenShip(int val)
+        {
+            _gameData.LastChosenShip = val;
+        }
+
         public void LoadGame()
         {
             _gameData = Resolve(GetLocalGameData(), GetCloudGameData());
@@ -135,6 +140,8 @@ namespace AsteroidRage.Data
                     ret.UnlockedShips[i] = upper[i];
                 }
             }
+
+            ret.LastChosenShip = gameData1.LastChosenShip;
 
             return ret;
         }

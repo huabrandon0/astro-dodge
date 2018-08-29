@@ -40,8 +40,6 @@ namespace AsteroidRage.Game
         int _score = 0;
         int _highScore = 0;
 
-        [SerializeField] TextMeshProUGUI _debugText;
-
         void Start()
         {
             _highScore = GameDataManager.Instance.GetGameData().HighScore;

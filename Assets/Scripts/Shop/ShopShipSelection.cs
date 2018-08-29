@@ -50,8 +50,10 @@ namespace AsteroidRage.Game
         
         void Start()
         {
+            GameData loadedGameData = GameDataManager.Instance.GetGameData();
+
             _unlockedShips = new bool[_ships.Length];
-            bool[] unlockedShips = GameDataManager.Instance.GetGameData().UnlockedShips;
+            bool[] unlockedShips = loadedGameData.UnlockedShips;
 
             if (unlockedShips != null && unlockedShips.Length > 0)
             {
@@ -74,6 +76,9 @@ namespace AsteroidRage.Game
 
             GameDataManager.Instance.UpdateUnlockedShips(_unlockedShips);
             GameDataManager.Instance.SaveGame();
+            
+            _index = _chosenIndex = loadedGameData.LastChosenShip;
+            _invokeEvents.ChangeShipIndex.Invoke(_index);
         }
 
         public void ShowModels()
@@ -148,6 +153,8 @@ namespace AsteroidRage.Game
                 _chosenIndex = _index;
                 _invokeEvents.ChangeShipIndex.Invoke(_index);
                 _invokeEvents.ShipChosen.Invoke();
+                GameDataManager.Instance.UpdateLastChosenShip(_chosenIndex);
+                GameDataManager.Instance.SaveGame();
             }
             else
             {

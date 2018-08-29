@@ -41,13 +41,18 @@ namespace AsteroidRage.Game
 
         [SerializeField] TextMeshProUGUI _debugText;
 
+        void Start()
+        {
+            LoadLocalHighScore();
+        }
+
         public void LoadHighScoreFromGooglePlay()
         {
             LoadLocalHighScore();
 
             if (PlayGamesPlatform.Instance.localUser.authenticated)
             {
-                _debugText.SetText("trying to get high score from google play");
+                _debugText.SetText("attempted to get high score from google play");
 
                 PlayGamesPlatform.Instance.LoadScores(
                     GPGSIds.leaderboard_leaderboard,
@@ -72,19 +77,19 @@ namespace AsteroidRage.Game
             }
         }
 
-		void OnEnable()
-		{
+        void OnEnable()
+        {
             _responseEvents.AddToScore.AddListener(AddToScore);
             _responseEvents.SetScore.AddListener(SetScore);
-		}
+        }
 
-		void OnDisable()
-		{
+        void OnDisable()
+        {
             _responseEvents.AddToScore.RemoveListener(AddToScore);
             _responseEvents.SetScore.RemoveListener(SetScore);
-		}
+        }
 
-		public void AddToScore(int val)
+        public void AddToScore(int val)
         {
             if (val != 0)
             {

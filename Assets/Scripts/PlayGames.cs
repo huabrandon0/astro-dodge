@@ -37,10 +37,10 @@ namespace AsteroidRage.GPG
             if (success)
             {
                 Score.Instance.LoadHighScoreFromGooglePlay();
-                _debugText.SetText("successful sign in");
+                _debugText.SetText("successful sign in as " + PlayGamesPlatform.Instance.GetUserDisplayName());
             }
             else
-                _debugText.SetText("failed sign in");
+                _debugText.SetText("failed sign in as" + PlayGamesPlatform.Instance.GetUserDisplayName());
         }
 
         public void ShowLeaderboardsUI()

@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using AsteroidRage.Extensions;
 using AsteroidRage.Events;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
+using UnityEngine.SocialPlatforms;
+using TMPro;
 
 namespace AsteroidRage.Game
 {
     /// <summary>
     /// Stores the current game score.
     /// </summary>
-    public class Score : MonoBehaviour
+    public class Score : Singleton<Score>
     {
+        protected Score() { }
+
         [System.Serializable]
         public class ResponseEvents
         {
@@ -33,14 +39,37 @@ namespace AsteroidRage.Game
         int _score = 0;
         int _highScore = 0;
 
-        void Awake()
-        {
-            LoadScore();
-        }
+        [SerializeField] TextMeshProUGUI _debugText;
 
-        void Start()
+        public void LoadHighScoreFromGooglePlay()
         {
-            _invokeEvents.HighScoreChanged.Invoke(_highScore);
+            LoadLocalHighScore();
+
+            if (PlayGamesPlatform.Instance.localUser.authenticated)
+            {
+                _debugText.SetText("trying to get high score from google play");
+
+                PlayGamesPlatform.Instance.LoadScores(
+                    GPGSIds.leaderboard_leaderboard,
+                    LeaderboardStart.PlayerCentered,
+                    100, // can this be a lower number???
+                    LeaderboardCollection.Public,
+                    LeaderboardTimeSpan.AllTime,
+                    (data) =>
+                    {
+                        foreach (IScore score in data.Scores)
+                        {
+                            if (score.userID == PlayGamesPlatform.Instance.GetUserId())
+                            {
+                                _debugText.SetText("google play score loaded");
+                                _highScore = (int)score.value;
+                                _invokeEvents.HighScoreChanged.Invoke(_highScore);
+                                SaveLocalHighScore();
+                                break;
+                            }
+                        }
+                    });
+            }
         }
 
 		void OnEnable()
@@ -63,8 +92,6 @@ namespace AsteroidRage.Game
                 _invokeEvents.ScoreChanged.Invoke(_score);
                 _invokeEvents.ScoreChangedNoArg.Invoke();
             }
-
-            CheckCurrentScoreVsHighScore();
         }
 
         public void SetScore(int val)
@@ -72,17 +99,19 @@ namespace AsteroidRage.Game
             _score = val;
             _invokeEvents.ScoreChanged.Invoke(_score);
             _invokeEvents.ScoreChangedNoArg.Invoke();
-            CheckCurrentScoreVsHighScore();
         }
 
-        void SaveScore()
+        public void SaveLocalHighScore()
         {
             PlayerPrefs.SetInt("highScore", _highScore);
         }
 
-        void LoadScore()
+        public void LoadLocalHighScore()
         {
+            _debugText.SetText("local high score loaded.");
+
             _highScore = PlayerPrefs.GetInt("highScore");
+            _invokeEvents.HighScoreChanged.Invoke(_highScore);
         }
 
         public void CheckCurrentScoreVsHighScore()
@@ -90,8 +119,14 @@ namespace AsteroidRage.Game
             if (_score > _highScore)
             {
                 _highScore = _score;
-                SaveScore();
+                SaveLocalHighScore();
                 _invokeEvents.HighScoreChanged.Invoke(_highScore);
+
+                // Report high score to Google Play leaderboards!
+                if (PlayGamesPlatform.Instance.localUser.authenticated)
+                {
+                    PlayGamesPlatform.Instance.ReportScore(_highScore, GPGSIds.leaderboard_leaderboard, (bool success) => { Debug.Log("Update leaderboard successful? " + success); });
+                }
             }
         }
     }

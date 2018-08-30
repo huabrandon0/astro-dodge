@@ -11,6 +11,9 @@ namespace AsteroidRage.Game
         public class InvokeEvents
         {
             public GameEvent RowUnitExitedHitZone;
+            public GameEvent AsteroidExploded;
+            public GameEvent GoldenAsteroidExploded;
+            public GameEvent DiamondAsteroidExploded;
         }
         
         [SerializeField] InvokeEvents _invokeEvents;
@@ -19,7 +22,20 @@ namespace AsteroidRage.Game
         {
             if (other.CompareTag("RowUnit"))
             {
-                _invokeEvents.RowUnitExitedHitZone.Invoke();
+                RowUnit rowUnit = other.GetComponent<RowUnit>();
+                if (rowUnit != null)
+                {
+                    _invokeEvents.RowUnitExitedHitZone.Invoke();
+
+                    if (rowUnit.containsAsteroids)
+                        _invokeEvents.AsteroidExploded.Invoke();
+
+                    if (rowUnit.containsGoldenAsteroids)
+                        _invokeEvents.GoldenAsteroidExploded.Invoke();
+
+                    if (rowUnit.containsDiamondAsteroids)
+                        _invokeEvents.DiamondAsteroidExploded.Invoke();
+                }
             }
         }
     }

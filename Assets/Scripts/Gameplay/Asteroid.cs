@@ -22,7 +22,6 @@ namespace AsteroidRage.Game
             public GameEvent PlayerHit;
             public GameEvent ShieldHit;
             public GameEventInt CurrencyCollected;
-            public GameEvent AsteroidExploded;
         }
 
         [SerializeField] InvokeEvents _invokeEvents;
@@ -115,7 +114,6 @@ namespace AsteroidRage.Game
             //_mr.material.color = new Color(0, 0, 0, 0);
             _mr.material.color = new Color(_mr.material.color.r, _mr.material.color.g, _mr.material.color.b, _offColor.a);;
             _explosion.Play();
-            _invokeEvents.AsteroidExploded.Invoke();
             _canHitPlayer = false;
         }
 

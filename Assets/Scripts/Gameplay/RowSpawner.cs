@@ -97,6 +97,9 @@ namespace AsteroidRage.Game
 
         private void SpawnRow(int count, int capacity, Vector3 startPosition, Quaternion rotation, float xSpacing, float zUncertainty, Vector3 velocity)
         {
+            bool[] contains = new bool[3] { false, false, false };
+            int j = 0;
+
             count = Mathf.Min(count, capacity);
 
             // Send out a random row of prefabs.
@@ -110,6 +113,7 @@ namespace AsteroidRage.Game
 
                 if (nextLevelPercentage >= 1f)
                 {
+                    j = 1;
                     currentLevelPrefab = _goldenPrefab;
                     nextLevelPrefab = _diamondPrefab;
                     nextLevelPercentage = _diamondPercentage;
@@ -117,6 +121,7 @@ namespace AsteroidRage.Game
 
                 if (Random.Range(0f, 1f) < nextLevelPercentage)
                 {
+                    contains[j + 1] = true;
                     PooledMonobehaviour spawned = nextLevelPrefab.Get<PooledMonobehaviour>(this.transform, startPosition + new Vector3(i * xSpacing, 0f, Random.Range(0f, zUncertainty)), rotation);
                     Rigidbody rb = spawned.GetComponent<Rigidbody>();
                     if (rb)
@@ -124,6 +129,7 @@ namespace AsteroidRage.Game
                 }
                 else
                 {
+                    contains[j] = true;
                     PooledMonobehaviour spawned = currentLevelPrefab.Get<PooledMonobehaviour>(this.transform, startPosition + new Vector3(i * xSpacing, 0f, Random.Range(0f, zUncertainty)), rotation);
                     Rigidbody rb = spawned.GetComponent<Rigidbody>();
                     if (rb)
@@ -137,6 +143,13 @@ namespace AsteroidRage.Game
                 Rigidbody rowUnitRb = rowUnit.GetComponent<Rigidbody>();
                 if (rowUnitRb)
                     rowUnitRb.velocity = velocity;
+                RowUnit ru = rowUnit.GetComponent<RowUnit>();
+                if (ru)
+                {
+                    ru.containsAsteroids = contains[0];
+                    ru.containsGoldenAsteroids = contains[1];
+                    ru.containsDiamondAsteroids = contains[2];
+                }
             }
         }
 

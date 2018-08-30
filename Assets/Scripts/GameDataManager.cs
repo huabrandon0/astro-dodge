@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using GooglePlayGames;
+using GooglePlayGames.BasicApi;
+using GooglePlayGames.BasicApi.SavedGame;
+using System.Text;
 
 namespace AsteroidRage.Data
 {
@@ -12,12 +15,14 @@ namespace AsteroidRage.Data
 
         GameData _gameData;
 
+        GameData _cloudGameData;
+
         const string _SAVE_KEY = "saveKey";
 
         void Awake()
         {
-            LoadGame();
-            SaveGame();
+            Debug.Log("GameDataManager.Awake");
+            LoadGameLocal();
         }
 
         public GameData GetGameData()
@@ -47,57 +52,95 @@ namespace AsteroidRage.Data
 
         public void LoadGame()
         {
-            _gameData = Resolve(GetLocalGameData(), GetCloudGameData());
-            Debug.Log("load: \n" + _gameData);
+            Debug.Log("LoadGame");
+
+            LoadGameLocal();
+
+            // Attempt to load cloud game data.
+            if (PlayGamesPlatform.Instance.IsAuthenticated())
+            {
+                ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+                savedGameClient.OpenWithAutomaticConflictResolution(_SAVE_KEY, DataSource.ReadCacheOrNetwork, ConflictResolutionStrategy.UseOriginal, OnSavedGameOpenedLoading);
+            }
         }
 
-        public void SaveGame()
-        {
-            Debug.Log("save: \n" + _gameData);
-            SaveLocalGameData();
-            SaveCloudGameData();
-            UpdateLeaderboards();
-        }
-
-        public GameData GetLocalGameData()
+        void LoadGameLocal()
         {
             if (PlayerPrefs.HasKey(_SAVE_KEY))
             {
                 string stringData = PlayerPrefs.GetString(_SAVE_KEY);
-                GameData gameData = GameData.StringToGameData(stringData);
-                return gameData;
+                _gameData = GameData.StringToGameData(stringData);
             }
             else
+                _gameData = new GameData();
+        }
+
+        void OnSavedGameOpenedLoading(SavedGameRequestStatus status, ISavedGameMetadata game)
+        {
+            Debug.Log("OnSavedGameOpenedLoading - SavedGameRequestStatus (saved game metadata retrieved): " + status);
+            if (status == SavedGameRequestStatus.Success)
+                PlayGamesPlatform.Instance.SavedGame.ReadBinaryData(game, OnSavedGameDataRead);
+        }
+
+        void OnSavedGameDataRead(SavedGameRequestStatus status, byte[] savedData)
+        {
+            Debug.Log("OnSavedGameDataRead - SavedGameRequestStatus (bytes read from metadata): " + status);
+            if (status == SavedGameRequestStatus.Success && savedData.Length > 0)
             {
-                GameData gameData = new GameData();
-                return gameData;
+                string cloudDataString = Encoding.ASCII.GetString(savedData);
+                UpdateGameData(GameData.StringToGameData(cloudDataString));
             }
         }
 
-        public GameData GetCloudGameData()
+        public void SaveGame()
         {
-            return new GameData();
-        }
+            Debug.Log("SaveGame - Saving the following data: \n" + _gameData);
 
-        public void SaveLocalGameData()
-        {
+            // Save game locally.
             PlayerPrefs.SetString(_SAVE_KEY, GameData.GameDataToString(_gameData));
+
+            // Attempt to save game on the cloud.
+            if (PlayGamesPlatform.Instance.IsAuthenticated())
+            {
+                ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+                savedGameClient.OpenWithAutomaticConflictResolution(_SAVE_KEY, DataSource.ReadCacheOrNetwork, ConflictResolutionStrategy.UseOriginal, OnSavedGameOpenedSaving);
+            }
+            
+            UpdateLeaderboards();
         }
 
-        public void SaveCloudGameData()
+        void OnSavedGameOpenedSaving(SavedGameRequestStatus status, ISavedGameMetadata game)
         {
-
+            Debug.Log("OnSavedGameOpenedSaving - SavedGameRequestStatus: " + status);
+            if (status == SavedGameRequestStatus.Success)
+            {
+                string stringData = GameData.GameDataToString(_gameData);
+                byte[] byteData = Encoding.ASCII.GetBytes(stringData);
+                
+                SavedGameMetadataUpdate update = new SavedGameMetadataUpdate.Builder().Build();
+                PlayGamesPlatform.Instance.SavedGame.CommitUpdate(game, update, byteData, OnSavedGameDataWritten);
+            }
+        }
+        
+        void OnSavedGameDataWritten(SavedGameRequestStatus status, ISavedGameMetadata game)
+        {
+            Debug.Log("OnSavedGameDataWritten - SavedGameRequestStatus (game data written to cloud): " + status);
         }
 
         public void UpdateLeaderboards()
         {
             if (PlayGamesPlatform.Instance.localUser.authenticated)
-            {
                 PlayGamesPlatform.Instance.ReportScore(_gameData.HighScore, GPGSIds.leaderboard_leaderboard, (bool success) => { Debug.Log("Update leaderboard success: " + success); });
-            }
         }
 
-        public GameData Resolve(GameData gameData1, GameData gameData2)
+        public void UpdateGameData(GameData newGameData)
+        {
+            Debug.Log("Updating game data with new data");
+            _gameData = Resolve(_gameData, newGameData);
+            SaveGame();
+        }
+
+        GameData Resolve(GameData gameData1, GameData gameData2)
         {
             if (gameData1 == null || gameData2 == null)
                 return new GameData();

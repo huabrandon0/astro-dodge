@@ -57,7 +57,7 @@ namespace AsteroidRage.Data
                 ret += "null or empty";
             }
 
-            ret += "\n JSON: " + GameDataToString(this);
+            ret += "\nJSON: " + GameDataToString(this);
 
             return ret;
         }

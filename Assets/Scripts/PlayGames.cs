@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
-using TMPro;
-using AsteroidRage.Game;
 
 namespace AsteroidRage.Data
 {
-    public class PlayGames : MonoBehaviour
+    public class PlayGames : Singleton<PlayGames>
     {
-        [SerializeField] TextMeshProUGUI _debugText;
+        protected PlayGames() { }
 
         void Awake()
         {
+            Debug.Log("PlayGames.Awake");
             PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().EnableSavedGames().Build();
-            PlayGamesPlatform.DebugLogEnabled = true; // remove l8r
             PlayGamesPlatform.InitializeInstance(config);
             PlayGamesPlatform.Activate();
             SignIn();
@@ -23,32 +21,29 @@ namespace AsteroidRage.Data
 
         public void SignIn()
         {
-            _debugText.SetText("sign in!");
-            if (!PlayGamesPlatform.Instance.localUser.authenticated)
-            {
+            Debug.Log("SignIn");
+            if (!PlayGamesPlatform.Instance.IsAuthenticated())
                 PlayGamesPlatform.Instance.Authenticate(SignInCallback, false);
-            }
         }
 
         void SignInCallback(bool success)
         {
             if (success)
-                _debugText.SetText("successful sign in as " + PlayGamesPlatform.Instance.GetUserDisplayName());
+            {
+                Debug.Log("Successful sign in as " + PlayGamesPlatform.Instance.GetUserDisplayName());
+                GameDataManager.Instance.LoadGame();
+            }
             else
-                _debugText.SetText("failed sign in as" + PlayGamesPlatform.Instance.GetUserDisplayName());
+                Debug.Log("Failed sign in");
         }
 
         public void ShowLeaderboardsUI()
         {
-            if (PlayGamesPlatform.Instance.localUser.authenticated)
-            {
-                _debugText.SetText("showing leaderboards");
+            Debug.Log("ShowLeaderboardsUI");
+            if (PlayGamesPlatform.Instance.IsAuthenticated())
                 PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard_leaderboard);
-            }
             else
-            {
                 SignIn();
-            }
         }
     }
 }

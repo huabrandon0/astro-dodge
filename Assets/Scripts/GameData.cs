@@ -16,8 +16,6 @@ namespace AsteroidRage.Data
                 UnlockedShips = unlockedShips.Clone() as bool[];
             else
                 UnlockedShips = null;
-
-            LastChosenShip = lastChosenShip;
         }
 
         public GameData(GameData gameData)
@@ -29,20 +27,16 @@ namespace AsteroidRage.Data
                 UnlockedShips = gameData.UnlockedShips.Clone() as bool[];
             else
                 gameData.UnlockedShips = null;
-
-            LastChosenShip = gameData.LastChosenShip;
         }
 
         public int HighScore;
         public int Currency;
         public bool[] UnlockedShips;
-        public int LastChosenShip;
 
         public override string ToString()
         {
             string ret = "HighScore: " + HighScore + " \n" +
                 "Currency: " + Currency + " \n" +
-                "Last Chosen Ship: " + LastChosenShip + "\n" + 
                 "UnlockedShips: ";
 
             if (UnlockedShips != null && UnlockedShips.Length > 0)
@@ -72,6 +66,6 @@ namespace AsteroidRage.Data
             return JsonUtility.FromJson<GameData>(gameDataString);
         }
 
-        public static string SaveKey = "save_1";
+        public static string SaveKey = "save_2";
     }
 }

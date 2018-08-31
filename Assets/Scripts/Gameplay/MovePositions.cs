@@ -37,6 +37,7 @@ namespace AsteroidRage.Game
             public GameEvent PlayerMoved;
             public GameEvent PlayerMovedLeft;
             public GameEvent PlayerMovedRight;
+            public GameEvent PlayerMovedNone;
         }
 
         [SerializeField] ResponseEvents _responseEvents;
@@ -68,8 +69,15 @@ namespace AsteroidRage.Game
         {
             if (_desiredIndex != _currentIndex)
             {
+                if (Mathf.Max(0, Mathf.Min(_desiredIndex, _positions.Length - 1)) == _currentIndex && _moveState == MoveState.None)
+                    _invokeEvents.PlayerMovedNone.Invoke();
+
                 SwitchPosition(_desiredIndex);
                 _desiredIndex = _currentIndex;
+            }
+            else if (_moveState == MoveState.None)
+            {
+                _invokeEvents.PlayerMovedNone.Invoke();
             }
         }
 

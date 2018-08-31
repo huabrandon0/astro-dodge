@@ -18,5 +18,15 @@ namespace AsteroidRage.Game
         {
             _anim.SetBool("ShipOnScreen", val);
         }
+
+        public void SetBoolMovingLeft(bool val)
+        {
+            _anim.SetBool("MovingLeft", val);
+        }
+
+        public void SetBoolMovingRight(bool val)
+        {
+            _anim.SetBool("MovingRight", val);
+        }
     }
 }

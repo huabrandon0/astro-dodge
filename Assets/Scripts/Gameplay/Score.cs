@@ -42,7 +42,13 @@ namespace AsteroidRage.Game
 
         void Start()
         {
-            _highScore = GameDataManager.Instance.GetGameData().HighScore;
+            Load(GameDataManager.Instance.GetGameData());
+            GameDataManager.OnGameDataUpdated += Load;
+        }
+
+        public void Load(GameData gameData)
+        {
+            _highScore = gameData.HighScore;
             _invokeEvents.HighScoreChanged.Invoke(_highScore);
         }
 

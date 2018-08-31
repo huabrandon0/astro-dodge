@@ -1,17 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using GooglePlayGames.BasicApi.SavedGame;
 using System.Text;
+using System;
 
 namespace AsteroidRage.Data
 {
     public class GameDataManager : Singleton<GameDataManager>
     {
         protected GameDataManager() { }
+
+        public static event Action<GameData> OnGameDataUpdated = delegate { };
 
         GameData _gameData;
 
@@ -43,11 +45,6 @@ namespace AsteroidRage.Data
         public void UpdateUnlockedShips(bool[] unlockedShips)
         {
             _gameData.UnlockedShips = unlockedShips.Clone() as bool[];
-        }
-
-        public void UpdateLastChosenShip(int val)
-        {
-            _gameData.LastChosenShip = val;
         }
 
         public void LoadGame()
@@ -111,7 +108,7 @@ namespace AsteroidRage.Data
 
         void OnSavedGameOpenedSaving(SavedGameRequestStatus status, ISavedGameMetadata game)
         {
-            Debug.Log("OnSavedGameOpenedSaving - SavedGameRequestStatus: " + status);
+            Debug.Log("OnSavedGameOpenedSaving - SavedGameRequestStatus (opened a saved game to written to): " + status);
             if (status == SavedGameRequestStatus.Success)
             {
                 string stringData = GameData.GameDataToString(_gameData);
@@ -133,11 +130,12 @@ namespace AsteroidRage.Data
                 PlayGamesPlatform.Instance.ReportScore(_gameData.HighScore, GPGSIds.leaderboard_leaderboard, (bool success) => { Debug.Log("Update leaderboard success: " + success); });
         }
 
-        public void UpdateGameData(GameData newGameData)
+        void UpdateGameData(GameData newGameData)
         {
             Debug.Log("Updating game data with new data");
             _gameData = Resolve(_gameData, newGameData);
             SaveGame();
+            OnGameDataUpdated.Invoke(_gameData);
         }
 
         GameData Resolve(GameData gameData1, GameData gameData2)
@@ -183,8 +181,6 @@ namespace AsteroidRage.Data
                     ret.UnlockedShips[i] = upper[i];
                 }
             }
-
-            ret.LastChosenShip = gameData1.LastChosenShip;
 
             return ret;
         }

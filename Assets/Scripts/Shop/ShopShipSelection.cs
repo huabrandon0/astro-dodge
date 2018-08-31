@@ -47,11 +47,22 @@ namespace AsteroidRage.Game
         }
 
         [SerializeField] InvokeEvents _invokeEvents;
+
+        [SerializeField] string _lastChosenShipPlayerPref;
         
         void Start()
         {
-            GameData loadedGameData = GameDataManager.Instance.GetGameData();
-            Load(loadedGameData);
+            GameData loadedData = GameDataManager.Instance.GetGameData();
+            Load(loadedData);
+
+            int startingIndex = 0;
+            if (PlayerPrefs.HasKey(_lastChosenShipPlayerPref))
+                startingIndex = PlayerPrefs.GetInt(_lastChosenShipPlayerPref);
+
+            _index = _chosenIndex = startingIndex;
+            _invokeEvents.ChangeShipIndex.Invoke(_index);
+            
+            GameDataManager.OnGameDataUpdated += Load;
         }
 
         public void Load(GameData gameData)
@@ -77,9 +88,6 @@ namespace AsteroidRage.Game
                     _unlockedShips[i] = false;
                 }
             }
-            
-            _index = _chosenIndex = gameData.LastChosenShip;
-            _invokeEvents.ChangeShipIndex.Invoke(_index);
         }
 
         public void ShowModels()
@@ -154,7 +162,7 @@ namespace AsteroidRage.Game
                 _chosenIndex = _index;
                 _invokeEvents.ChangeShipIndex.Invoke(_index);
                 _invokeEvents.ShipChosen.Invoke();
-                GameDataManager.Instance.UpdateLastChosenShip(_chosenIndex);
+                PlayerPrefs.SetInt(_lastChosenShipPlayerPref, _chosenIndex);
                 GameDataManager.Instance.SaveGame();
             }
             else

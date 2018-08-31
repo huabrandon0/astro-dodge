@@ -35,7 +35,13 @@ namespace AsteroidRage.Game
 
         void Start()
         {
-            _currency = GameDataManager.Instance.GetGameData().Currency;
+            Load(GameDataManager.Instance.GetGameData());
+            GameDataManager.OnGameDataUpdated += Load;
+        }
+
+        public void Load(GameData gameData)
+        {
+            _currency = gameData.Currency;
             _invokeEvents.CurrencyChanged.Invoke(_currency);
         }
 

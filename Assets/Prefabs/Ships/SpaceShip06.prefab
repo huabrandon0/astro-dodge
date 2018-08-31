@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 198715250833792410}
   - component: {fileID: 199009861647962414}
   m_Layer: 10
-  m_Name: MegaFlare
+  m_Name: MegaExhaust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -230,7 +230,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4520582901976320}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4319716841043028
 Transform:
@@ -243,7 +243,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4520582901976320}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4408964793750544
 Transform:
@@ -298,8 +298,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4635274024940804}
-  - {fileID: 4229420088335772}
   - {fileID: 4319716841043028}
+  - {fileID: 4229420088335772}
   m_Father: {fileID: 4138118150291794}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -727,10 +727,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b85f52ad926224187109f6a3bd7a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _exhausts:
+  - {fileID: 198924901277106104}
+  _megaExhausts:
+  - {fileID: 198715250833792410}
   _flares:
   - {fileID: 198476366813682022}
-  _megaFlares:
-  - {fileID: 198715250833792410}
   _invokeEvents:
     PlayerFlaredEvent: {fileID: 11400000, guid: dd4a6280ce2590d4bb419653be01f216,
       type: 2}

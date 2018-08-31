@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 198896089287357634}
   - component: {fileID: 199917828307214852}
   m_Layer: 10
-  m_Name: MegaFlare (1)
+  m_Name: MegaExhaust (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 198549954699130206}
   - component: {fileID: 199187391063066622}
   m_Layer: 10
-  m_Name: MegaFlare
+  m_Name: MegaExhaust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -265,7 +265,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4395723564108200}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4061944196693920
 Transform:
@@ -336,10 +336,10 @@ Transform:
   m_Children:
   - {fileID: 4061944196693920}
   - {fileID: 4512883677885116}
-  - {fileID: 4035998024510752}
-  - {fileID: 4917112782742022}
   - {fileID: 4908618638694654}
   - {fileID: 4989036750577514}
+  - {fileID: 4035998024510752}
+  - {fileID: 4917112782742022}
   m_Father: {fileID: 4327565653370106}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -421,7 +421,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4395723564108200}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4917112782742022
 Transform:
@@ -434,7 +434,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4395723564108200}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4989036750577514
 Transform:
@@ -447,7 +447,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4395723564108200}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!23 &23031266621346868
 MeshRenderer:
@@ -703,12 +703,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b85f52ad926224187109f6a3bd7a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _exhausts:
+  - {fileID: 198858714498108192}
+  - {fileID: 198633525993015294}
+  _megaExhausts:
+  - {fileID: 198549954699130206}
+  - {fileID: 198896089287357634}
   _flares:
   - {fileID: 198928642118282890}
   - {fileID: 198515209359749940}
-  _megaFlares:
-  - {fileID: 198549954699130206}
-  - {fileID: 198896089287357634}
   _invokeEvents:
     PlayerFlaredEvent: {fileID: 11400000, guid: dd4a6280ce2590d4bb419653be01f216,
       type: 2}

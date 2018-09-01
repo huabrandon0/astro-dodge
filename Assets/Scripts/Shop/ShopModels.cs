@@ -17,6 +17,24 @@ namespace AsteroidRage.Game
             _anims = GetComponentsInChildren<Animator>();
         }
 
+        public void ExhaustOff()
+        {
+            foreach (ModelExhaustEffects exhaustEffects in _exhaustEffects)
+            {
+                if (exhaustEffects.isActiveAndEnabled)
+                    exhaustEffects.ExhaustOff();
+            }
+        }
+
+        public void ExhaustOn()
+        {
+            foreach (ModelExhaustEffects exhaustEffects in _exhaustEffects)
+            {
+                if (exhaustEffects.isActiveAndEnabled)
+                    exhaustEffects.ExhaustOn();
+            }
+        }
+
         public void FlashRed()
         {
             EZCameraShake.CameraShaker.GetInstance("ShipSelectCamera").ShakeOnce(1f, 8f, 0f, 0.75f);
@@ -37,23 +55,21 @@ namespace AsteroidRage.Game
             }
         }
 
-        public void MegaFlareOn()
+        public void MegaExhaustOn()
         {
-            Flare();
-
             foreach (ModelExhaustEffects exhaustEffects in _exhaustEffects)
             {
                 if (exhaustEffects.isActiveAndEnabled)
-                    exhaustEffects.MegaFlareOn();
+                    exhaustEffects.MegaExhaustOn();
             }
         }
 
-        public void MegaFlareOff()
+        public void MegaExhaustOff()
         {
             foreach (ModelExhaustEffects exhaustEffects in _exhaustEffects)
             {
                 if (exhaustEffects.isActiveAndEnabled)
-                    exhaustEffects.MegaFlareOff();
+                    exhaustEffects.MegaExhaustOff();
             }
         }
 

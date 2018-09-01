@@ -17,7 +17,8 @@ namespace AsteroidRage.UI
         {
             foreach (Animator anim in _anims)
             {
-                anim.SetTrigger("FadeIn");
+                if (anim.isActiveAndEnabled)
+                    anim.SetTrigger("FadeIn");
             }
         }
 
@@ -25,7 +26,8 @@ namespace AsteroidRage.UI
         {
             foreach (Animator anim in _anims)
             {
-                anim.SetTrigger("FadeOut");
+                if (anim.isActiveAndEnabled)
+                    anim.SetTrigger("FadeOut");
             }
         }
     }

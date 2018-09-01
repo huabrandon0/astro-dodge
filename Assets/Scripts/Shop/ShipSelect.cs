@@ -24,9 +24,7 @@ namespace AsteroidRage.Game
         void Awake()
         {
             if (_ships.Length <= 0)
-            {
                 Debug.LogError("nooo!! where are the ships!?");
-            }
             
             _responseEvents.ChangeShipIndex.AddListener(SelectShip);
         }

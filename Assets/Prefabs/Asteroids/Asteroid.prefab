@@ -108,7 +108,6 @@ MonoBehaviour:
     ShieldHit: {fileID: 11400000, guid: d73baa7b0f5d64d46809d8bc9a4946f6, type: 2}
     CurrencyCollected: {fileID: 11400000, guid: ddef4b518743f9d4a95aa50ed152dcdb,
       type: 2}
-    AsteroidExploded: {fileID: 11400000, guid: 3a1ff2b9a3e781f409d0facfae1ee130, type: 2}
   _diffConfig: {fileID: 11400000, guid: ea90d0b6efe76234c9503019311b1540, type: 2}
   _onColor: {r: 1, g: 1, b: 1, a: 1}
   _offColor: {r: 1, g: 1, b: 1, a: 0.5019608}

@@ -69,6 +69,9 @@ namespace AsteroidRage.Game
 
         public void Flare()
         {
+            if (!isActiveAndEnabled)
+                return;
+
             _invokeEvents.ModelFlaredEvent.Invoke();
 
             foreach (ParticleSystem ps in _flares)
@@ -77,6 +80,9 @@ namespace AsteroidRage.Game
 
         public void MegaExhaustOn()
         {
+            if (!isActiveAndEnabled)
+                return;
+
             foreach (ParticleSystem ps in _megaExhausts)
                 ps.Play();
 
@@ -86,6 +92,9 @@ namespace AsteroidRage.Game
 
         public void MegaExhaustOff()
         {
+            if (!isActiveAndEnabled)
+                return;
+
             foreach (ParticleSystem ps in _megaExhausts)
                 ps.Stop();
 

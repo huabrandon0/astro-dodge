@@ -36,9 +36,10 @@ namespace AsteroidRage.Game
             _responseEvents.TransitionToLightColor.RemoveListener(SetColor);
         }
 
-        void SetColor(VerticalGradient verticalGradient)
+        public void SetColor(VerticalGradient verticalGradient)
         {
             _light.color = verticalGradient._bottomColor;
+            RenderSettings.ambientLight = verticalGradient._bottomColor;
         }
     }
 }

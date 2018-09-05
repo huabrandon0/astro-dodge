@@ -28,5 +28,15 @@ namespace AsteroidRage.Game
         {
             _anim.SetBool("MovingRight", val);
         }
+
+        public void ResetTriggers()
+        {
+            _anim.ResetTrigger("MoveLeft");
+            _anim.ResetTrigger("MoveRight");
+            _anim.ResetTrigger("ShipStartup");
+            _anim.ResetTrigger("ShipDeath");
+            _anim.ResetTrigger("BarrelRoll");
+            // ShipRestart
+        }
     }
 }

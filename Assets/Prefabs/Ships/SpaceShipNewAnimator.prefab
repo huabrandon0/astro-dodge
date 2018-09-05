@@ -649,6 +649,17 @@ MonoBehaviour:
           m_StringArgument: ShipRestart
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 114268361919188156}
+        m_MethodName: ResetTriggers
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114634580082534024
@@ -701,10 +712,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b85f52ad926224187109f6a3bd7a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _flares:
-  - {fileID: 198242201583545078}
-  _megaFlares:
-  - {fileID: 198178476946898062}
+  _exhaustName: Exhaust
+  _megaExhaustName: MegaExhaust
+  _flareName: Flare
   _invokeEvents:
     PlayerFlaredEvent: {fileID: 11400000, guid: dd4a6280ce2590d4bb419653be01f216,
       type: 2}

@@ -58,13 +58,6 @@ namespace AsteroidRage.Game
             }
 
             StartCoroutine(EndGameSlow());
-            StartCoroutine(InvokeGameEndEvent());
-        }
-
-        IEnumerator InvokeGameEndEvent()
-        {
-            yield return new WaitForSeconds(_invokeGameEndEventTime);
-            _invokeEvents.GameEndEvent.Invoke();
         }
 
         IEnumerator EndGameSlow()
@@ -80,6 +73,8 @@ namespace AsteroidRage.Game
                 yield return null;
                 unscaledTime += Time.unscaledDeltaTime;
             }
+            
+            _invokeEvents.GameEndEvent.Invoke();
         }
 
         IEnumerator Count()

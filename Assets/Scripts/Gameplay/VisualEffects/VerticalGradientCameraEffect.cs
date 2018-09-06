@@ -23,7 +23,7 @@ namespace AsteroidRage.Game
 
         readonly string _topColorProp = "_TopColour";
         readonly string _bottomColorProp = "_BottomColour";
-        
+
         void OnEnable()
         {
             _responseEvents.SetGradient.AddListener(SetGradient);
@@ -59,6 +59,13 @@ namespace AsteroidRage.Game
             Color.RGBToHSV(colour, out h, out s, out v);
             v *= 1.0f * scale;
             return Color.HSVToRGB(h, s, v);
+        }
+
+        public void SetToBlack()
+        {
+            Debug.Log("aylmao");
+            _effectMaterial.SetColor(_topColorProp, ScaleBrightness(Color.black, _backgroundGradientConfig.BrightnessScale));
+            _effectMaterial.SetColor(_bottomColorProp, ScaleBrightness(Color.black, _backgroundGradientConfig.BrightnessScale));
         }
     }
 }

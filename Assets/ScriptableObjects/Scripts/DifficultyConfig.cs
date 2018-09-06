@@ -27,6 +27,17 @@ namespace AsteroidRage
         public float DiamondSpawnPercentAddStep = 0.08f;
         public float DiamondSpawnPercentMaxBeforeSnap = 0.7f;
 
+        [System.Serializable]
+        public class RankedAsteroidConfig
+        {
+            public float StartSpawnPercent = 0.09f;
+            public int SpawnPercentAddInterval = 5;
+            public float SpawnPercentAddStep = 0.08f;
+            public float SpawnPercentMaxBeforeSnap = 0.7f;
+        }
+
+        public RankedAsteroidConfig[] RankedAsteroidsConfig;
+
         public int RowFillSizeScaleInterval = 100;
         public int RowFillSizeScaleStep = 0;
 

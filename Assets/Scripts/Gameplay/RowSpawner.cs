@@ -7,12 +7,25 @@ namespace AsteroidRage.Game
 {
     public class RowSpawner : MonoBehaviour
     {
-        public PooledMonobehaviour _regularPrefab;
-        public PooledMonobehaviour _goldenPrefab;
-        float _goldenPercentage = 0f;
-        public PooledMonobehaviour _diamondPrefab;
-        float _diamondPercentage = 0f;
-        int _diamondStartCount = int.MaxValue;
+        [System.Serializable]
+        class RankedAsteroid
+        {
+            public PooledMonobehaviour Prefab;
+            public float Percentage;
+            public int StartCount;
+        }
+
+        [SerializeField] PooledMonobehaviour _regularPrefab;
+
+        [SerializeField] RankedAsteroid[] _rankedAsteroids;
+        RankedAsteroid _rankedAsteroid;
+
+        //public PooledMonobehaviour _regularPrefab;
+        //public PooledMonobehaviour _goldenPrefab;
+        //float _goldenPercentage = 0f;
+        //public PooledMonobehaviour _diamondPrefab;
+        //float _diamondPercentage = 0f;
+        //int _diamondStartCount = int.MaxValue;
 
         public PooledMonobehaviour _rowUnit;
 
@@ -29,6 +42,7 @@ namespace AsteroidRage.Game
         public class ResponseEvents
         {
             public GameEventInt CountChanged;
+            public GameEventInt ScoreChanged;
         }
 
         [SerializeField] ResponseEvents _responseEvents;
@@ -50,20 +64,28 @@ namespace AsteroidRage.Game
 
         private void Awake()
         {
-            if (!_regularPrefab)
-                Debug.LogError("Regular prefab are not initialized.");
+            //if (!_regularPrefab)
+            //    Debug.LogError("Regular prefab are not initialized.");
 
-            if (!_goldenPrefab)
-                Debug.LogError("Special prefab are not initialized.");
+            //if (!_goldenPrefab)
+            //    Debug.LogError("Special prefab are not initialized.");
 
             _responseEvents.CountChanged.AddListener(ScaleUp);
+            _responseEvents.ScoreChanged.AddListener(ChooseSpecialPrefabBasedOnScore);
 
-            _goldenPercentage = _diffConfig.StartGoldenSpawnPercent;
+            //_goldenPercentage = _diffConfig.StartGoldenSpawnPercent;
 
-            // Prewarm
-            _regularPrefab.Get<PooledMonobehaviour>(false);
-            _goldenPrefab.Get<PooledMonobehaviour>(false);
-            _diamondPrefab.Get<PooledMonobehaviour>(false);
+            //// Prewarm
+            //_regularPrefab.Get<PooledMonobehaviour>(false);
+            //_goldenPrefab.Get<PooledMonobehaviour>(false);
+            //_diamondPrefab.Get<PooledMonobehaviour>(false);
+
+            foreach (RankedAsteroid ra in _rankedAsteroids)
+            {
+                ra.Prefab.Get<PooledMonobehaviour>(false);
+            }
+            
+            _rankedAsteroid = _rankedAsteroids[0];
         }
 
         public void StartSpawningRows()
@@ -97,8 +119,9 @@ namespace AsteroidRage.Game
 
         private void SpawnRow(int count, int capacity, Vector3 startPosition, Quaternion rotation, float xSpacing, float zUncertainty, Vector3 velocity)
         {
-            bool[] contains = new bool[3] { false, false, false };
-            int j = 0;
+            //bool[] contains = new bool[3] { false, false, false };
+            //int j = 0;
+            bool rowContainsSpecial = false;
 
             count = Mathf.Min(count, capacity);
 
@@ -107,35 +130,46 @@ namespace AsteroidRage.Game
 
             foreach (int i in indices)
             {
-                PooledMonobehaviour currentLevelPrefab = _regularPrefab;
-                PooledMonobehaviour nextLevelPrefab = _goldenPrefab;
-                float nextLevelPercentage = _goldenPercentage;
-
-                if (nextLevelPercentage >= 1f)
-                {
-                    j = 1;
-                    currentLevelPrefab = _goldenPrefab;
-                    nextLevelPrefab = _diamondPrefab;
-                    nextLevelPercentage = _diamondPercentage;
-                }
-
-                if (Random.Range(0f, 1f) < nextLevelPercentage)
-                {
-                    contains[j + 1] = true;
-                    PooledMonobehaviour spawned = nextLevelPrefab.Get<PooledMonobehaviour>(this.transform, startPosition + new Vector3(i * xSpacing, 0f, Random.Range(0f, zUncertainty)), rotation);
-                    Rigidbody rb = spawned.GetComponent<Rigidbody>();
-                    if (rb)
-                        rb.velocity = velocity;
-                }
-                else
-                {
-                    contains[j] = true;
-                    PooledMonobehaviour spawned = currentLevelPrefab.Get<PooledMonobehaviour>(this.transform, startPosition + new Vector3(i * xSpacing, 0f, Random.Range(0f, zUncertainty)), rotation);
-                    Rigidbody rb = spawned.GetComponent<Rigidbody>();
-                    if (rb)
-                        rb.velocity = velocity;
-                }
+                PooledMonobehaviour prefab = (Random.Range(0f, 1f) < _rankedAsteroid.Percentage) ? _rankedAsteroid.Prefab : _regularPrefab;
+                if (prefab == _rankedAsteroid.Prefab)
+                    rowContainsSpecial = true;
+                PooledMonobehaviour spawned = prefab.Get<PooledMonobehaviour>(this.transform, startPosition + new Vector3(i * xSpacing, 0f, Random.Range(0f, zUncertainty)), rotation);
+                Rigidbody rb = spawned.GetComponent<Rigidbody>();
+                if (rb)
+                    rb.velocity = velocity;
             }
+
+            //foreach (int i in indices)
+            //{
+            //    PooledMonobehaviour currentLevelPrefab = _regularPrefab;
+            //    PooledMonobehaviour nextLevelPrefab = _goldenPrefab;
+            //    float nextLevelPercentage = _goldenPercentage;
+
+            //    if (nextLevelPercentage >= 1f)
+            //    {
+            //        j = 1;
+            //        currentLevelPrefab = _goldenPrefab;
+            //        nextLevelPrefab = _diamondPrefab;
+            //        nextLevelPercentage = _diamondPercentage;
+            //    }
+
+            //    if (Random.Range(0f, 1f) < nextLevelPercentage)
+            //    {
+            //        contains[j + 1] = true;
+            //        PooledMonobehaviour spawned = nextLevelPrefab.Get<PooledMonobehaviour>(this.transform, startPosition + new Vector3(i * xSpacing, 0f, Random.Range(0f, zUncertainty)), rotation);
+            //        Rigidbody rb = spawned.GetComponent<Rigidbody>();
+            //        if (rb)
+            //            rb.velocity = velocity;
+            //    }
+            //    else
+            //    {
+            //        contains[j] = true;
+            //        PooledMonobehaviour spawned = currentLevelPrefab.Get<PooledMonobehaviour>(this.transform, startPosition + new Vector3(i * xSpacing, 0f, Random.Range(0f, zUncertainty)), rotation);
+            //        Rigidbody rb = spawned.GetComponent<Rigidbody>();
+            //        if (rb)
+            //            rb.velocity = velocity;
+            //    }
+            //}
 
             if (_rowUnit != null)
             {
@@ -146,21 +180,22 @@ namespace AsteroidRage.Game
                 RowUnit ru = rowUnit.GetComponent<RowUnit>();
                 if (ru)
                 {
-                    ru.containsAsteroids = contains[0];
-                    ru.containsGoldenAsteroids = contains[1];
-                    ru.containsDiamondAsteroids = contains[2];
+                    ru.containsSpecial = rowContainsSpecial;
+                    //ru.containsAsteroids = contains[0];
+                    //ru.containsGoldenAsteroids = contains[1];
+                    //ru.containsDiamondAsteroids = contains[2];
                 }
             }
         }
 
         public void ScaleUp(int count)
         {
-            if (count == 0)
-            {
-                _goldenPercentage = _diffConfig.StartGoldenSpawnPercent;
-                _diamondPercentage = _diffConfig.StartDiamondSpawnPercent;
-                _diamondStartCount = 0;
-            }
+            //if (count == 0)
+            //{
+            //    _goldenPercentage = _diffConfig.StartGoldenSpawnPercent;
+            //    _diamondPercentage = _diffConfig.StartDiamondSpawnPercent;
+            //    _diamondStartCount = 0;
+            //}
 
             float oldVelocityScale = _velocityScale;
             float desiredVelocityScale = 1f + _diffConfig.VelocityScaleStep * Mathf.Round(count / _diffConfig.VelocityScaleInterval);
@@ -176,21 +211,35 @@ namespace AsteroidRage.Game
             
             _rowFillSizeSubtract = Mathf.Min(_diffConfig.RowFillSizeScaleStep * (count / _diffConfig.RowFillSizeScaleInterval), _rowFillSize);
 
-            if (_goldenPercentage < 1f)
+            //if (_goldenPercentage < 1f)
+            //{
+            //    _goldenPercentage = _diffConfig.StartGoldenSpawnPercent + Mathf.Round(count / _diffConfig.GoldenSpawnPercentAddInterval) * _diffConfig.GoldenSpawnPercentAddStep;
+            //    if (_goldenPercentage > _diffConfig.GoldenSpawnPercentMaxBeforeSnap)
+            //    {
+            //        _goldenPercentage = 1f;
+            //        _diamondStartCount = count;
+            //    }
+            //}
+            //else if (_diamondPercentage != 1f)
+            //{
+            //    _diamondPercentage = _diffConfig.StartDiamondSpawnPercent + Mathf.Round((count - _diamondStartCount)/ _diffConfig.DiamondSpawnPercentAddInterval) * _diffConfig.DiamondSpawnPercentAddStep;
+            //    if (_diamondPercentage > _diffConfig.DiamondSpawnPercentMaxBeforeSnap)
+            //        _diamondPercentage = 1f;
+            //}
+        }
+
+        void ChooseSpecialPrefabBasedOnScore(int score)
+        {
+            for (int i = 0; i < _rankedAsteroids.Length; i++)
             {
-                _goldenPercentage = _diffConfig.StartGoldenSpawnPercent + Mathf.Round(count / _diffConfig.GoldenSpawnPercentAddInterval) * _diffConfig.GoldenSpawnPercentAddStep;
-                if (_goldenPercentage > _diffConfig.GoldenSpawnPercentMaxBeforeSnap)
+                if (score < _rankedAsteroids[i].StartCount)
                 {
-                    _goldenPercentage = 1f;
-                    _diamondStartCount = count;
+                    _rankedAsteroid = _rankedAsteroids[i];
+                    return;
                 }
             }
-            else if (_diamondPercentage != 1f)
-            {
-                _diamondPercentage = _diffConfig.StartDiamondSpawnPercent + Mathf.Round((count - _diamondStartCount)/ _diffConfig.DiamondSpawnPercentAddInterval) * _diffConfig.DiamondSpawnPercentAddStep;
-                if (_diamondPercentage > _diffConfig.DiamondSpawnPercentMaxBeforeSnap)
-                    _diamondPercentage = 1f;
-            }
+
+            _rankedAsteroid = _rankedAsteroids[_rankedAsteroids.Length - 1];
         }
 
         public void DisableChildren()

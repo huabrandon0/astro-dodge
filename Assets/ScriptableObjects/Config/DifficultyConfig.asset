@@ -27,6 +27,11 @@ MonoBehaviour:
   DiamondSpawnPercentAddInterval: 5
   DiamondSpawnPercentAddStep: 0.08
   DiamondSpawnPercentMaxBeforeSnap: 0.7
+  RankedAsteroidsConfig:
+  - StartSpawnPercent: 0
+    SpawnPercentAddInterval: 0
+    SpawnPercentAddStep: 0
+    SpawnPercentMaxBeforeSnap: 0
   RowFillSizeScaleInterval: 100
   RowFillSizeScaleStep: 0
   StartMoveSpeed: 4.4

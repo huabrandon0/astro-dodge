@@ -27,14 +27,17 @@ namespace AsteroidRage.Game
                 {
                     _invokeEvents.RowUnitExitedHitZone.Invoke();
 
-                    if (rowUnit.containsAsteroids)
-                        _invokeEvents.AsteroidExploded.Invoke();
+                    //if (rowUnit.containsAsteroids)
+                    //    _invokeEvents.AsteroidExploded.Invoke();
 
-                    if (rowUnit.containsGoldenAsteroids)
+                    //if (rowUnit.containsGoldenAsteroids)
+                    //    _invokeEvents.GoldenAsteroidExploded.Invoke();
+
+                    //if (rowUnit.containsDiamondAsteroids)
+                    //    _invokeEvents.DiamondAsteroidExploded.Invoke();
+
+                    if (rowUnit.containsSpecial)
                         _invokeEvents.GoldenAsteroidExploded.Invoke();
-
-                    if (rowUnit.containsDiamondAsteroids)
-                        _invokeEvents.DiamondAsteroidExploded.Invoke();
                 }
             }
         }

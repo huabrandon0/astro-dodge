@@ -13,17 +13,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoShades: 4
   Gradients:
-  - _topColor: {r: 0.64586496, g: 0.39021894, b: 0.745283, a: 1}
-    _bottomColor: {r: 0.5209496, g: 0.31043077, b: 0.6037736, a: 1}
-  - _topColor: {r: 0.29352084, g: 0.53605837, b: 0.6415094, a: 1}
-    _bottomColor: {r: 0.23175506, g: 0.44092646, b: 0.5283019, a: 1}
-  - _topColor: {r: 0.33917767, g: 0.6981132, b: 0.61452544, a: 1}
-    _bottomColor: {r: 0.24172305, g: 0.5283019, b: 0.46337387, a: 1}
-  - _topColor: {r: 0.4101771, g: 0.7075472, b: 0.377136, a: 1}
-    _bottomColor: {r: 0.30368972, g: 0.5471698, b: 0.2761659, a: 1}
-  - _topColor: {r: 0.71114707, g: 0.7264151, b: 0.38033998, a: 1}
-    _bottomColor: {r: 0.515803, g: 0.5283019, b: 0.26165894, a: 1}
-  - _topColor: {r: 0.7169812, g: 0.56261426, b: 0.31452474, a: 1}
-    _bottomColor: {r: 0.5188679, g: 0.40700996, b: 0.23251157, a: 1}
-  - _topColor: {r: 0.745283, g: 0.31287822, b: 0.4467177, a: 1}
-    _bottomColor: {r: 0.5471698, g: 0.21938412, b: 0.32063833, a: 1}
+  - _topColor: {r: 0, g: 0, b: 0, a: 1}
+    _bottomColor: {r: 0.5019608, g: 0, b: 0, a: 1}
+  - _topColor: {r: 0, g: 0, b: 0, a: 1}
+    _bottomColor: {r: 0.5019608, g: 0, b: 0.5019608, a: 1}
+  - _topColor: {r: 0, g: 0, b: 0, a: 1}
+    _bottomColor: {r: 0, g: 0, b: 0.5019608, a: 1}
+  - _topColor: {r: 0, g: 0, b: 0, a: 1}
+    _bottomColor: {r: 0, g: 0.5019608, b: 0.5019608, a: 1}
+  - _topColor: {r: 0, g: 0, b: 0, a: 1}
+    _bottomColor: {r: 0, g: 0.5019608, b: 0, a: 1}
+  - _topColor: {r: 0, g: 0, b: 0, a: 1}
+    _bottomColor: {r: 0.5019608, g: 0.5019608, b: 0, a: 1}

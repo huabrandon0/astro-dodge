@@ -145,8 +145,6 @@ GameObject:
   - component: {fileID: 114647888158684478}
   - component: {fileID: 114499579050436782}
   - component: {fileID: 114973047724750970}
-  - component: {fileID: 114180363202087070}
-  - component: {fileID: 114016658771586184}
   m_Layer: 10
   m_Name: SpaceShip05
   m_TagString: Player
@@ -619,37 +617,6 @@ MonoBehaviour:
   _invokeEvents:
     PlayerFlaredEvent: {fileID: 11400000, guid: dd4a6280ce2590d4bb419653be01f216,
       type: 2}
---- !u!114 &114016658771586184
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1409987497961666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5cfe23e97e35a04490b6e75ef0b005a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gameEvents:
-  - {fileID: 11400000, guid: 3136b49a50c87d54c9d3bce0365b4dbc, type: 2}
-  - {fileID: 11400000, guid: 7c8a1a1b9623ca14ba3b0c305b9cc017, type: 2}
-  - {fileID: 11400000, guid: 5b5d7d9ce9b3af449a1439bef2406703, type: 2}
-  _response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114973047724750970}
-        m_MethodName: SetBoolShipOnScreen
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114068004032148736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -706,34 +673,6 @@ MonoBehaviour:
   _direction: {x: 0, y: 0, z: -1}
   _speed: 10
   _timeToLive: 0.1
---- !u!114 &114180363202087070
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1409987497961666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a4dc95bc166fe24f96120a53f596778, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gameEvent: {fileID: 11400000, guid: 2085c29e8cfbd2249abe8a6acca7c644, type: 2}
-  _response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114973047724750970}
-        m_MethodName: SetBoolShipOnScreen
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114268431675780324
 MonoBehaviour:
   m_ObjectHideFlags: 1

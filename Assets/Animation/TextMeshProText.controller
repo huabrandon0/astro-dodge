@@ -34,7 +34,7 @@ AnimatorController:
     m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
-    m_Name: Base Layer
+    m_Name: Alpha
     m_StateMachine: {fileID: 1107102079329465806}
     m_Mask: {fileID: 0}
     m_Motions: []
@@ -222,7 +222,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: TMPIdle
+  m_Name: Alpha1
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -248,7 +248,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: TMPBlink
+  m_Name: Blink
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -273,8 +273,8 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: TMPFadeIn
-  m_Speed: 2
+  m_Name: AlphaFadeIn
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101954389341380438}
@@ -299,7 +299,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: TMPScaleIdle
+  m_Name: Scale1
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -324,7 +324,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: TMPScaleBounce
+  m_Name: ScaleBounce
   m_Speed: 10
   m_CycleOffset: 0
   m_Transitions:
@@ -350,7 +350,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: TMPIdleOff
+  m_Name: Alpha0
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -375,7 +375,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: TMPFadeOut
+  m_Name: AlphaFadeOut
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -401,7 +401,7 @@ AnimatorStateMachine:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Base Layer
+  m_Name: Alpha
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1102307959285514902}
@@ -417,7 +417,7 @@ AnimatorStateMachine:
     m_Position: {x: 408, y: 84, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102101145317190788}
-    m_Position: {x: 204, y: -84, z: 0}
+    m_Position: {x: 264, y: -48, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 1101537430746852428}
@@ -427,7 +427,7 @@ AnimatorStateMachine:
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: -96, y: 48, z: 0}
   m_EntryPosition: {x: 480, y: -108, z: 0}
-  m_ExitPosition: {x: 312, y: 180, z: 0}
+  m_ExitPosition: {x: 300, y: 144, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 1102024340712192692}
 --- !u!1107 &1107399550637209318
@@ -443,7 +443,7 @@ AnimatorStateMachine:
     m_Position: {x: 288, y: 156, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102488017158088214}
-    m_Position: {x: 288, y: 60, z: 0}
+    m_Position: {x: 252, y: 60, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 1101061209686553448}

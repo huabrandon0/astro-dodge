@@ -79,7 +79,9 @@ namespace TWM.UI
 
         public void Disable()
         {
-            Unpress();
+            if (_isPressed)
+                Unpress();
+
             _enabled = false;
         }
 

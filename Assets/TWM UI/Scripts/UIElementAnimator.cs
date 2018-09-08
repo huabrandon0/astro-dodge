@@ -13,6 +13,13 @@ namespace TWM.UI
 
         [SerializeField] bool _blink;
 
+        [SerializeField] bool _enterFadeIn = true;
+        [SerializeField] bool _enterBounceUp = true;
+        [SerializeField] bool _enterScaleUp = false;
+        [SerializeField] bool _exitFadeOut = true;
+        [SerializeField] bool _exitSlideDown = true;
+        [SerializeField] bool _exitScaleDown = false;
+
         [SerializeField] float _enterDelay;
         [SerializeField] float _exitDelay;
 
@@ -27,7 +34,21 @@ namespace TWM.UI
             foreach (Animator anim in _anims)
                 anim.SetBool("Blinking", _blink);
         }
-        
+
+        public void IdleOff()
+        {
+            Alpha0();
+            PositionNegative1();
+            Scale0();
+        }
+
+        public void IdleOn()
+        {
+            Alpha1();
+            Position0();
+            Scale1();
+        }
+
         public void Enter()
         {
             StartCoroutine(Enter(_enterDelay));
@@ -36,9 +57,15 @@ namespace TWM.UI
         IEnumerator Enter(float time)
         {
             yield return new WaitForSeconds(time);
-            FadeIn();
-            BounceUp();
-            ScaleIdle();
+            if (_enterFadeIn)
+                FadeIn();
+            if (_enterBounceUp)
+                BounceUp();
+
+            if (_enterScaleUp)
+                ScaleUp();
+            else
+                Scale1();
         }
 
         public void Exit()
@@ -49,9 +76,30 @@ namespace TWM.UI
         IEnumerator Exit(float time)
         {
             yield return new WaitForSeconds(time);
-            FadeOut();
-            SlideDown();
-            ScaleIdle();
+            if (_exitFadeOut)
+                FadeOut();
+            if (_exitSlideDown)
+                SlideDown();
+            if (_exitScaleDown)
+                ScaleDown();
+        }
+
+        public void Alpha1()
+        {
+            foreach (Animator anim in _anims)
+            {
+                if (_anim.isActiveAndEnabled)
+                    _anim.Play("Alpha1", -1, 0);
+            }
+        }
+
+        public void Alpha0()
+        {
+            foreach (Animator anim in _anims)
+            {
+                if (_anim.isActiveAndEnabled)
+                    _anim.Play("Alpha0", -1, 0);
+            }
         }
 
         public void FadeIn()
@@ -71,6 +119,16 @@ namespace TWM.UI
                     anim.Play("AlphaFadeOut", -1, 0);
             }
         }
+        
+        public void Scale1()
+        {
+            _anim.Play("Scale1", -1, 0);
+        }
+
+        public void Scale0()
+        {
+            _anim.Play("Scale0", -1, 0);
+        }
 
         public void ScaleUp()
         {
@@ -82,9 +140,14 @@ namespace TWM.UI
             _anim.Play("Scale1To0", -1, 0);
         }
 
-        public void ScaleIdle()
+        public void Position0()
         {
-            _anim.Play("Scale1", -1, 0);
+            _anim.Play("Position0", -1, 0);
+        }
+
+        public void PositionNegative1()
+        {
+            _anim.Play("Position-1", -1, 0);
         }
 
         public void SlideUp()

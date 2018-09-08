@@ -8,10 +8,27 @@ namespace TWM.UI
     public class UIElementAnimatorOverlay : MonoBehaviour
     {
         List<UIElementAnimator> _elementAnimators;
+        
+        [SerializeField] bool _defaultOn = true;
 
         void Awake()
         {
             _elementAnimators = GetComponentsInChildren<UIElementAnimator>().ToList();
+
+            if (_defaultOn)
+            {
+                foreach (UIElementAnimator elementAnimator in _elementAnimators)
+                {
+                    elementAnimator.IdleOn();
+                }
+            }
+            else
+            {
+                foreach (UIElementAnimator elementAnimator in _elementAnimators)
+                {
+                    elementAnimator.IdleOff();
+                }
+            }
         }
 
         public void Enter()

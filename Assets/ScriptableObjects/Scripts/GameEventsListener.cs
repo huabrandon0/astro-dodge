@@ -19,15 +19,17 @@ namespace AsteroidRage.Events
 
         [SerializeField] ResponseWithDelay[] _responsesWithDelays;
 
+        [SerializeField] float _baseDelay;
+
         void OnEnable()
         {
             foreach (GameEvent gameEvent in _gameEvents)
             {
-                gameEvent.AddListener(_response.Invoke);
+                gameEvent.AddListener(() => Invoke(_response, _baseDelay));
 
                 foreach (ResponseWithDelay rwd in _responsesWithDelays)
                 {
-                    gameEvent.AddListener(() => Invoke(rwd.Response, rwd.Delay));
+                    gameEvent.AddListener(() => Invoke(rwd.Response, rwd.Delay + _baseDelay));
                 }
             }
         }

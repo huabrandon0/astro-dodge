@@ -62,14 +62,16 @@ namespace TWM.UI
         {
             _isPressed = true;
             _pointerId = pointerId;
-            _imageAnimator.PushOut();
+            if (_imageAnimator)
+                _imageAnimator.PushOut();
         }
 
         void Unpress()
         {
             _isPressed = false;
             _pointerId = int.MaxValue;
-            _imageAnimator.PushIn();
+            if (_imageAnimator)
+                _imageAnimator.PushIn();
         }
 
         public void Enable()

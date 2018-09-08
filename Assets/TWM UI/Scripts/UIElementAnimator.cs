@@ -11,10 +11,13 @@ namespace TWM.UI
         Animator _anim;
         List<Animator> _anims;
 
+        [SerializeField] float _animatorSpeed = 1f;
+
         [SerializeField] bool _blink;
 
         [SerializeField] bool _enterFadeIn = true;
         [SerializeField] bool _enterBounceUp = true;
+        [SerializeField] bool _enterSlideUp = false;
         [SerializeField] bool _enterScaleUp = false;
         [SerializeField] bool _exitFadeOut = true;
         [SerializeField] bool _exitSlideDown = true;
@@ -27,12 +30,11 @@ namespace TWM.UI
         {
             _anim = GetComponent<Animator>();
             _anims = GetComponentsInChildren<Animator>().ToList();
-        }
-
-        void Start()
-        {
             foreach (Animator anim in _anims)
+            {
+                anim.speed = _animatorSpeed;
                 anim.SetBool("Blinking", _blink);
+            }
         }
 
         public void IdleOff()
@@ -57,10 +59,18 @@ namespace TWM.UI
         IEnumerator Enter(float time)
         {
             yield return new WaitForSeconds(time);
+
             if (_enterFadeIn)
                 FadeIn();
+            else
+                Alpha1();
+
             if (_enterBounceUp)
                 BounceUp();
+            else if (_enterSlideUp)
+                SlideUp();
+            else
+                Position0();
 
             if (_enterScaleUp)
                 ScaleUp();
@@ -76,12 +86,21 @@ namespace TWM.UI
         IEnumerator Exit(float time)
         {
             yield return new WaitForSeconds(time);
+
             if (_exitFadeOut)
                 FadeOut();
+            else
+                Alpha1();
+
             if (_exitSlideDown)
                 SlideDown();
+            else
+                Position0();
+
             if (_exitScaleDown)
                 ScaleDown();
+            else
+                Scale1();
         }
 
         public void Alpha1()

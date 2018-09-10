@@ -20,7 +20,8 @@ namespace TWM.UI
         [SerializeField] bool _enterSlideUp = false;
         [SerializeField] bool _enterScaleUp = false;
         [SerializeField] bool _exitFadeOut = true;
-        [SerializeField] bool _exitSlideDown = true;
+        [SerializeField] bool _exitBounceDown = true;
+        [SerializeField] bool _exitSlideDown = false;
         [SerializeField] bool _exitScaleDown = false;
 
         [SerializeField] float _enterDelay;
@@ -40,7 +41,7 @@ namespace TWM.UI
         public void IdleOff()
         {
             Alpha0();
-            PositionNegative1();
+            PositionOffscreen();
             Scale0();
         }
 
@@ -92,7 +93,9 @@ namespace TWM.UI
             else
                 Alpha1();
 
-            if (_exitSlideDown)
+            if (_exitBounceDown)
+                BounceDown();
+            else if (_exitSlideDown)
                 SlideDown();
             else
                 Position0();
@@ -164,9 +167,9 @@ namespace TWM.UI
             _anim.Play("Position0", -1, 0);
         }
 
-        public void PositionNegative1()
+        public void PositionOffscreen()
         {
-            _anim.Play("Position-1", -1, 0);
+            _anim.Play("PositionOffscreen", -1, 0);
         }
 
         public void SlideUp()
@@ -182,6 +185,11 @@ namespace TWM.UI
         public void BounceUp()
         {
             _anim.Play("PositionBounceUp", -1, 0);
+        }
+
+        public void BounceDown()
+        {
+            _anim.Play("PositionBounceDown", -1, 0);
         }
 
         public void PushOut()

@@ -74,7 +74,7 @@ Material:
     - _OutlineDist: 1.97
     - _Parallax: 0.02
     - _RimPower: 1
-    - _SecondOutlineWidth: 0.0005
+    - _SecondOutlineWidth: 0.001
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1

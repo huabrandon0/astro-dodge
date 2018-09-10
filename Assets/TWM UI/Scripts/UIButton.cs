@@ -12,6 +12,8 @@ namespace TWM.UI
         [SerializeField] UnityEvent _onButtonUp;
         [SerializeField] UnityEvent _onButtonExit;
 
+        static bool isAButtonPressed = false;
+
         bool _isPressed = false;
         int _pointerId = int.MaxValue;
 
@@ -24,12 +26,18 @@ namespace TWM.UI
             _imageAnimator = GetComponentInChildren<UIElementAnimator>();
         }
 
+        void OnDisable()
+        {
+            if (_isPressed)
+                Unpress();
+        }
+
         public void OnPointerDown(PointerEventData data)
         {
             if (!_enabled)
                 return;
 
-            if (!_isPressed)
+            if (!_isPressed && !isAButtonPressed)
             {
                 Press(data.pointerId);
 
@@ -64,6 +72,8 @@ namespace TWM.UI
             _pointerId = pointerId;
             if (_imageAnimator)
                 _imageAnimator.PushOut();
+
+            isAButtonPressed = true;
         }
 
         void Unpress()
@@ -72,6 +82,8 @@ namespace TWM.UI
             _pointerId = int.MaxValue;
             if (_imageAnimator)
                 _imageAnimator.PushIn();
+
+            StartCoroutine(UnpressGlobal());
         }
 
         public void Enable()
@@ -93,6 +105,12 @@ namespace TWM.UI
                 Disable();
             else
                 Enable();
+        }
+
+        IEnumerator UnpressGlobal()
+        {
+            yield return null;
+            isAButtonPressed = false;
         }
     }
 }

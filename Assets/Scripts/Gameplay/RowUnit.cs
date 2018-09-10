@@ -20,10 +20,6 @@ namespace AsteroidRage.Game
 
         Rigidbody _rb;
 
-        //public bool containsAsteroids = false;
-        //public bool containsGoldenAsteroids = false;
-        //public bool containsDiamondAsteroids = false;
-
         public bool containsSpecial = false;
 
         void Awake()

@@ -19,6 +19,9 @@ namespace TWM.UI
 
         [SerializeField] UnityEvent _onTurnedOn;
         [SerializeField] UnityEvent _onTurnedOff;
+        
+        [SerializeField] UnityEvent _onTurnedOnButNotOnAwake;
+        [SerializeField] UnityEvent _onTurnedOffButNotOnAwake;
 
         [SerializeField] string _playerPrefBool;
         bool _on = true;
@@ -31,9 +34,15 @@ namespace TWM.UI
                 _on = Convert.ToBoolean(PlayerPrefs.GetInt(_playerPrefBool));
 
             if (_on)
-                On();
+            {
+                _image.sprite = _onSprite;
+                _onTurnedOn.Invoke();
+            }
             else
-                Off();
+            {
+                _image.sprite = _offSprite;
+                _onTurnedOff.Invoke();
+            }
         }
 
         public void Toggle()
@@ -53,6 +62,7 @@ namespace TWM.UI
             _on = true;
             _image.sprite = _onSprite;
             _onTurnedOn.Invoke();
+            _onTurnedOnButNotOnAwake.Invoke();
             PlayerPrefs.SetInt(_playerPrefBool, Convert.ToInt32(_on));
         }
 
@@ -61,6 +71,7 @@ namespace TWM.UI
             _on = false;
             _image.sprite = _offSprite;
             _onTurnedOff.Invoke();
+            _onTurnedOffButNotOnAwake.Invoke();
             PlayerPrefs.SetInt(_playerPrefBool, Convert.ToInt32(_on));
         }
     }

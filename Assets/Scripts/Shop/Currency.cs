@@ -79,6 +79,14 @@ namespace AsteroidRage.Game
             GameDataManager.Instance.UpdateCurrency(_currency);
         }
 
+        public void SetCurrencyPersistent(int val)
+        {
+            _currency = val;
+            _invokeEvents.CurrencyChanged.Invoke(_currency);
+            GameDataManager.Instance.UpdateCurrency(_currency);
+            GameDataManager.Instance.SaveGame();
+        }
+
         public bool Withdraw(int val)
         {
             if (val > _currency)

@@ -33,6 +33,8 @@ namespace AsteroidRage.Game
 
         int _currency = 0;
 
+        public bool _collectDouble = false;
+
         void Start()
         {
             Load(GameDataManager.Instance.GetGameData());
@@ -61,7 +63,7 @@ namespace AsteroidRage.Game
         {
             if (val != 0)
             {
-                _currency += val;
+                _currency += (_collectDouble ? 2*val : val);
                 _invokeEvents.CurrencyChanged.Invoke(_currency);
                 GameDataManager.Instance.UpdateCurrency(_currency);
             }

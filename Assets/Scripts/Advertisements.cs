@@ -11,6 +11,11 @@ namespace TWM.Advertisements
         int _counter = 0;
         int _intervalCounter = 0;
 
+        void Start()
+        {
+            Advertisement.Initialize("2811599", false);
+        }
+
         public void IncrementCounter()
         {
             _counter++;

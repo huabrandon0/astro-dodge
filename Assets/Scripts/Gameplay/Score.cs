@@ -121,5 +121,13 @@ namespace AsteroidRage.Game
                 GameDataManager.Instance.UpdateHighScore(_highScore);
             }
         }
+
+        public void ReportScore()
+        {
+            Debug.Log("Reporting score: " + _score);
+
+            if (PlayGamesPlatform.Instance.localUser.authenticated)
+                PlayGamesPlatform.Instance.ReportScore(_score, GPGSIds.leaderboard_leaderboard, (bool success) => { Debug.Log("Update leaderboard success: " + success); });
+        }
     }
 }

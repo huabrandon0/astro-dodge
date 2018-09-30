@@ -103,7 +103,7 @@ namespace AsteroidRage.Data
                 savedGameClient.OpenWithAutomaticConflictResolution(_SAVE_KEY, DataSource.ReadCacheOrNetwork, ConflictResolutionStrategy.UseOriginal, OnSavedGameOpenedSaving);
             }
             
-            UpdateLeaderboards();
+            //UpdateLeaderboards();
         }
 
         void OnSavedGameOpenedSaving(SavedGameRequestStatus status, ISavedGameMetadata game)
@@ -124,11 +124,11 @@ namespace AsteroidRage.Data
             Debug.Log("OnSavedGameDataWritten - SavedGameRequestStatus (game data written to cloud): " + status);
         }
 
-        public void UpdateLeaderboards()
-        {
-            if (PlayGamesPlatform.Instance.localUser.authenticated)
-                PlayGamesPlatform.Instance.ReportScore(_gameData.HighScore, GPGSIds.leaderboard_leaderboard, (bool success) => { Debug.Log("Update leaderboard success: " + success); });
-        }
+        //public void UpdateLeaderboards()
+        //{
+        //    if (PlayGamesPlatform.Instance.localUser.authenticated)
+        //        PlayGamesPlatform.Instance.ReportScore(_gameData.HighScore, GPGSIds.leaderboard_leaderboard, (bool success) => { Debug.Log("Update leaderboard success: " + success); });
+        //}
 
         void UpdateGameData(GameData newGameData)
         {

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using AsteroidRage.Game;
+using TWM.Advertisements;
+using AsteroidRage.Events;
 
 // Placing the Purchaser class in the CompleteProject namespace allows it to interact with ScoreManager, 
 // one of the existing Survival Shooter scripts.
@@ -30,6 +32,7 @@ namespace TWM.IAP
         public static string PRODUCT_ID_CURRENCY_50000 = "currency_50000";
         public static string PRODUCT_ID_CURRENCY_100000 = "currency_100000";
 
+        public GameEventString updateNoAdsText;
         
         void Start()
         {
@@ -60,11 +63,6 @@ namespace TWM.IAP
             // Kick off the remainder of the set-up with an asynchrounous call, passing the configuration 
             // and this class' instance. Expect a response either in OnInitialized or OnInitializeFailed.
             UnityPurchasing.Initialize(this, builder);
-
-            if (!IsInitialized())
-            {
-                Debug.Log("wtf should be init");
-            }
         }
         
         
@@ -106,7 +104,7 @@ namespace TWM.IAP
                 // ... look up the Product reference with the general product identifier and the Purchasing 
                 // system's products collection.
                 Product product = m_StoreController.products.WithID(productId);
-                
+
                 // If the look up found a product for this device's store and that product is ready to be sold ... 
                 if (product != null && product.availableToPurchase)
                 {
@@ -128,6 +126,7 @@ namespace TWM.IAP
                 // ... report the fact Purchasing has not succeeded initializing yet. Consider waiting longer or 
                 // retrying initiailization.
                 Debug.Log("BuyProductID FAIL. Not initialized.");
+                InitializePurchasing();
             }
         }
         
@@ -144,6 +143,14 @@ namespace TWM.IAP
             m_StoreController = controller;
             // Store specific subsystem, for accessing device-specific store features.
             m_StoreExtensionProvider = extensions;
+
+            
+            Product product = m_StoreController.products.WithID(PRODUCT_ID_NO_ADS);
+            if (product != null && product.hasReceipt)
+            {
+                Advertisements.Advertisements.Instance._noAds = true;
+                updateNoAdsText.Invoke("No Ads (Purchased)");
+            }
         }
         
         
@@ -175,7 +182,8 @@ namespace TWM.IAP
             else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_ID_NO_ADS, StringComparison.Ordinal))
             {
                 Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-                // stuff
+                Advertisements.Advertisements.Instance._noAds = true;
+                updateNoAdsText.Invoke("No Ads (Purchased)");
             }
             else
             {

@@ -6,10 +6,14 @@ using AsteroidRage.Game;
 
 namespace TWM.Advertisements
 {
-    public class Advertisements : MonoBehaviour
+    public class Advertisements : Singleton<Advertisements>
     {
+        protected Advertisements() { }
+
         int _counter = 0;
         int _intervalCounter = 0;
+
+        public bool _noAds = false;
 
         void Start()
         {
@@ -42,12 +46,24 @@ namespace TWM.Advertisements
 
         public void ShowVideoAd()
         {
+            if (_noAds)
+                return;
+
+            if (!Advertisement.isInitialized)
+                Advertisement.Initialize("2811599", false);
+
             if (Advertisement.IsReady())
                 Advertisement.Show("video");
         }
 
         public void ShowRewardedVideoAd()
         {
+            if (_noAds)
+                return;
+
+            if (!Advertisement.isInitialized)
+                Advertisement.Initialize("2811599", false);
+
             if (Advertisement.IsReady())
                 Advertisement.Show("rewardedVideo", new ShowOptions() { resultCallback = HandleShowResult });
         }

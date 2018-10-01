@@ -106,6 +106,12 @@ namespace AsteroidRage.Data
             UpdateLeaderboards();
         }
 
+        public void ResetGame()
+        {
+            _gameData = new GameData();
+            SaveGame();
+        }
+
         void OnSavedGameOpenedSaving(SavedGameRequestStatus status, ISavedGameMetadata game)
         {
             Debug.Log("OnSavedGameOpenedSaving - SavedGameRequestStatus (opened a saved game to written to): " + status);

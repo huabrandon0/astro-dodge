@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 114223938174647654}
   - component: {fileID: 114135065682815530}
   m_Layer: 10
-  m_Name: SpaceShip09
+  m_Name: PaperPlane
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

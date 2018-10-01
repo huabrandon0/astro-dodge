@@ -12,23 +12,28 @@ namespace AsteroidRage.Game
         [System.Serializable]
         class Ship
         {
-            public Ship(Transform model, string name, int cost)
+            public Ship(Transform model, string name, int cost, int index)
             {
                 Model = model;
                 Name = name;
                 Cost = cost;
+                Index = index;
             }
             
             public Transform Model;
             public string Name;
             public int Cost;
+            public int Index;
         }
 
         [SerializeField] Ship[] _ships;
         bool[] _unlockedShips;
 
-        int _index = 0;
-        int _chosenIndex = 0;
+        Dictionary<int, int> _indexToShipIndex = new Dictionary<int, int>();
+        Dictionary<int, int> _shipIndexToIndex = new Dictionary<int, int>();
+
+        int _shipIndex = 0;
+        int _chosenShipIndex = 0;
 
         [System.Serializable]
         public class InvokeEvents
@@ -49,7 +54,16 @@ namespace AsteroidRage.Game
         [SerializeField] InvokeEvents _invokeEvents;
 
         [SerializeField] string _lastChosenShipPlayerPref;
-        
+
+        void Awake()
+        {
+            for (int i = 0; i < _ships.Length; i++)
+            {
+                _indexToShipIndex.Add(i, _ships[i].Index);
+                _shipIndexToIndex.Add(_ships[i].Index, i);
+            }
+        }
+
         void Start()
         {
             GameData loadedData = GameDataManager.Instance.GetGameData();
@@ -59,8 +73,11 @@ namespace AsteroidRage.Game
             if (PlayerPrefs.HasKey(_lastChosenShipPlayerPref))
                 startingIndex = PlayerPrefs.GetInt(_lastChosenShipPlayerPref);
 
-            _index = _chosenIndex = startingIndex;
-            _invokeEvents.ChangeShipIndex.Invoke(_index);
+            _shipIndex = _chosenShipIndex = startingIndex;
+
+            int index;
+            if (_shipIndexToIndex.TryGetValue(_shipIndex, out index))
+                _invokeEvents.ChangeShipIndex.Invoke(index);
             
             GameDataManager.OnGameDataUpdated += Load;
         }
@@ -81,40 +98,41 @@ namespace AsteroidRage.Game
             }
             else if (_unlockedShips.Length > 0)
             {
-                _unlockedShips[0] = true;
-
-                for (int i = 1; i < _unlockedShips.Length; i++)
+                for (int i = 0; i < _unlockedShips.Length; i++)
                 {
                     _unlockedShips[i] = false;
                 }
+
+                _unlockedShips[_shipIndexToIndex[0]] = true;
             }
         }
 
         public void ShowModels()
         {
-            ChangeModel(_index);
+            ChangeModel(_shipIndex);
         }
 
         public void Increment()
         {
-            int desiredIndex = _index + 1;
-            if (desiredIndex >= _ships.Length)
-                _index = 0;
+            int desiredShipIndex = _shipIndex + 1;
+            if (desiredShipIndex >= _ships.Length)
+                _shipIndex = 0;
             else
-                _index = desiredIndex;
+                _shipIndex = desiredShipIndex;
 
-            ChangeModel(_index);
+            ChangeModel(_shipIndex);
         }
 
         public void Decrement()
         {
-            int desiredIndex = _index - 1;
-            if (desiredIndex < 0)
-                _index = _ships.Length - 1;
+            int desiredShipIndex = _shipIndex - 1;
+
+            if (desiredShipIndex < 0)
+                _shipIndex = _ships.Length - 1;
             else
-                _index = desiredIndex;
+                _shipIndex = desiredShipIndex;
             
-            ChangeModel(_index);
+            ChangeModel(_shipIndex);
         }
 
         void EnableModel(Ship ship)
@@ -128,14 +146,26 @@ namespace AsteroidRage.Game
             }
         }
 
-        void ChangeModel(int index)
+        // Expects ship index.
+        void ChangeModel(int shipIndex)
         {
+            //string s = "";
+            //foreach (bool b in _unlockedShips)
+            //{
+            //    s += b.ToString() + " ";
+            //}
+            //Debug.Log(s);
+
+            int index;
+            if (!_shipIndexToIndex.TryGetValue(shipIndex, out index))
+                return;
+
             if (index < 0 || index >= _ships.Length)
                 return;
 
             _invokeEvents.ChangeShipName.Invoke(_ships[index].Name);
 
-            if (index == _chosenIndex)
+            if (shipIndex == _chosenShipIndex)
             {
                 _invokeEvents.ShipSelected.Invoke();
             }
@@ -157,19 +187,23 @@ namespace AsteroidRage.Game
 
         public void ConfirmSelection()
         {
-            if (_unlockedShips[_index])
+            int index;
+            if (!_shipIndexToIndex.TryGetValue(_shipIndex, out index))
+                return;
+
+            if (_unlockedShips[index])
             {
-                _chosenIndex = _index;
-                _invokeEvents.ChangeShipIndex.Invoke(_index);
+                _chosenShipIndex = _shipIndex;
+                _invokeEvents.ChangeShipIndex.Invoke(index);
                 _invokeEvents.ShipChosen.Invoke();
-                PlayerPrefs.SetInt(_lastChosenShipPlayerPref, _chosenIndex);
+                PlayerPrefs.SetInt(_lastChosenShipPlayerPref, _chosenShipIndex);
                 GameDataManager.Instance.SaveGame();
             }
             else
             {
-                if (Currency.Instance.Withdraw(_ships[_index].Cost))
+                if (Currency.Instance.Withdraw(_ships[index].Cost))
                 {
-                    _unlockedShips[_index] = true;
+                    _unlockedShips[index] = true;
                     _invokeEvents.ShipUnlocked.Invoke();
                     _invokeEvents.ShipBought.Invoke();
                     GameDataManager.Instance.UpdateUnlockedShips(_unlockedShips);

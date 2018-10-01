@@ -29,6 +29,7 @@ namespace AsteroidRage.Game
             _responseEvents.ChangeShipIndex.AddListener(SelectShip);
         }
 
+        // Expects non-ship index.
         public void SelectShip(int index)
         {
             if (index < 0 || index >= _ships.Length)

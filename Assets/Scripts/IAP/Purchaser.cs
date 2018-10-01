@@ -148,6 +148,7 @@ namespace TWM.IAP
             Product product = m_StoreController.products.WithID(PRODUCT_ID_NO_ADS);
             if (product != null && product.hasReceipt)
             {
+                Debug.Log("No ads!");
                 Advertisements.Advertisements.Instance._noAds = true;
                 updateNoAdsText.Invoke("No Ads (Purchased)");
             }
@@ -182,6 +183,7 @@ namespace TWM.IAP
             else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_ID_NO_ADS, StringComparison.Ordinal))
             {
                 Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+                Debug.Log("No ads!");
                 Advertisements.Advertisements.Instance._noAds = true;
                 updateNoAdsText.Invoke("No Ads (Purchased)");
             }

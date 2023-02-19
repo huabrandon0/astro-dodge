@@ -1,2 +1,2 @@
 # AsteroidRage
-Mobile version of the Mario Party 6 mini-game "Asteroid Rage".
+A mobile endless runner game for Android

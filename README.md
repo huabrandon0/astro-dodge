@@ -10,3 +10,5 @@ Here is a [gameplay video](https://youtu.be/AUh2Nbg2n2Y).
   <img src="./gifs/astro-dodge-2.gif" width="300" /> 
   <img src="./gifs/astro-dodge-3.gif" width="300" />
 </p>
+
+Here is an [itch.io link for the PC-version download](https://huabrandon0.itch.io/astro-dodge).
